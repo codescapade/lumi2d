@@ -1,0 +1,37 @@
+{
+  "name": "lilo2d",
+  "version": "0.1.0",
+  "description": "A TypeScript Lua Game Engine on top of Love2d.",
+  "main": "dist/index",
+  "scripts": {
+    "clean-tests": "rimraf ./tests_out",
+    "test": "pnpm clean-tests && tstl && busted",
+    "clean": "rimraf ./dist",
+    "copy-dts": "copyfiles -u 1 src/**/*.d.ts dist",
+    "build": "pnpm clean && tstl -p tsconfig.build.json && pnpm copy-dts"
+  },
+  "files": [
+    "dist/**/*.lua",
+    "dist/**/*.d.ts"
+  ],
+  "types": "./dist/index.d.ts",
+  "keywords": [],
+  "author": "codescapade",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.8.6",
+    "@typescript-eslint/eslint-plugin": "^6.7.5",
+    "@typescript-eslint/parser": "^6.7.5",
+    "@typescript-to-lua/language-extensions": "^1.19.0",
+    "busted-tstl": "0.1.2-rc.0",
+    "copyfiles": "^2.4.1",
+    "eslint": "^8.51.0",
+    "eslint-config-prettier": "^9.0.0",
+    "love-typescript-definitions": "^11.4.1",
+    "lua-types": "^2.13.1",
+    "prettier": "^3.0.3",
+    "rimraf": "^5.0.5",
+    "typescript": "^5.2.2",
+    "typescript-to-lua": "^1.20.1"
+  }
+}

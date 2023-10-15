@@ -1,0 +1,23 @@
+{
+  "$schema": "https://raw.githubusercontent.com/TypeScriptToLua/TypeScriptToLua/master/tsconfig-schema.json",
+  "compilerOptions": {
+    "strict": true,
+    "target": "ESNext",
+    "lib": ["ESNext"],
+    "moduleResolution": "Node",
+    "outDir": "tests_out",
+    "useDefineForClassFields": true,
+    "noImplicitOverride": true,
+    "noUnusedLocals": true,
+    "noImplicitReturns": true,
+    "declaration": true,
+    "types": ["love-typescript-definitions", "@typescript-to-lua/language-extensions", "lua-types/jit", "busted-tstl"]
+  },
+  "include": ["src", "tests"],
+  "tstl": {
+    "luaTarget": "JIT",
+    "noImplicitSelf": true,
+    "luaLibImport": "require-minimal",
+    "sourceMapTraceback": true
+  }
+}
