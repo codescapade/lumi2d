@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "target": "ESNext",
+    "lib": ["ESNext"],
+    "moduleResolution": "Node",
+    "outDir": "export",
+    "useDefineForClassFields": true,
+    "noImplicitOverride": true,
+    "noUnusedLocals": true,
+    "noImplicitReturns": true,
+    "sourceMap": true,
+    "types": ["love-typescript-definitions", "@typescript-to-lua/language-extensions", "lua-types/jit"]
+  },
+  "include": ["src"],
+  "tstl": {
+    "luaTarget": "JIT",
+    "noImplicitSelf": true,
+    "sourceMapTraceback": true,
+    "luaLibImport": "require-minimal",
+    "noResolvePaths": ["lldebugger"]
+  }
+}
