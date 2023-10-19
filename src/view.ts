@@ -82,7 +82,7 @@ export class View {
    * @returns The x and y position of the view center.
    */
   static getViewCenter(): LuaMultiReturn<[number, number]> {
-    return $multi(Math.floor(View.viewWidth * 0.5), Math.floor(View.viewHeight));
+    return $multi(Math.floor(View.viewWidth * 0.5), Math.floor(View.viewHeight * 0.5));
   }
 
   /**

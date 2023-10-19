@@ -1,6 +1,7 @@
 import { Canvas } from 'love.graphics';
 import { View } from './view';
 import { TimeStep } from './utils';
+import { Scene, Scenes } from './scenes';
 
 // Define the global love arg which are the arguments passed in when starting love.
 declare const arg: string[];
@@ -42,10 +43,11 @@ export class Game {
    * @param designWidth The width the game is designed for in pixels.
    * @param designHeight The height the game is designed for in pixels.
    */
-  static start(designWidth: number, designHeight: number): void {
+  static start(designWidth: number, designHeight: number, startScene: new () => Scene): void {
     View.init(designWidth, designHeight);
     const [viewWidth, viewHeight] = View.getViewSize();
     Game.canvas = love.graphics.newCanvas(viewWidth, viewHeight);
+    Scenes.push(startScene);
 
     Game.started = true;
   }
@@ -56,6 +58,9 @@ export class Game {
    */
   static update(dt: number): void {
     TimeStep.update(dt);
+    const scene = Scenes.current();
+    scene.update(dt);
+    scene.lateUpdate(dt);
   }
 
   /**
@@ -64,6 +69,16 @@ export class Game {
   static draw(): void {
     love.graphics.setCanvas(Game.canvas);
     love.graphics.clear();
+
+    const scene = Scenes.current();
+
+    // If the current scene is an overlay scene, draw the scene below it first.
+    if (scene.isOverlay) {
+      if (Scenes.sceneStack.length > 1) {
+        Scenes.sceneStack[Scenes.sceneStack.length - 2].draw();
+      }
+    }
+    scene.draw();
 
     // Debug information on top of the game.
     if (Game.showDebugInfo) {

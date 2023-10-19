@@ -1,8 +1,10 @@
-import { Game } from '../../../../src';
+import { Game, Scene } from 'lilo2d';
 
-if (os.getenv('LOCAL_LUA_DEBUGGER_VSCODE') === '1') {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
-  require('lldebugger').start();
+class TestScene extends Scene {
+  override load(): void {
+    print('test scene loaded');
+  }
 }
 
-Game.start(640, 480);
+Game.showDebugInfo = true;
+Game.start(800, 600, TestScene);

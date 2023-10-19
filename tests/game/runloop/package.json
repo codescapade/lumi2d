@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "copy-main": "copyfiles -u5 export/tests/game/runloop/src/main.* export/ && rimraf ./export/tests/game/runloop/src/main.*",
-    "build": "rimraf ./export && tstl && pnpm copy-main"
+    "build": "rimraf ./export && tstl && npm run copy-main"
   },
   "keywords": [],
   "author": "",

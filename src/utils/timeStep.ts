@@ -34,9 +34,9 @@ export class TimeStep {
    */
   static update(dt: number): void {
     TimeStep.dtUnscaled = dt;
-    TimeStep.dt *= TimeStep.timeScale;
+    TimeStep.dt = dt * TimeStep.timeScale;
 
-    // Store the last 200 times for the average fps.
+    // Store the last 200 delta times for the average fps.
     if (TimeStep.deltaTimes.length > 200) {
       TimeStep.deltaTimes.shift();
     }

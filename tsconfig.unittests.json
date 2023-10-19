@@ -12,7 +12,7 @@
     "noImplicitReturns": true,
     "types": ["love-typescript-definitions", "@typescript-to-lua/language-extensions", "lua-types/jit", "busted-tstl"]
   },
-  "include": ["src", "tests"],
+  "include": ["src", "tests/unit"],
   "tstl": {
     "luaTarget": "JIT",
     "noImplicitSelf": true,

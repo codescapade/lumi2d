@@ -4,11 +4,15 @@
   "description": "A TypeScript Lua Game Engine on top of Love2d.",
   "main": "dist/index",
   "scripts": {
-    "clean-tests": "rimraf ./tests_out",
-    "test": "pnpm clean-tests && tstl && busted",
     "clean": "rimraf ./dist",
     "copy-dts": "copyfiles -u 1 src/**/*.d.ts dist",
-    "build": "pnpm clean && tstl -p tsconfig.build.json && pnpm copy-dts"
+    "build": "npm run clean && tstl -p tsconfig.build.json && npm run copy-dts",
+    "clean-tests": "rimraf ./tests_out",
+    "test": "npm run clean-tests && tstl -p tsconfig.unittests.json && busted",
+    "prettier-check": "prettier -c src/**/*.ts tests/**/*.ts",
+    "prettier": "prettier -w src/**/*.ts tests/**/*.ts",
+    "lint": "eslint src/**/*.ts tests/**/*.ts",
+    "postinstall": "npm run build"
   },
   "files": [
     "dist/**/*.lua",

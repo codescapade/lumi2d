@@ -9,15 +9,14 @@
     "noImplicitOverride": true,
     "noUnusedLocals": true,
     "noImplicitReturns": true,
-    "sourceMap": true,
     "types": ["love-typescript-definitions", "@typescript-to-lua/language-extensions", "lua-types/jit"]
   },
   "include": ["src"],
   "tstl": {
     "luaTarget": "JIT",
     "noImplicitSelf": true,
-    "sourceMapTraceback": true,
     "luaLibImport": "require-minimal",
-    "noResolvePaths": ["lldebugger"]
+    "luaBundle": "main.lua",
+    "luaBundleEntry": "src/main.ts"
   }
 }
