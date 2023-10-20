@@ -6,7 +6,7 @@
   "scripts": {
     "copy-assets": "copyfiles -u 1 assets/**/*.* export/assets",
     "copy-main": "copyfiles -u5 export/tests/game/runloop/src/*.lua export/ && rimraf ./export/tests/game/runloop/src/*.lua",
-    "build": "rimraf ./export && tstl && npm run copy-main && npm run copy-assets",
+    "build": "rimraf ./export && tstl && pnpm copy-main && pnpm copy-assets",
     "run-love": "love export"
   },
   "keywords": [],

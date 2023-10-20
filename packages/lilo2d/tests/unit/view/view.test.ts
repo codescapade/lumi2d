@@ -1,4 +1,4 @@
-import { View } from '../../src/view/view';
+import { View } from '../../../src/view/view';
 
 insulate('View tests:', () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-member-access
@@ -21,7 +21,7 @@ insulate('View tests:', () => {
       assert.is_equal(height, 300);
     });
 
-    it('Should return the correct window size.', () => {
+    it('Should return the correct window size and center.', () => {
       View.init(400, 300);
       const [width, height] = View.getWindowSize();
       assert.is_equal(width, 800);

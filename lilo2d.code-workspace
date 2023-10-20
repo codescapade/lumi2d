@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"name": "✨ lilo2d-monorepo",
+			"path": "."
+		},
+		{
+			"name": "📦 lilo2d",
+			"path": "packages/lilo2d"
+		},
+		{
+			"name": "runloop",
+			"path": "testprojects/runloop"
+		}
+	],
+  "settings": {}
+}
