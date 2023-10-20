@@ -167,3 +167,15 @@ love.run = (): (() => number | null) => {
     return null;
   };
 };
+
+/**
+ *
+ * @param width The new window width in pixels.
+ * @param height The new window height in pixels.
+ */
+love.handlers.resize = (width: number, height: number): void => {
+  View.scaleToWindow();
+  const [viewWidth, viewHeight] = View.getViewSize();
+  Game.canvas = love.graphics.newCanvas(viewWidth, viewHeight);
+  Scenes.current().resize(width, height);
+};

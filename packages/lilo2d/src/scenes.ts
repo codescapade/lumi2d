@@ -108,6 +108,13 @@ export class Scene {
   draw(): void {}
 
   /**
+   * Resize gets called when the window resizes.
+   * @param width The new window width in pixels.
+   * @param height The new window height in pixels.
+   */
+  resize(width: number, height: number): void {}
+
+  /**
    * Gets called when a scene is removed from the scene manager.
    * Can be used to clean up references and data tha is no longer needed.
    */
