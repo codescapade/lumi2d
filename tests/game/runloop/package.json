@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "copy-main": "copyfiles -u5 export/tests/game/runloop/src/main.* export/ && rimraf ./export/tests/game/runloop/src/main.*",
-    "build": "rimraf ./export && tstl && npm run copy-main"
+    "copy-assets": "copyfiles -u 1 assets/**/*.* export/assets",
+    "copy-main": "copyfiles -u5 export/tests/game/runloop/src/*.lua export/ && rimraf ./export/tests/game/runloop/src/*.lua",
+    "build": "rimraf ./export && tstl && npm run copy-main && npm run copy-assets"
   },
   "keywords": [],
   "author": "",

@@ -1,8 +1,24 @@
+import { ScaleMode, scaleModeFitView } from './scaleMode';
+
 /**
  * The view class has view related information like design, view, and window size.
  * @noSelf
  */
 export class View {
+  /**
+   * The x axis anchor offset. If the view is smaller than the window this moves the view.
+   */
+  static viewAnchorX = 0;
+
+  /**
+   * The y axis anchor offset. If the view is smaller than the window this moves the view.
+   */
+  static viewAnchorY = 0;
+
+  /**
+   * The current scale mode.
+   */
+  private static scaleMode: ScaleMode;
   /**
    * The width the game is designed for in pixels.
    */
@@ -24,9 +40,24 @@ export class View {
   private static viewHeight = 0;
 
   /**
-   * The scale factor to scale from view to window.
+   * The x scale factor to scale from view to window.
    */
-  private static viewScaleFactor = 1.0;
+  private static viewScaleFactorX = 1.0;
+
+  /**
+   * The y scale factor to scale from view to window.
+   */
+  private static viewScaleFactorY = 1.0;
+
+  /**
+   * The x axis view offset.
+   */
+  private static viewOffsetX = 0;
+
+  /**
+   * The x axis view offset.
+   */
+  private static viewOffsetY = 0;
 
   /**
    * Initialize the View. This gets called automatically by the Game class on startup.
@@ -36,29 +67,31 @@ export class View {
   static init(width: number, height: number): void {
     View.designWidth = width;
     View.designHeight = height;
+    View.scaleMode = scaleModeFitView;
     View.scaleToWindow();
   }
 
   /**
    * Scale the design size to fit the window. The result will be the view size.
-   * TODO: Add scale modes.
    */
   static scaleToWindow(): void {
-    const windowWidth = love.graphics.getWidth();
-    const windowHeight = love.graphics.getHeight();
+    [
+      View.viewWidth,
+      View.viewHeight,
+      View.viewScaleFactorX,
+      View.viewScaleFactorY,
+      View.viewOffsetX,
+      View.viewOffsetY,
+    ] = View.scaleMode(View.designWidth, View.designHeight, View.viewAnchorX, View.viewAnchorY);
+  }
 
-    const designRatio = View.designWidth / View.designHeight;
-    const windowRatio = windowWidth / windowHeight;
-
-    if (windowRatio < designRatio) {
-      View.viewWidth = View.designWidth;
-      View.viewHeight = Math.ceil(View.viewWidth / windowRatio);
-    } else {
-      View.viewHeight = View.designHeight;
-      View.viewWidth = Math.ceil(View.viewHeight * windowRatio);
-    }
-
-    View.viewScaleFactor = windowWidth / View.viewWidth;
+  /**
+   * Set a new scale mode.
+   * @param mode The new scale mode.
+   */
+  static setScaleMode(mode: ScaleMode): void {
+    View.scaleMode = mode;
+    View.scaleToWindow();
   }
 
   /**
@@ -104,9 +137,17 @@ export class View {
   /**
    * Get the view scale factor from scaling the design size to fix the window size.
    * This is used the scale the main canvas to fit the game window.
-   * @returns The scale factor.
+   * @returns The scale x and y factor.
    */
-  static getViewScaleFactor(): number {
-    return View.viewScaleFactor;
+  static getViewScaleFactor(): LuaMultiReturn<[number, number]> {
+    return $multi(View.viewScaleFactorX, View.viewScaleFactorY);
+  }
+
+  /**
+   * Get the view offset inside the window.
+   * @returns The x and y offset.
+   */
+  static getViewOffset(): LuaMultiReturn<[number, number]> {
+    return $multi(View.viewOffsetX, View.viewOffsetY);
   }
 }

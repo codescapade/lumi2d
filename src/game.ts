@@ -80,20 +80,7 @@ export class Game {
     }
     scene.draw();
 
-    // Debug information on top of the game.
-    if (Game.showDebugInfo) {
-      const stats = love.graphics.getStats();
-      const fps = TimeStep.fps;
-      const [_, viewHeight] = View.getViewSize();
-
-      love.graphics.setFont(Game.debugFont);
-      love.graphics.setColor(1, 1, 1, 1);
-      love.graphics.print(`draw calls ${stats.drawcalls}`, 20, viewHeight - 40);
-
-      const memory = string.format('texture mem: %.2f MB', stats.texturememory / 1024 / 1024);
-      love.graphics.print(memory, 20, viewHeight - 60);
-      love.graphics.print(`FPS: ${fps}`, 20, viewHeight - 80);
-    }
+    const [offsetX, offsetY] = View.getViewOffset();
 
     // Stop drawing to the canvas.
     love.graphics.setCanvas();
@@ -101,8 +88,24 @@ export class Game {
     love.graphics.setColor(1, 1, 1, 1);
 
     // Scale the main canvas up
-    const scale = View.getViewScaleFactor();
-    love.graphics.draw(Game.canvas, 0, 0, 0, scale, scale);
+    const [scaleX, scaleY] = View.getViewScaleFactor();
+    love.graphics.draw(Game.canvas, offsetX, offsetY, 0, scaleX, scaleY);
+
+    // Debug information on top of the game.
+    if (Game.showDebugInfo) {
+      const stats = love.graphics.getStats();
+      const fps = TimeStep.fps;
+      const [_windowWidth, windowHeight] = View.getWindowSize();
+
+      love.graphics.setFont(Game.debugFont);
+      love.graphics.setColor(1, 1, 1, 1);
+      love.graphics.print(`draw calls ${stats.drawcalls}`, 20, windowHeight - 40);
+
+      const memory = string.format('texture mem: %.2f MB', stats.texturememory / 1024 / 1024);
+      love.graphics.print(memory, 20, windowHeight - 60);
+      love.graphics.print(`FPS: ${fps}`, 20, windowHeight - 80);
+    }
+
     love.graphics.present();
   }
 }
