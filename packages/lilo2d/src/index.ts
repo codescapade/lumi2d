@@ -1,3 +1,4 @@
+export * from './events';
 export * from './graphics';
 export * from './math';
 export * from './utils';

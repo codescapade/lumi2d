@@ -1,17 +1,20 @@
 {
-	"folders": [
-		{
-			"name": "✨ lilo2d-monorepo",
-			"path": "."
-		},
-		{
-			"name": "📦 lilo2d",
-			"path": "packages/lilo2d"
-		},
-		{
-			"name": "runloop",
-			"path": "testprojects/runloop"
-		}
-	],
-  "settings": {}
+  "folders": [
+    {
+      "name": "✨ lilo2d-monorepo",
+      "path": "."
+    },
+    {
+      "name": "📦 lilo2d",
+      "path": "packages/lilo2d"
+    },
+    {
+      "name": "runloop",
+      "path": "testprojects/runloop"
+    }
+  ],
+  "settings": {
+    "Lua.workspace.ignoreDir": [".vscode", "node_modules/", "tests_out/", "export/"],
+    "Lua.runtime.version": "LuaJIT"
+  }
 }
