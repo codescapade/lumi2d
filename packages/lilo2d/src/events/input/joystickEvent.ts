@@ -144,7 +144,8 @@ export class JoystickEvent extends Event {
   ): void {
     this.typeName = typeName;
     this.joystick = joystick;
-    [this.id] = joystick.getID();
+    const [id] = joystick.getID();
+    this.id = id;
     this.axis = axis;
     this.value = value;
     this.button = button;

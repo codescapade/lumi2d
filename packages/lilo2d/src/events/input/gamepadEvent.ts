@@ -115,7 +115,8 @@ export class GamepadEvent extends Event {
   private reset(typeName: string, gamepad: Joystick, axis?: GamepadAxis, value?: number, button?: GamepadButton): void {
     this.typeName = typeName;
     this.gamepad = gamepad;
-    [this.id] = gamepad.getID();
+    const [id] = gamepad.getID();
+    this.id = id;
     this.axis = axis;
     this.value = value;
     this.button = button;
