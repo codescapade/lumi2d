@@ -1,7 +1,15 @@
+import { LightUserData } from 'love';
 import { Canvas } from 'love.graphics';
-import { View } from './view';
-import { TimeStep } from './utils';
+import { GamepadAxis, GamepadButton, Joystick, JoystickHat } from 'love.joystick';
+import { KeyConstant, Scancode } from 'love.keyboard';
+import { KeyboardEvent } from './events';
+import { GamepadEvent } from './events/input/gamepadEvent';
+import { JoystickEvent } from './events/input/joystickEvent';
+import { MouseEvent } from './events/input/mouseEvent';
+import { TouchEvent } from './events/input/touchEvent';
 import { Scene, Scenes } from './scenes';
+import { TimeStep } from './utils';
+import { View } from './view';
 
 // Define the global love arg which are the arguments passed in when starting love.
 declare const arg: string[];
@@ -110,8 +118,8 @@ export class Game {
   }
 }
 
-// Overriding the default love.run so it works with our engine.
-// We can custom drawing.
+// Overriding the default love.run so it works with the engine.
+// touchEvent use custom drawing.
 love.run = (): (() => number | null) => {
   if (love.load) {
     love.load(love.arg.parseGameArguments(arg), arg);
@@ -168,14 +176,103 @@ love.run = (): (() => number | null) => {
   };
 };
 
-/**
- *
- * @param width The new window width in pixels.
- * @param height The new window height in pixels.
- */
+// Window resize handler.
 love.handlers.resize = (width: number, height: number): void => {
   View.scaleToWindow();
   const [viewWidth, viewHeight] = View.getViewSize();
   Game.canvas = love.graphics.newCanvas(viewWidth, viewHeight);
   Scenes.current().resize(width, height);
+};
+
+// Input handlers.
+
+love.keypressed = (key: KeyConstant, scancode: Scancode, isrepeat: boolean): void => {
+  KeyboardEvent.get(KeyboardEvent.PRESSED, key, scancode, isrepeat).emit();
+};
+
+love.keyreleased = (key: KeyConstant, scancode: Scancode): void => {
+  KeyboardEvent.get(KeyboardEvent.RELEASED, key, scancode).emit();
+};
+
+love.mousepressed = (x: number, y: number, button: number, isTouch: boolean): void => {
+  MouseEvent.get(MouseEvent.BUTTON_PRESSED, x, y, button, isTouch).emit();
+};
+
+love.mousereleased = (x: number, y: number, button: number, isTouch: boolean): void => {
+  MouseEvent.get(MouseEvent.BUTTON_RELEASED, x, y, button, isTouch).emit();
+};
+
+love.mousemoved = (x: number, y: number, dx: number, dy: number, isTouch: boolean): void => {
+  MouseEvent.get(MouseEvent.MOVED, x, y, undefined, isTouch, dx, dy).emit();
+};
+
+love.touchpressed = (
+  id: LightUserData<'Touch'>,
+  x: number,
+  y: number,
+  dx: number,
+  dy: number,
+  pressure: number
+): void => {
+  TouchEvent.get(TouchEvent.PRESSED, id, x, y, dx, dy, pressure).emit();
+};
+
+love.touchreleased = (
+  id: LightUserData<'Touch'>,
+  x: number,
+  y: number,
+  dx: number,
+  dy: number,
+  pressure: number
+): void => {
+  TouchEvent.get(TouchEvent.RELEASED, id, x, y, dx, dy, pressure).emit();
+};
+
+love.touchmoved = (
+  id: LightUserData<'Touch'>,
+  x: number,
+  y: number,
+  dx: number,
+  dy: number,
+  pressure: number
+): void => {
+  TouchEvent.get(TouchEvent.MOVED, id, x, y, dx, dy, pressure).emit();
+};
+
+love.joystickadded = (joystick: Joystick): void => {
+  JoystickEvent.get(JoystickEvent.CONNECTED, joystick).emit();
+  GamepadEvent.get(GamepadEvent.CONNECTED, joystick).emit();
+};
+
+love.joystickremoved = (joystick: Joystick): void => {
+  JoystickEvent.get(JoystickEvent.DISCONNECTED, joystick).emit();
+  GamepadEvent.get(GamepadEvent.DISCONNECTED, joystick).emit();
+};
+
+love.joystickaxis = (joystick: Joystick, axis: number, value: number): void => {
+  JoystickEvent.get(JoystickEvent.AXIS_CHANGED, joystick, axis, value).emit();
+};
+
+love.joystickhat = (joystick: Joystick, hat: number, direction: JoystickHat): void => {
+  JoystickEvent.get(JoystickEvent.HAT_CHANGED, joystick, undefined, undefined, undefined, hat, direction).emit();
+};
+
+love.joystickpressed = (joystick: Joystick, button: number): void => {
+  JoystickEvent.get(JoystickEvent.BUTTON_PRESSED, joystick, undefined, undefined, button).emit();
+};
+
+love.joystickreleased = (joystick: Joystick, button: number): void => {
+  JoystickEvent.get(JoystickEvent.BUTTON_RELEASED, joystick, undefined, undefined, button).emit();
+};
+
+love.gamepadaxis = (joystick: Joystick, axis: GamepadAxis, value: number): void => {
+  GamepadEvent.get(GamepadEvent.AXIS_CHANGED, joystick, axis, value).emit();
+};
+
+love.gamepadpressed = (joystick: Joystick, button: GamepadButton): void => {
+  GamepadEvent.get(GamepadEvent.BUTTON_PRESSED, joystick, undefined, undefined, button).emit();
+};
+
+love.gamepadreleased = (joystick: Joystick, button: GamepadButton): void => {
+  GamepadEvent.get(GamepadEvent.BUTTON_RELEASED, joystick, undefined, undefined, button).emit();
 };

@@ -93,6 +93,7 @@ export class Scene {
    * Update gets called every frame. If you override it and don't call super.update() entities will not be updated.
    * @param dt The time passed since the last update in seconds.
    */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   update(dt: number): void {}
 
   /**
@@ -100,6 +101,7 @@ export class Scene {
    * For example if there is a physics update in between.
    * @param dt The time passed since the last update in seconds.
    */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   lateUpdate(dt: number): void {}
 
   /**
@@ -112,6 +114,7 @@ export class Scene {
    * @param width The new window width in pixels.
    * @param height The new window height in pixels.
    */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   resize(width: number, height: number): void {}
 
   /**

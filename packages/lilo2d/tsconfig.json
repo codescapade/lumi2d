@@ -8,8 +8,8 @@
     "outDir": "tests_out",
     "useDefineForClassFields": true,
     "noImplicitOverride": true,
-    "noUnusedLocals": true,
     "noImplicitReturns": true,
+    "noUnusedLocals": false,
     "types": ["love-typescript-definitions", "@typescript-to-lua/language-extensions", "lua-types/jit", "busted-tstl"]
   },
   "include": ["src", "tests"],
@@ -17,5 +17,10 @@
     "luaTarget": "JIT",
     "noImplicitSelf": true,
     "luaLibImport": "require-minimal"
+  },
+  "typedocOptions": {
+    "entryPoints": ["src"],
+    "out": "docs",
+    "entryPointStrategy": "expand"
   }
 }

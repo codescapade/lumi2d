@@ -1,6 +1,7 @@
 import { View } from '../../../src/view/view';
 
 insulate('View tests:', () => {
+  // Mock love functions.
   // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-member-access
   (_G as any).love = {
     graphics: {

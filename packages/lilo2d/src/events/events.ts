@@ -1,11 +1,30 @@
 import { Event, EventType } from './event';
 
+/**
+ * Callback type for any event.
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type EventCallback = (event: any) => void;
 
+/**
+ * Handler to store a callback for an event.
+ */
 export class Handler {
+  /**
+   * The callback function to call when the event is triggered.
+   */
   callback: EventCallback;
+
+  /**
+   * If true this callback can cancel the event.
+   */
   canCancel: boolean;
 
+  /**
+   * Create a new handler.
+   * @param callback The callback function.
+   * @param canCancel Can this callback cancel the event.
+   */
   constructor(callback: EventCallback, canCancel: boolean) {
     this.callback = callback;
     this.canCancel = canCancel;
@@ -13,21 +32,42 @@ export class Handler {
 }
 
 /**
+ * Event manager.
  * @noSelf
  */
 export class Events {
+  /**
+   * The table of global handlers.
+   */
   private static globalHandlers = new LuaTable<string, Handler[]>();
 
+  /**
+   * The table of scene handlers.
+   */
   private static sceneHandlers = new LuaTable<string, Handler[]>();
 
+  /**
+   * Set a new
+   * @param handlers The new scene handlers.
+   */
   static setSceneHandlers(handlers: LuaTable<string, Handler[]>): void {
     Events.sceneHandlers = handlers;
   }
 
+  /**
+   * Remove all global handlers.
+   */
   static clearGlobalHandlers(): void {
     Events.globalHandlers = new LuaTable<string, Handler[]>();
   }
 
+  /**
+   * Add a new event handler to the event manager.
+   * @param type The type of event that triggers the callback.
+   * @param callback The callback function.
+   * @param canCancel Can this callback cancel events so callbacks after this one won't be triggered.
+   * @param isGlobal Is this a global handler.
+   */
   static on<T extends Event>(
     type: EventType<T>,
     callback: (event: T) => void,
@@ -51,6 +91,12 @@ export class Events {
     handlers.get(type.typeName).push(new Handler(callback, canCancel));
   }
 
+  /**
+   * Remove an event handler.
+   * @param type The type of event that triggers the callback.
+   * @param callback The callback function the handler has.
+   * @param isGlobal Is this a global handler.
+   */
   static off<T extends Event>(type: EventType<T>, callback: (event: T) => void, isGlobal = false): void {
     let handlers: LuaTable<string, Handler[]> | null = null;
     if (isGlobal) {
@@ -74,6 +120,13 @@ export class Events {
     }
   }
 
+  /**
+   * Check if the event manager has a handler.
+   * @param type The type of handler.
+   * @param isGlobal Global or scene handler.
+   * @param callback Callback function to check for. Optional.
+   * @returns True if the handler exists.
+   */
   static has<T extends Event>(type: EventType<T>, isGlobal = false, callback?: (event: T) => void): boolean {
     let handlers: LuaTable<string, Handler[]> | null = null;
     if (isGlobal) {
@@ -104,6 +157,10 @@ export class Events {
     return false;
   }
 
+  /**
+   * Emit an event. Will call `put` on the event automatically at the end of the function.
+   * @param event The event to emit.
+   */
   static emit(event: Event): void {
     if (Events.globalHandlers.has(event.typeName)) {
       Events.processHandlers(event, Events.globalHandlers.get(event.typeName));
@@ -121,6 +178,11 @@ export class Events {
     event.put();
   }
 
+  /**
+   * Process an event and send it to the correct handlers.
+   * @param event The event to process.
+   * @param handlers The handlers to check.
+   */
   private static processHandlers(event: Event, handlers: Handler[]): void {
     for (const handler of handlers) {
       handler.callback(event);
