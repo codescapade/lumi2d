@@ -162,10 +162,10 @@ export class Events {
   }
 
   /**
-   * Emit an event. Will call `put` on the event automatically at the end of the function.
-   * @param event The event to emit.
+   * Send an event. Will call `put` on the event automatically at the end of the function.
+   * @param event The event to send.
    */
-  static emit(event: Event): void {
+  static send(event: Event): void {
     if (Events.globalHandlers.has(event.typeName)) {
       Events.processHandlers(event, Events.globalHandlers.get(event.typeName));
     }

@@ -29,7 +29,7 @@ describe('Test events/events:', () => {
     };
 
     Events.on(TestEvent.TESTED, callback, true, true);
-    Events.emit(new TestEvent(TestEvent.TESTED.typeName, 2));
+    new TestEvent(TestEvent.TESTED.typeName, 2).send();
 
     assert.is_equal(result, 2);
   });
@@ -41,7 +41,7 @@ describe('Test events/events:', () => {
     };
 
     Events.on(TestEvent.TESTED, callback);
-    Events.emit(new TestEvent(TestEvent.TESTED.typeName, 2));
+    new TestEvent(TestEvent.TESTED.typeName, 2).send();
 
     assert.is_equal(result, 2);
   });
@@ -58,7 +58,7 @@ describe('Test events/events:', () => {
 
     Events.on(TestEvent.TESTED, callback2);
     Events.on(TestEvent.TESTED, callback, true, true);
-    Events.emit(new TestEvent(TestEvent.TESTED.typeName, 2));
+    new TestEvent(TestEvent.TESTED.typeName, 2).send();
 
     assert.is_equal(order[0], 'global');
     assert.is_equal(order[1], 'scene');
@@ -77,7 +77,7 @@ describe('Test events/events:', () => {
 
     Events.on(TestEvent.TESTED, callback);
     Events.on(TestEvent.TESTED, callback2);
-    Events.emit(new TestEvent(TestEvent.TESTED.typeName, 2));
+    new TestEvent(TestEvent.TESTED.typeName, 2).send();
 
     assert.is_equal(results.length, 1);
     assert.is_equal(results[0], 3);
@@ -96,7 +96,7 @@ describe('Test events/events:', () => {
 
     Events.on(TestEvent.TESTED, callback, false);
     Events.on(TestEvent.TESTED, callback2);
-    Events.emit(new TestEvent(TestEvent.TESTED.typeName, 2));
+    new TestEvent(TestEvent.TESTED.typeName, 2).send();
 
     assert.is_equal(results.length, 2);
     assert.is_equal(results[0], 3);
@@ -110,12 +110,12 @@ describe('Test events/events:', () => {
     };
 
     Events.on(TestEvent.TESTED, callback, true, true);
-    Events.emit(new TestEvent(TestEvent.TESTED.typeName, 2));
+    new TestEvent(TestEvent.TESTED.typeName, 2).send();
 
     assert.is_equal(result, 2);
 
     Events.off(TestEvent.TESTED, callback, true);
-    Events.emit(new TestEvent(TestEvent.TESTED.typeName, 10));
+    new TestEvent(TestEvent.TESTED.typeName, 10).send();
 
     assert.is_equal(result, 2);
   });
@@ -127,12 +127,12 @@ describe('Test events/events:', () => {
     };
 
     Events.on(TestEvent.TESTED, callback);
-    Events.emit(new TestEvent(TestEvent.TESTED.typeName, 2));
+    new TestEvent(TestEvent.TESTED.typeName, 2).send();
 
     assert.is_equal(result, 2);
 
     Events.off(TestEvent.TESTED, callback);
-    Events.emit(new TestEvent(TestEvent.TESTED.typeName, 10));
+    new TestEvent(TestEvent.TESTED.typeName, 10).send();
 
     assert.is_equal(result, 2);
   });

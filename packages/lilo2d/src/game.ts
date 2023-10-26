@@ -187,23 +187,23 @@ love.handlers.resize = (width: number, height: number): void => {
 // Input handlers.
 
 love.keypressed = (key: KeyConstant, scancode: Scancode, isrepeat: boolean): void => {
-  KeyboardEvent.get(KeyboardEvent.PRESSED, key, scancode, isrepeat).emit();
+  KeyboardEvent.get(KeyboardEvent.PRESSED, key, scancode, isrepeat).send();
 };
 
 love.keyreleased = (key: KeyConstant, scancode: Scancode): void => {
-  KeyboardEvent.get(KeyboardEvent.RELEASED, key, scancode).emit();
+  KeyboardEvent.get(KeyboardEvent.RELEASED, key, scancode).send();
 };
 
 love.mousepressed = (x: number, y: number, button: number, isTouch: boolean): void => {
-  MouseEvent.get(MouseEvent.BUTTON_PRESSED, x, y, button, isTouch).emit();
+  MouseEvent.get(MouseEvent.BUTTON_PRESSED, x, y, button, isTouch).send();
 };
 
 love.mousereleased = (x: number, y: number, button: number, isTouch: boolean): void => {
-  MouseEvent.get(MouseEvent.BUTTON_RELEASED, x, y, button, isTouch).emit();
+  MouseEvent.get(MouseEvent.BUTTON_RELEASED, x, y, button, isTouch).send();
 };
 
 love.mousemoved = (x: number, y: number, dx: number, dy: number, isTouch: boolean): void => {
-  MouseEvent.get(MouseEvent.MOVED, x, y, undefined, isTouch, dx, dy).emit();
+  MouseEvent.get(MouseEvent.MOVED, x, y, undefined, isTouch, dx, dy).send();
 };
 
 love.touchpressed = (
@@ -214,7 +214,7 @@ love.touchpressed = (
   dy: number,
   pressure: number
 ): void => {
-  TouchEvent.get(TouchEvent.PRESSED, id, x, y, dx, dy, pressure).emit();
+  TouchEvent.get(TouchEvent.PRESSED, id, x, y, dx, dy, pressure).send();
 };
 
 love.touchreleased = (
@@ -225,7 +225,7 @@ love.touchreleased = (
   dy: number,
   pressure: number
 ): void => {
-  TouchEvent.get(TouchEvent.RELEASED, id, x, y, dx, dy, pressure).emit();
+  TouchEvent.get(TouchEvent.RELEASED, id, x, y, dx, dy, pressure).send();
 };
 
 love.touchmoved = (
@@ -236,43 +236,43 @@ love.touchmoved = (
   dy: number,
   pressure: number
 ): void => {
-  TouchEvent.get(TouchEvent.MOVED, id, x, y, dx, dy, pressure).emit();
+  TouchEvent.get(TouchEvent.MOVED, id, x, y, dx, dy, pressure).send();
 };
 
 love.joystickadded = (joystick: Joystick): void => {
-  JoystickEvent.get(JoystickEvent.CONNECTED, joystick).emit();
-  GamepadEvent.get(GamepadEvent.CONNECTED, joystick).emit();
+  JoystickEvent.get(JoystickEvent.CONNECTED, joystick).send();
+  GamepadEvent.get(GamepadEvent.CONNECTED, joystick).send();
 };
 
 love.joystickremoved = (joystick: Joystick): void => {
-  JoystickEvent.get(JoystickEvent.DISCONNECTED, joystick).emit();
-  GamepadEvent.get(GamepadEvent.DISCONNECTED, joystick).emit();
+  JoystickEvent.get(JoystickEvent.DISCONNECTED, joystick).send();
+  GamepadEvent.get(GamepadEvent.DISCONNECTED, joystick).send();
 };
 
 love.joystickaxis = (joystick: Joystick, axis: number, value: number): void => {
-  JoystickEvent.get(JoystickEvent.AXIS_CHANGED, joystick, axis, value).emit();
+  JoystickEvent.get(JoystickEvent.AXIS_CHANGED, joystick, axis, value).send();
 };
 
 love.joystickhat = (joystick: Joystick, hat: number, direction: JoystickHat): void => {
-  JoystickEvent.get(JoystickEvent.HAT_CHANGED, joystick, undefined, undefined, undefined, hat, direction).emit();
+  JoystickEvent.get(JoystickEvent.HAT_CHANGED, joystick, undefined, undefined, undefined, hat, direction).send();
 };
 
 love.joystickpressed = (joystick: Joystick, button: number): void => {
-  JoystickEvent.get(JoystickEvent.BUTTON_PRESSED, joystick, undefined, undefined, button).emit();
+  JoystickEvent.get(JoystickEvent.BUTTON_PRESSED, joystick, undefined, undefined, button).send();
 };
 
 love.joystickreleased = (joystick: Joystick, button: number): void => {
-  JoystickEvent.get(JoystickEvent.BUTTON_RELEASED, joystick, undefined, undefined, button).emit();
+  JoystickEvent.get(JoystickEvent.BUTTON_RELEASED, joystick, undefined, undefined, button).send();
 };
 
 love.gamepadaxis = (joystick: Joystick, axis: GamepadAxis, value: number): void => {
-  GamepadEvent.get(GamepadEvent.AXIS_CHANGED, joystick, axis, value).emit();
+  GamepadEvent.get(GamepadEvent.AXIS_CHANGED, joystick, axis, value).send();
 };
 
 love.gamepadpressed = (joystick: Joystick, button: GamepadButton): void => {
-  GamepadEvent.get(GamepadEvent.BUTTON_PRESSED, joystick, undefined, undefined, button).emit();
+  GamepadEvent.get(GamepadEvent.BUTTON_PRESSED, joystick, undefined, undefined, button).send();
 };
 
 love.gamepadreleased = (joystick: Joystick, button: GamepadButton): void => {
-  GamepadEvent.get(GamepadEvent.BUTTON_RELEASED, joystick, undefined, undefined, button).emit();
+  GamepadEvent.get(GamepadEvent.BUTTON_RELEASED, joystick, undefined, undefined, button).send();
 };

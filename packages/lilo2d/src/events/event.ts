@@ -23,10 +23,10 @@ export class Event {
   }
 
   /**
-   * Emit this event. This is an alias for `Events.emit(event);`.
+   * Send this event. This is an alias for `Events.send(event);`.
    */
-  emit(): void {
-    Events.emit(this);
+  send(): void {
+    Events.send(this);
   }
 }
 
@@ -35,7 +35,7 @@ export class Event {
  */
 export class EventType<T extends Event> {
   /**
-   * The type of event that will be emitted.
+   * The type of event that will be sent.
    */
   readonly type: new (...args: any[]) => T;
 
@@ -46,7 +46,7 @@ export class EventType<T extends Event> {
 
   /**
    * Create a new event type.
-   * @param type The type of event that will be emitted.
+   * @param type The type of event that will be sent.
    * @param typeName The internal name for this particular event.
    */
   constructor(type: new (...args: any[]) => T, typeName: string) {
