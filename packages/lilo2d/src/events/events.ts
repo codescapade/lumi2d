@@ -9,7 +9,7 @@ type EventCallback = (event: any) => void;
 /**
  * Handler to store a callback for an event.
  */
-export class Handler {
+export class EventHandler {
   /**
    * The callback function to call when the event is triggered.
    */
@@ -39,26 +39,30 @@ export class Events {
   /**
    * The table of global handlers.
    */
-  private static globalHandlers = new LuaTable<string, Handler[]>();
+  private static globalHandlers = new LuaTable<string, EventHandler[]>();
 
   /**
    * The table of scene handlers.
    */
-  private static sceneHandlers = new LuaTable<string, Handler[]>();
+  private static sceneHandlers = new LuaTable<string, EventHandler[]>();
 
   /**
    * Set a new
    * @param handlers The new scene handlers.
    */
-  static setSceneHandlers(handlers: LuaTable<string, Handler[]>): void {
+  static setSceneHandlers(handlers: LuaTable<string, EventHandler[]>): void {
     Events.sceneHandlers = handlers;
+  }
+
+  static getSceneHanndlers(): LuaTable<string, EventHandler[]> {
+    return Events.sceneHandlers;
   }
 
   /**
    * Remove all global handlers.
    */
   static clearGlobalHandlers(): void {
-    Events.globalHandlers = new LuaTable<string, Handler[]>();
+    Events.globalHandlers = new LuaTable<string, EventHandler[]>();
   }
 
   /**
@@ -74,7 +78,7 @@ export class Events {
     canCancel = true,
     isGlobal = false
   ): void {
-    let handlers: LuaTable<string, Handler[]> | null = null;
+    let handlers: LuaTable<string, EventHandler[]> | null = null;
     if (isGlobal) {
       handlers = Events.globalHandlers;
     } else {
@@ -88,7 +92,7 @@ export class Events {
     if (!handlers.has(type.typeName)) {
       handlers.set(type.typeName, []);
     }
-    handlers.get(type.typeName).push(new Handler(callback, canCancel));
+    handlers.get(type.typeName).push(new EventHandler(callback, canCancel));
   }
 
   /**
@@ -98,7 +102,7 @@ export class Events {
    * @param isGlobal Is this a global handler.
    */
   static off<T extends Event>(type: EventType<T>, callback: (event: T) => void, isGlobal = false): void {
-    let handlers: LuaTable<string, Handler[]> | null = null;
+    let handlers: LuaTable<string, EventHandler[]> | null = null;
     if (isGlobal) {
       handlers = Events.globalHandlers;
     } else {
@@ -128,7 +132,7 @@ export class Events {
    * @returns True if the handler exists.
    */
   static has<T extends Event>(type: EventType<T>, isGlobal = false, callback?: (event: T) => void): boolean {
-    let handlers: LuaTable<string, Handler[]> | null = null;
+    let handlers: LuaTable<string, EventHandler[]> | null = null;
     if (isGlobal) {
       handlers = Events.globalHandlers;
     } else {
@@ -183,7 +187,7 @@ export class Events {
    * @param event The event to process.
    * @param handlers The handlers to check.
    */
-  private static processHandlers(event: Event, handlers: Handler[]): void {
+  private static processHandlers(event: Event, handlers: EventHandler[]): void {
     for (const handler of handlers) {
       handler.callback(event);
 

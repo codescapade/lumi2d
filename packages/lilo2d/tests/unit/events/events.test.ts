@@ -1,9 +1,9 @@
-import { Event, EventType, Events, Handler } from '../../../src/events';
+import { Event, EventType, Events, EventHandler } from '../../../src/events';
 
 describe('Test events/events:', () => {
   before_each(() => {
     Events.clearGlobalHandlers();
-    Events.setSceneHandlers(new LuaTable<string, Handler[]>());
+    Events.setSceneHandlers(new LuaTable<string, EventHandler[]>());
   });
 
   it('Should add a global handler.', () => {

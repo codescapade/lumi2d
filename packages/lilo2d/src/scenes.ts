@@ -1,3 +1,5 @@
+import { EventHandler, Events } from './events';
+
 /**
  * The scene manager class.
  * @noSelf
@@ -31,6 +33,7 @@ export class Scenes {
     if (Scenes.sceneStack.length > 1) {
       const scene = Scenes.sceneStack.pop()!;
       scene.destroy();
+      Events.setSceneHandlers(Scenes.current().getEventHandlers());
     }
   }
 
@@ -67,11 +70,17 @@ export class Scenes {
         Scenes.sceneStack[Scenes.sceneStack.length - 2].destroy();
         Scenes.sceneStack[Scenes.sceneStack.length - 2] = scene;
       }
+      // Set the events to the below scene until everything has been loaded.
+      Events.setSceneHandlers(scene.getEventHandlers());
+      scene.load();
+
+      // Set the events back to the current scene.
+      Events.setSceneHandlers(Scenes.current().getEventHandlers());
     } else {
       Scenes.sceneStack.push(scene);
+      Events.setSceneHandlers(scene.getEventHandlers());
+      scene.load();
     }
-
-    scene.load();
   }
 }
 
@@ -83,6 +92,11 @@ export class Scene {
    * An overlay scene will render the scene below it.
    */
   isOverlay = false;
+
+  /**
+   * All events added to this scene using the global Events class.
+   */
+  private eventHandlers = new LuaTable<string, EventHandler[]>();
 
   /**
    * Load gets called after creating the scene. This can be used to create entities, load tilemaps, etc.
@@ -122,4 +136,12 @@ export class Scene {
    * Can be used to clean up references and data tha is no longer needed.
    */
   destroy(): void {}
+
+  /**
+   * Get the scene event handlers.
+   * @returns The event handlers.
+   */
+  getEventHandlers(): LuaTable<string, EventHandler[]> {
+    return this.eventHandlers;
+  }
 }
