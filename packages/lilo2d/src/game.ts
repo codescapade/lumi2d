@@ -206,6 +206,10 @@ love.mousemoved = (x: number, y: number, dx: number, dy: number, isTouch: boolea
   MouseEvent.get(MouseEvent.MOVED, x, y, undefined, isTouch, dx, dy).send();
 };
 
+love.wheelmoved = (x: number, y: number): void => {
+  MouseEvent.get(MouseEvent.WHEEL, 0, 0, undefined, undefined, undefined, undefined, x, y).send();
+};
+
 love.touchpressed = (
   id: LightUserData<'Touch'>,
   x: number,

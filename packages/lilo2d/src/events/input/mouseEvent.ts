@@ -20,6 +20,11 @@ export class MouseEvent extends Event {
   static readonly MOVED = new EventType(MouseEvent, 'lilo_mouse_moved');
 
   /**
+   * Scroll wheel moved type.
+   */
+  static readonly WHEEL = new EventType(MouseEvent, 'lilo_mouse_wheel');
+
+  /**
    * The x screen position in pixels.
    */
   x!: number;
@@ -50,6 +55,16 @@ export class MouseEvent extends Event {
   dy?: number;
 
   /**
+   * Scroll x axis wheel movement.
+   */
+  wheelX?: number;
+
+  /**
+   * Scroll y axis wheel movement.
+   */
+  wheelY?: number;
+
+  /**
    * The event object pool.
    */
   private static pool: MouseEvent[] = [];
@@ -63,6 +78,8 @@ export class MouseEvent extends Event {
    * @param isTouch Is this a touch.
    * @param dx The amount moved on the x axis since the last event in pixels.
    * @param dy The amount moved on the y axis since the last event in pixels.
+   * @param wheelX Scroll x axis wheel movement.
+   * @param wheelY Scroll y axis wheel movement.
    * @returns The event from the pool.
    * @noSelf
    */
@@ -73,7 +90,9 @@ export class MouseEvent extends Event {
     button?: number,
     isTouch?: boolean,
     dx?: number,
-    dy?: number
+    dy?: number,
+    wheelX?: number,
+    wheelY?: number
   ): MouseEvent {
     let event: MouseEvent;
     if (MouseEvent.pool.length > 0) {
@@ -81,7 +100,7 @@ export class MouseEvent extends Event {
     } else {
       event = new MouseEvent();
     }
-    event.reset(type.typeName, x, y, button, isTouch, dx, dy);
+    event.reset(type.typeName, x, y, button, isTouch, dx, dy, wheelX, wheelY);
 
     return event;
   }
@@ -112,6 +131,8 @@ export class MouseEvent extends Event {
    * @param isTouch
    * @param dx
    * @param dy
+   * @param wheelX
+   * @param wheelY
    */
   private reset(
     typeName: string,
@@ -120,7 +141,9 @@ export class MouseEvent extends Event {
     button?: number,
     isTouch?: boolean,
     dx?: number,
-    dy?: number
+    dy?: number,
+    wheelX?: number,
+    wheelY?: number
   ): void {
     this.typeName = typeName;
     this.x = x;
@@ -129,5 +152,7 @@ export class MouseEvent extends Event {
     this.isTouch = isTouch;
     this.dx = dx;
     this.dy = dy;
+    this.wheelX = wheelX;
+    this.wheelY = wheelY;
   }
 }
