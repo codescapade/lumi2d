@@ -27,4 +27,4 @@ jobs:
       - name: run busted
         uses: lunarmodules/busted@v2.1.2
         with:
-          args: -f .busted
+          args: packages/lilo2d/tests_out --pattern="%.test%." --lpath="packages/lilo2d/tests_out/?.lua"
