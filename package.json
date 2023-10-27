@@ -2,7 +2,12 @@
   "name": "lilo2d-monorepo",
   "version": "0.1.0",
   "description": "A TypeScript Lua Game Engine on top of Love2d.",
-  "scripts": {},
+  "scripts": {
+    "build-lilo2d": "pnpm --filter lilo2d build",
+    "lint-lilo2d": "pnpm --filter lilo2d lint",
+    "prettier-lilo2d": "pnpm --filter lilo2d prettier-check",
+    "test-lilo2d": "pnpm --filter lilo2d test"
+  },
   "keywords": [],
   "author": "codescapade",
   "license": "MIT",
