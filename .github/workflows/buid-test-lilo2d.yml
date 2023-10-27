@@ -25,4 +25,4 @@ jobs:
       - name: build tests
         run: pnpm test-lilo2d
       - name: run busted
-        uses: lunarmodules/busted@v1
+        uses: lunarmodules/busted@v2.1.2
