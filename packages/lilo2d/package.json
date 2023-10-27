@@ -27,7 +27,7 @@
   "devDependencies": {
     "@typescript-to-lua/language-extensions": "^1.19.0",
     "busted-tstl": "0.1.2-rc.0",
-    "love-typescript-definitions": "^11.4.1",
+    "love-typescript-definitions": "^11.4.2",
     "lua-types": "^2.13.1",
     "typescript-to-lua": "^1.20.1"
   }
