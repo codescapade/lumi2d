@@ -6,7 +6,7 @@
     "build-lilo2d": "pnpm --filter lilo2d build",
     "lint-lilo2d": "pnpm --filter lilo2d lint",
     "prettier-lilo2d": "pnpm --filter lilo2d prettier-check",
-    "test-lilo2d": "pnpm --filter lilo2d test"
+    "test-lilo2d": "pnpm --filter lilo2d build-test"
   },
   "keywords": [],
   "author": "codescapade",
