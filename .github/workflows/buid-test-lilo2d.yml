@@ -26,3 +26,5 @@ jobs:
         run: pnpm test-lilo2d
       - name: run busted
         uses: lunarmodules/busted@v2.1.2
+        with:
+          args: -f .busted
