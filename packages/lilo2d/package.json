@@ -8,8 +8,9 @@
     "copy-dts": "copyfiles -u 1 src/**/*.d.ts dist",
     "build": "pnpm clean && tstl -p tsconfig.build.json && pnpm copy-dts",
     "clean-tests": "rimraf ./tests_out",
-    "test": "pnpm clean-tests && tstl -p tsconfig.unittests.json && busted",
-    "test-dev": "pnpm clean-tests && tstl -p tsconfig.unittests.json && busted --run=devUnit",
+    "build-test": "pnpm clean-tests && tstl -p tsconfig.unittests.json",
+    "test": "pnpm build-test && busted",
+    "test-dev": "pnpm build-test && busted --run=devUnit",
     "docs": "typedoc",
     "prettier-check": "prettier -c \"src/**/*.ts\" \"tests/**/*.ts\"",
     "prettier": "prettier -w \"src/**/*.ts\" \"tests/**/*.ts\"",
@@ -27,7 +28,7 @@
   "devDependencies": {
     "@typescript-to-lua/language-extensions": "^1.19.0",
     "busted-tstl": "0.1.2-rc.0",
-    "love-typescript-definitions": "^11.4.1",
+    "love-typescript-definitions": "^11.4.2",
     "lua-types": "^2.13.1",
     "typescript-to-lua": "^1.20.1"
   }

@@ -1,0 +1,44 @@
+name: lint, build and test Lilo2d
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  push:
+    branches:
+      - main
+jobs:
+  lint-build-and-test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [20]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Prettier check
+        run: pnpm prettier-lilo2d
+
+      - name: Linting
+        run: pnpm lint-lilo2d
+
+      - name: build
+        run: pnpm build-lilo2d
+
+      - name: build tests
+        run: pnpm test-lilo2d
+
+      - name: test with busted
+        uses: lunarmodules/busted@v2.1.2
+        with:
+          args: packages/lilo2d/tests_out --pattern="%.test%." --lpath="packages/lilo2d/tests_out/?.lua"
