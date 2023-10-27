@@ -2,7 +2,7 @@ name: build and test Lilo2d
 on:
   push:
 jobs:
-  lint:
+  build-and-test:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -25,4 +25,4 @@ jobs:
       - name: build tests
         run: pnpm test-lilo2d
       - name: run busted
-        uses: lunarmodules/busted@v0
+        uses: lunarmodules/busted@v1
