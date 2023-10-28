@@ -1,14 +1,30 @@
 import { Point } from './point';
 
 /**
+ * Math helper functions.
  * @noSelf
  */
 export class LiloMath {
+  /**
+   * Lerp between two values.
+   * @param a The start number.
+   * @param b The end number.
+   * @param position The position to lerp to (0 - 1).
+   * @returns The number at the position.
+   */
   static lerp(a: number, b: number, position: number): number {
     return a + position * (b - a);
   }
 
+  /**
+   * Clamp a number between a minimum and a maximum number.
+   * @param value The value to clamp.
+   * @param min The minimum value.
+   * @param max The maximum value.
+   * @returns The clamped number.
+   */
   static clamp(value: number, min: number, max: number): number {
+    // Swap the numbers if min is bigger than max.
     if (min > max) {
       const temp = max;
       max = min;
@@ -24,14 +40,42 @@ export class LiloMath {
     }
   }
 
+  /**
+   * Calculate the distance between two points.
+   * @param x1 The x position of the first point.
+   * @param y1 The y position of the first point.
+   * @param x2 The x position of the second point.
+   * @param y2 The y position of the second point.
+   * @returns The distance.
+   */
   static distance(x1: number, y1: number, x2: number, y2: number): number {
     return math.sqrt(math.pow(x2 - x1, 2) + math.pow(y2 - y1, 2));
   }
 
+  /**
+   * Compare two numbers that are almost equal.
+   * @param a The first number.
+   * @param b The second number.
+   * @param epsilon The precision to compare with.
+   * @returns True if the numbers are almost equal.
+   */
   static fuzzyEqual(a: number, b: number, epsilon = 0.0001): boolean {
     return math.abs(a - b) < epsilon;
   }
 
+  /**
+   * Check if two lines intersect with each other.
+   * @param p1StartX The x position of the start of the first line.
+   * @param p1StartY The y position of the start of the first line.
+   * @param p1EndX The x position of the end of the first line.
+   * @param p1EndY The y position of the end of the first line.
+   * @param p2StartX The x position of the start of the second line.
+   * @param p2StartY The y position of the start of the second line.
+   * @param p2EndX The x position of the end of the second line.
+   * @param p2EndY The x position of the end of the second line.
+   * @param out Optional variable to store the intersect position in.
+   * @returns True if the lines intersect.
+   */
   static linesIntersect(
     p1StartX: number,
     p1StartY: number,
@@ -73,6 +117,7 @@ export class LiloMath {
       return false;
     }
 
+    // Calculate the intersection point.
     if (out) {
       const point = Point.get(p1StartX, p1StartY);
       b.multiplyVal(t);
@@ -97,6 +142,15 @@ export class LiloMath {
     return true;
   }
 
+  /**
+   * Rotate a point around another point.
+   * @param x The x position of the point to rotate.
+   * @param y The y position of the point to rotate.
+   * @param originX The x position of the point to rotate around.
+   * @param originY The y position of the point to rotate around.
+   * @param angle The angle to rotate to in degrees.
+   * @returns The x and y point of the rotated position.
+   */
   static rotateAround(
     x: number,
     y: number,

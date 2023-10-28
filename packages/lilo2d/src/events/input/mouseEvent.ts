@@ -106,15 +106,6 @@ export class MouseEvent extends Event {
   }
 
   /**
-   * Remove all objects from the pool.
-   */
-  static clearPool(): void {
-    while (MouseEvent.pool.length > 0) {
-      MouseEvent.pool.pop();
-    }
-  }
-
-  /**
    * Puts the event back into the pool.
    */
   override put(): void {

@@ -1,16 +1,54 @@
+/**
+ * 2D point class.
+ */
 export class Point {
+  /**
+   * Left direction to compare with.
+   */
   static readonly LEFT = new Point(-1, 0);
+
+  /**
+   * Right direction to compare with.
+   */
   static readonly RIGHT = new Point(1, 0);
+
+  /**
+   * Up direction to compare with.
+   */
   static readonly UP = new Point(0, -1);
+
+  /**
+   * Down direction to compare with.
+   */
   static readonly DOWN = new Point(0, 1);
+
+  /**
+   * None direction to compare with.
+   */
   static readonly ZERO = new Point(0, 0);
 
+  /**
+   * The x axis position.
+   */
   x: number;
+
+  /**
+   * The y axis position.
+   */
   y: number;
 
+  /**
+   * Object pool.
+   */
   private static pool: Point[] = [];
 
-  /** @noSelf */
+  /**
+   * Get a point from the pool.
+   * @param x Optional x position.
+   * @param y Optional y position.
+   * @returns The point.
+   * @noSelf
+   */
   static get(x = 0, y = 0): Point {
     if (Point.pool.length > 0) {
       const point = Point.pool.pop()!;
@@ -23,7 +61,14 @@ export class Point {
     }
   }
 
-  /** @noSelf */
+  /**
+   * Add two points.
+   * @param a The first point.
+   * @param b The second point.
+   * @param out Optional point to store the result.
+   * @returns The result.
+   * @noSelf
+   */
   static addPoints(a: Point, b: Point, out?: Point): Point {
     if (!out) {
       out = new Point();
@@ -33,7 +78,14 @@ export class Point {
     return out;
   }
 
-  /** @noSelf */
+  /**
+   * Subtract two points.
+   * @param a The first point.
+   * @param b The second point.
+   * @param out Optional point to store the result.
+   * @returns The result.
+   * @noSelf
+   */
   static subtractPoints(a: Point, b: Point, out?: Point): Point {
     if (!out) {
       out = new Point();
@@ -43,7 +95,14 @@ export class Point {
     return out;
   }
 
-  /** @noSelf */
+  /**
+   * Multiply two points.
+   * @param a The first point.
+   * @param b The second point.
+   * @param out Optional point to store the result.
+   * @returns The result.
+   * @noSelf
+   */
   static multiplyPoints(a: Point, b: Point, out?: Point): Point {
     if (!out) {
       out = new Point();
@@ -53,7 +112,14 @@ export class Point {
     return out;
   }
 
-  /** @noSelf */
+  /**
+   * Divide two points.
+   * @param a The first point.
+   * @param b The second point.
+   * @param out Optional point to store the result.
+   * @returns The result.
+   * @noSelf
+   */
   static dividePoints(a: Point, b: Point, out?: Point): Point {
     if (!out) {
       out = new Point();
@@ -63,12 +129,26 @@ export class Point {
     return out;
   }
 
-  /** @noSelf */
+  /**
+   * Calculate the distance between two points.
+   * @param a The first point.
+   * @param b The second point.
+   * @returns The distance.
+   * @noSelf
+   */
   static distance(a: Point, b: Point): number {
     return math.sqrt(math.pow(b.x - a.x, 2) + math.pow(b.y - a.y, 2));
   }
 
-  /** @noSelf */
+  /**
+   * Rotate a point around an x and y position. This modifies the point.
+   * @param pos The position to rotate.
+   * @param x The x position.
+   * @param y The y position.
+   * @param angle The angle to rotate to in degrees.
+   * @returns The rotated position.
+   * @noSelf
+   */
   static rotateAround(pos: Point, x: number, y: number, angle: number): Point {
     const rad = math.rad(angle);
     const c = math.cos(rad);
@@ -83,15 +163,29 @@ export class Point {
     return pos;
   }
 
-  /** @noSelf */
+  /**
+   * Rotate a point around another point. This modifies the point.
+   * @param pos The point to rotate.
+   * @param point The point to rotate around.
+   * @param angle The angle to rotate to in degrees.
+   * @returns The rotated point.
+   */
   static rotateAroundPoint(pos: Point, point: Point, angle: number): Point {
     return Point.rotateAround(pos, point.x, point.y, angle);
   }
 
+  /**
+   * Get the length of this point.
+   * @returns The length.
+   */
   getLength(): number {
     return math.sqrt(this.x * this.x + this.y * this.y);
   }
 
+  /**
+   * Set the length of this point.
+   * @param value The new length.
+   */
   setLength(value: number): void {
     const l = this.getLength();
 
@@ -109,6 +203,12 @@ export class Point {
     this.y = y;
   }
 
+  /**
+   * Set new point values.
+   * @param x The new x position.
+   * @param y The new y position.
+   * @returns This point.
+   */
   set(x: number, y: number): Point {
     this.x = x;
     this.y = y;
@@ -116,6 +216,11 @@ export class Point {
     return this;
   }
 
+  /**
+   * Clone this point.
+   * @param out Optional value to store the point in.
+   * @returns The cloned point.
+   */
   clone(out?: Point): Point {
     if (!out) {
       out = new Point();
@@ -125,6 +230,11 @@ export class Point {
     return out;
   }
 
+  /**
+   * Copy the values from another point.
+   * @param other The point to copy.
+   * @returns This point.
+   */
   copyFrom(other: Point): Point {
     this.x = other.x;
     this.y = other.y;
@@ -132,10 +242,20 @@ export class Point {
     return this;
   }
 
+  /**
+   * Compare a point with this point.
+   * @param other The point to compare with.
+   * @returns True if the points are equal.
+   */
   equals(other: Point): boolean {
     return this.x === other.x && this.y === other.y;
   }
 
+  /**
+   * Add a point.
+   * @param other The point to add.
+   * @returns This point.
+   */
   add(other: Point): Point {
     this.x += other.x;
     this.y += other.y;
@@ -143,6 +263,11 @@ export class Point {
     return this;
   }
 
+  /**
+   * Add a value.
+   * @param value The value to add.
+   * @returns This point.
+   */
   addVal(value: number): Point {
     this.x += value;
     this.y += value;
@@ -150,6 +275,11 @@ export class Point {
     return this;
   }
 
+  /**
+   * Subtract a point.
+   * @param other The point to subtract.
+   * @returns This point.
+   */
   subtract(other: Point): Point {
     this.x -= other.x;
     this.y -= other.y;
@@ -157,6 +287,11 @@ export class Point {
     return this;
   }
 
+  /**
+   * Subtract a value.
+   * @param value The value to subtract.
+   * @returns This point.
+   */
   subtractVal(value: number): Point {
     this.x -= value;
     this.y -= value;
@@ -164,6 +299,11 @@ export class Point {
     return this;
   }
 
+  /**
+   * Subtract with a point.
+   * @param other The point to multiply with.
+   * @returns This point.
+   */
   multiply(other: Point): Point {
     this.x *= other.x;
     this.y *= other.y;
@@ -171,6 +311,11 @@ export class Point {
     return this;
   }
 
+  /**
+   * Subtract with a point.
+   * @param value The value to multiply with.
+   * @returns This point.
+   */
   multiplyVal(value: number): Point {
     this.x *= value;
     this.y *= value;
@@ -178,6 +323,11 @@ export class Point {
     return this;
   }
 
+  /**
+   * Divide by another point.
+   * @param other The point to device by.
+   * @returns This point.
+   */
   divide(other: Point): Point {
     this.x /= other.x;
     this.y /= other.y;
@@ -185,6 +335,11 @@ export class Point {
     return this;
   }
 
+  /**
+   * Divide this point by a value.
+   * @param value The value to divide by.
+   * @returns This point.
+   */
   divideVal(value: number): Point {
     this.x /= value;
     this.y /= value;
@@ -192,10 +347,19 @@ export class Point {
     return this;
   }
 
+  /**
+   * Get the dot product between two points.
+   * @param other The other point.
+   * @returns The dot product.
+   */
   dot(other: Point): number {
     return this.x * other.x + this.y * other.y;
   }
 
+  /**
+   * Normalize this point.
+   * @returns This point.
+   */
   normalize(): Point {
     const l = this.getLength();
     if (l > 0) {
@@ -206,6 +370,11 @@ export class Point {
     return this;
   }
 
+  /**
+   * Get a normalized version of this point.
+   * @param out Optional variable to store the values in.
+   * @returns The normalized point.
+   */
   normalized(out?: Point): Point {
     if (out) {
       return out.copyFrom(this).normalize();
@@ -214,11 +383,10 @@ export class Point {
     }
   }
 
+  /**
+   * Put this point back into the pool.
+   */
   put(): void {
     Point.pool.push(this);
-  }
-
-  toString(): string {
-    return `x: ${this.x}, y: ${this.y}`;
   }
 }

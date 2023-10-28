@@ -17,6 +17,9 @@ importers:
       '@typescript-eslint/parser':
         specifier: ^6.9.0
         version: 6.9.0(eslint@8.52.0)(typescript@5.2.2)
+      '@typescript-to-lua/language-extensions':
+        specifier: ^1.19.0
+        version: 1.19.0
       copyfiles:
         specifier: ^2.4.1
         version: 2.4.1
@@ -26,6 +29,15 @@ importers:
       eslint-config-prettier:
         specifier: ^9.0.0
         version: 9.0.0(eslint@8.52.0)
+      love-typescript-definitions:
+        specifier: ^11.4.2
+        version: 11.4.2
+      love.js:
+        specifier: ^11.4.1
+        version: 11.4.1
+      lua-types:
+        specifier: ^2.13.1
+        version: 2.13.1
       prettier:
         specifier: ^3.0.3
         version: 3.0.3
@@ -38,71 +50,21 @@ importers:
       typescript:
         specifier: ^5.2.2
         version: 5.2.2
-
-  packages/lilo2d:
-    devDependencies:
-      '@typescript-to-lua/language-extensions':
-        specifier: ^1.19.0
-        version: 1.19.0
-      busted-tstl:
-        specifier: 0.1.2-rc.0
-        version: 0.1.2-rc.0
-      love-typescript-definitions:
-        specifier: ^11.4.2
-        version: 11.4.2
-      lua-types:
-        specifier: ^2.13.1
-        version: 2.13.1
       typescript-to-lua:
         specifier: ^1.20.1
         version: 1.20.1(typescript@5.2.2)
+
+  packages/lilo2d:
+    devDependencies:
+      busted-tstl:
+        specifier: 0.1.2-rc.0
+        version: 0.1.2-rc.0
 
   testprojects/bunnies:
     dependencies:
       lilo2d:
         specifier: workspace:*
         version: link:../../packages/lilo2d
-    devDependencies:
-      '@typescript-to-lua/language-extensions':
-        specifier: ^1.19.0
-        version: 1.19.0
-      copyfiles:
-        specifier: ^2.4.1
-        version: 2.4.1
-      love-typescript-definitions:
-        specifier: ^11.4.2
-        version: 11.4.2
-      love.js:
-        specifier: ^11.4.1
-        version: 11.4.1
-      lua-types:
-        specifier: ^2.13.1
-        version: 2.13.1
-      typescript-to-lua:
-        specifier: ^1.20.1
-        version: 1.20.1(typescript@5.2.2)
-
-  testprojects/runloop:
-    dependencies:
-      lilo2d:
-        specifier: workspace:*
-        version: link:../../packages/lilo2d
-    devDependencies:
-      '@typescript-to-lua/language-extensions':
-        specifier: ^1.19.0
-        version: 1.19.0
-      copyfiles:
-        specifier: ^2.4.1
-        version: 2.4.1
-      love-typescript-definitions:
-        specifier: ^11.4.2
-        version: 11.4.2
-      lua-types:
-        specifier: ^2.13.1
-        version: 2.13.1
-      typescript-to-lua:
-        specifier: ^1.20.1
-        version: 1.20.1(typescript@5.2.2)
 
 packages:
 
@@ -121,8 +83,8 @@ packages:
       eslint-visitor-keys: 3.4.3
     dev: true
 
-  /@eslint-community/regexpp@4.9.1:
-    resolution: {integrity: sha512-Y27x+MBLjXa+0JWDhykM3+JE+il3kHKAEqabfEWq3SDhZjLYb6/BHL/JKFnH3fe207JaXkyDo685Oc2Glt6ifA==}
+  /@eslint-community/regexpp@4.10.0:
+    resolution: {integrity: sha512-Cu96Sd2By9mCNTx2iyKOmq10v22jUVQv0lQnlGNy16oE9589yE+QADPbrMGCkA51cKZSg3Pu/aTJVTGfL/qjUA==}
     engines: {node: ^12.0.0 || ^14.0.0 || >=16.0.0}
     dev: true
 
@@ -233,7 +195,7 @@ packages:
       typescript:
         optional: true
     dependencies:
-      '@eslint-community/regexpp': 4.9.1
+      '@eslint-community/regexpp': 4.10.0
       '@typescript-eslint/parser': 6.9.0(eslint@8.52.0)(typescript@5.2.2)
       '@typescript-eslint/scope-manager': 6.9.0
       '@typescript-eslint/type-utils': 6.9.0(eslint@8.52.0)(typescript@5.2.2)
@@ -361,16 +323,16 @@ packages:
     resolution: {integrity: sha512-zuVdFrMJiuCDQUMCzQaD6KL28MjnqqN8XnAqiEq9PNm/hCPTSGfrXCOfwj1ow4LFb/tNymJPwsNbVePc1xFqrQ==}
     dev: true
 
-  /acorn-jsx@5.3.2(acorn@8.10.0):
+  /acorn-jsx@5.3.2(acorn@8.11.2):
     resolution: {integrity: sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ==}
     peerDependencies:
       acorn: ^6.0.0 || ^7.0.0 || ^8.0.0
     dependencies:
-      acorn: 8.10.0
+      acorn: 8.11.2
     dev: true
 
-  /acorn@8.10.0:
-    resolution: {integrity: sha512-F0SAmZ8iUtS//m8DmCTA0jlh6TDKkHQyK6xc6V4KDTyZKA9dnvX9/3sRTVQrWm79glUAZbnmmNcdYwUIHWVybw==}
+  /acorn@8.11.2:
+    resolution: {integrity: sha512-nc0Axzp/0FILLEVsm4fNwLCwMttvhEI263QtVPQcbpfZZ3ts0hLsZGOpE6czNlid7CJ9MlyH8reXkpsf3YUY4w==}
     engines: {node: '>=0.4.0'}
     hasBin: true
     dev: true
@@ -601,7 +563,7 @@ packages:
     hasBin: true
     dependencies:
       '@eslint-community/eslint-utils': 4.4.0(eslint@8.52.0)
-      '@eslint-community/regexpp': 4.9.1
+      '@eslint-community/regexpp': 4.10.0
       '@eslint/eslintrc': 2.1.2
       '@eslint/js': 8.52.0
       '@humanwhocodes/config-array': 0.11.13
@@ -646,8 +608,8 @@ packages:
     resolution: {integrity: sha512-oruZaFkjorTpF32kDSI5/75ViwGeZginGGy2NoOSg3Q9bnwlnmDm4HLnkl0RE3n+njDXR037aY1+x58Z/zFdwQ==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dependencies:
-      acorn: 8.10.0
-      acorn-jsx: 5.3.2(acorn@8.10.0)
+      acorn: 8.11.2
+      acorn-jsx: 5.3.2(acorn@8.11.2)
       eslint-visitor-keys: 3.4.3
     dev: true
 

@@ -1,9 +1,18 @@
-import { Events, Game, KeyboardEvent, MouseEvent, Scene, Scenes, View } from 'lilo2d';
+import { Assets, Events, Game, KeyboardEvent, MouseEvent, Scene, Scenes, View } from 'lilo2d';
 import { Image } from 'love.graphics';
 import { Bunny } from './bunny';
 import { Label } from './label';
 
-class TestScene extends Scene {
+class LoadScene extends Scene {
+  override load(): void {
+    Assets.loadImage('bunny', 'assets/bunny.png');
+    Assets.loadFont('labelFont', 16);
+
+    Scenes.replace(GameScene);
+  }
+}
+
+class GameScene extends Scene {
   private bunnyImage!: Image;
 
   private readonly gravity = 550;
@@ -14,12 +23,26 @@ class TestScene extends Scene {
 
   private bunnyCountLabel!: Label;
 
-  override load(): void {
-    this.bunnyImage = love.graphics.newImage('assets/bunny.png');
+  private infoLabel!: Label;
 
-    const font = love.graphics.newFont(16);
+  override load(): void {
+    this.bunnyImage = Assets.getImage('bunny');
+
+    const font = Assets.getFont('labelFont');
+
     this.bunnyCountLabel = new Label(10, 10, font, 'Bunnies: 0');
     this.addEntity(this.bunnyCountLabel);
+
+    const [viewX] = View.getViewSize();
+    this.infoLabel = new Label(
+      viewX - 10,
+      10,
+      font,
+      'R to restart. L to swap label layer. S to toggle debug info.',
+      1,
+      0
+    );
+    this.addEntity(this.infoLabel);
 
     this.createBunny();
 
@@ -32,8 +55,13 @@ class TestScene extends Scene {
     });
 
     Events.on(KeyboardEvent.PRESSED, (event: KeyboardEvent) => {
-      if (event.key == 'r') {
-        Scenes.replace(TestScene);
+      if (event.key === 'r') {
+        Scenes.replace(GameScene);
+      } else if (event.key === 'l') {
+        this.bunnyCountLabel.layer = this.bunnyCountLabel.layer === 2 ? 0 : 2;
+        this.infoLabel.layer = this.infoLabel.layer === 2 ? 0 : 2;
+      } else if (event.key === 's') {
+        Game.showDebugInfo = !Game.showDebugInfo;
       }
     });
   }
@@ -57,5 +85,5 @@ class TestScene extends Scene {
   }
 }
 
-Game.start(800, 600, TestScene);
+Game.start(800, 600, LoadScene);
 Game.showDebugInfo = true;

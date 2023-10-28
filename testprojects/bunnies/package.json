@@ -13,14 +13,6 @@
   "keywords": [],
   "author": "",
   "license": "MIT",
-  "devDependencies": {
-    "@typescript-to-lua/language-extensions": "^1.19.0",
-    "copyfiles": "^2.4.1",
-    "love-typescript-definitions": "^11.4.2",
-    "love.js": "^11.4.1",
-    "lua-types": "^2.13.1",
-    "typescript-to-lua": "^1.20.1"
-  },
   "dependencies": {
     "lilo2d": "workspace:*"
   }

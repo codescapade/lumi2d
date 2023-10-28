@@ -2,6 +2,7 @@ import { Entity } from './entity';
 import { EventHandler, Events } from './events';
 import { Color } from './graphics';
 import { Camera } from './graphics/camera';
+import { View } from './view';
 
 /**
  * The scene manager class.
@@ -96,21 +97,40 @@ export class Scene {
    */
   isOverlay = false;
 
-  cameras: Camera[] = [];
+  /**
+   * All cameras in the scene.
+   */
+  protected cameras: Camera[] = [];
 
-  layers: Entity[][] = [];
+  /**
+   * All entity layers.
+   */
+  protected layers: Entity[][] = [];
 
-  entities: Entity[] = [];
+  /**
+   * All entities in the scene.
+   */
+  protected entities: Entity[] = [];
 
   /**
    * All events added to this scene using the global Events class.
    */
   private eventHandlers = new LuaTable<string, EventHandler[]>();
 
+  /**
+   * A list of entities to remove on the next update.
+   */
   private entitiesToRemove: Entity[] = [];
 
+  /**
+   * A table of every entity and the current layer they are on.
+   * Used to check if an entity moved to a different layer.
+   */
   private layerTracking = new LuaTable<Entity, number>();
 
+  /**
+   * Create a new scene instance. Called by the Scene manager. Don't call this yourself.
+   */
   constructor() {
     for (const _ of $range(1, 16)) {
       this.layers.push([]);
@@ -124,12 +144,20 @@ export class Scene {
    */
   load(): void {}
 
+  /**
+   * Add a new entity to the scene.
+   * @param entity The entity to add.
+   */
   addEntity(entity: Entity): void {
     this.entities.push(entity);
     this.layerTracking.set(entity, entity.layer);
     this.layers[entity.layer].push(entity);
   }
 
+  /**
+   * Remove an entity from the scene. It will be removed on the next update.
+   * @param entity The entity to remove.
+   */
   removeEntity(entity: Entity): void {
     this.entitiesToRemove.push(entity);
   }
@@ -138,7 +166,6 @@ export class Scene {
    * Update gets called every frame. If you override it and don't call super.update() entities will not be updated.
    * @param dt The time passed since the last update in seconds.
    */
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   update(dt: number): void {
     while (this.entitiesToRemove.length > 0) {
       const entity = this.entitiesToRemove.pop()!;
@@ -146,11 +173,13 @@ export class Scene {
         entity.destroy();
       }
 
+      // Remove the entity from entities
       let index = this.entities.indexOf(entity);
       if (index !== -1) {
         this.entities.splice(index, 1);
       }
 
+      // Remove the entity from the layer.
       const layer = this.layerTracking.get(entity);
       index = this.layers[layer].indexOf(entity);
       if (index !== -1) {
@@ -161,17 +190,8 @@ export class Scene {
 
     for (const entity of this.entities) {
       if (entity.active) {
-        // Update entity layer if it has changed.
-        const layer = entity.layer;
-        const currentLayer = this.layerTracking.get(entity);
-        if (currentLayer !== layer) {
-          const index = this.layers[currentLayer].indexOf(entity);
-          if (index !== -1) {
-            this.layers[currentLayer].splice(index, 1);
-          }
-          this.layerTracking.set(entity, layer);
-          this.layers[layer].push(entity);
-        }
+        // Update layers.
+        this.updateEntityLayer(entity);
 
         // Update the entity.
         if (entity.update) {
@@ -186,7 +206,6 @@ export class Scene {
    * For example if there is a physics update in between.
    * @param dt The time passed since the last update in seconds.
    */
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   lateUpdate(dt: number): void {
     for (const entity of this.entities) {
       if (entity.active && entity.lateUpdate) {
@@ -200,17 +219,24 @@ export class Scene {
    */
   draw(): void {
     const [currentCanvas] = love.graphics.getCanvas();
+
+    // Draw all entities using each camera.
     for (const camera of this.cameras) {
       if (camera.active) {
         camera.updateTransform();
 
+        // Set the canvas to the camera canvas and clear it.
         love.graphics.setCanvas(camera.canvas);
         const [r, g, b, a] = camera.bgColor.parts();
         love.graphics.clear(r, g, b, a);
 
+        // Apply the camera transform to render the entities in the correct place.
         love.graphics.push();
         love.graphics.applyTransform(camera.transform);
 
+        /**
+         * Render each layer of entities if the layer should not be ignored.
+         */
         for (let i = 0; i < this.layers.length; i++) {
           if (!camera.ignoredLayers.includes(i)) {
             const layer = this.layers[i];
@@ -225,13 +251,15 @@ export class Scene {
         love.graphics.pop();
       }
     }
+
     love.graphics.setCanvas(currentCanvas);
     love.graphics.origin();
     const [r, g, b, a] = Color.WHITE.parts();
     love.graphics.setColor(r, g, b, a);
 
+    // Render all cameras to the main canvas.
     for (const camera of this.cameras) {
-      love.graphics.draw(camera.canvas, camera.drawBounds.x, camera.drawBounds.y);
+      love.graphics.draw(camera.canvas, camera.screenBounds.x, camera.screenBounds.y);
     }
   }
 
@@ -241,7 +269,15 @@ export class Scene {
    * @param height The new window height in pixels.
    */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  resize(width: number, height: number): void {}
+  resize(width: number, height: number): void {
+    // Resize the view of all fullscreen cameras.
+    const [viewWidth, viewHeight] = View.getViewSize();
+    for (const camera of this.cameras) {
+      if (camera.isFullScreen) {
+        camera.updateScreenBounds(0, 0, viewWidth, viewHeight);
+      }
+    }
+  }
 
   /**
    * Gets called when a scene is removed from the scene manager.
@@ -255,5 +291,23 @@ export class Scene {
    */
   getEventHandlers(): LuaTable<string, EventHandler[]> {
     return this.eventHandlers;
+  }
+
+  /**
+   * Check if an entity has move to a different layer and move it to that layer if true.
+   * @param entity The entity to check.
+   */
+  protected updateEntityLayer(entity: Entity): void {
+    // Update entity layer if it has changed.
+    const layer = entity.layer;
+    const currentLayer = this.layerTracking.get(entity);
+    if (currentLayer !== layer) {
+      const index = this.layers[currentLayer].indexOf(entity);
+      if (index !== -1) {
+        this.layers[currentLayer].splice(index, 1);
+      }
+      this.layerTracking.set(entity, layer);
+      this.layers[layer].push(entity);
+    }
   }
 }

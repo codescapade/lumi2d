@@ -62,15 +62,6 @@ export class KeyboardEvent extends Event {
   }
 
   /**
-   * Remove all objects from the pool.
-   */
-  static clearPool(): void {
-    while (KeyboardEvent.pool.length > 0) {
-      KeyboardEvent.pool.pop();
-    }
-  }
-
-  /**
    * Puts the event back into the pool.
    */
   override put(): void {
