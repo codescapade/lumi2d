@@ -1,4 +1,7 @@
+import { Entity } from './entity';
 import { EventHandler, Events } from './events';
+import { Color } from './graphics';
+import { Camera } from './graphics/camera';
 
 /**
  * The scene manager class.
@@ -93,22 +96,90 @@ export class Scene {
    */
   isOverlay = false;
 
+  cameras: Camera[] = [];
+
+  layers: Entity[][] = [];
+
+  entities: Entity[] = [];
+
   /**
    * All events added to this scene using the global Events class.
    */
   private eventHandlers = new LuaTable<string, EventHandler[]>();
+
+  private entitiesToRemove: Entity[] = [];
+
+  private layerTracking = new LuaTable<Entity, number>();
+
+  constructor() {
+    for (const _ of $range(1, 16)) {
+      this.layers.push([]);
+    }
+    // Add a default camera to the scene.
+    this.cameras.push(new Camera());
+  }
 
   /**
    * Load gets called after creating the scene. This can be used to create entities, load tilemaps, etc.
    */
   load(): void {}
 
+  addEntity(entity: Entity): void {
+    this.entities.push(entity);
+    this.layerTracking.set(entity, entity.layer);
+    this.layers[entity.layer].push(entity);
+  }
+
+  removeEntity(entity: Entity): void {
+    this.entitiesToRemove.push(entity);
+  }
+
   /**
    * Update gets called every frame. If you override it and don't call super.update() entities will not be updated.
    * @param dt The time passed since the last update in seconds.
    */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  update(dt: number): void {}
+  update(dt: number): void {
+    while (this.entitiesToRemove.length > 0) {
+      const entity = this.entitiesToRemove.pop()!;
+      if (entity.destroy) {
+        entity.destroy();
+      }
+
+      let index = this.entities.indexOf(entity);
+      if (index !== -1) {
+        this.entities.splice(index, 1);
+      }
+
+      const layer = this.layerTracking.get(entity);
+      index = this.layers[layer].indexOf(entity);
+      if (index !== -1) {
+        this.layers[layer].splice(index, 1);
+      }
+      this.layerTracking.set(entity, -1);
+    }
+
+    for (const entity of this.entities) {
+      if (entity.active) {
+        // Update entity layer if it has changed.
+        const layer = entity.layer;
+        const currentLayer = this.layerTracking.get(entity);
+        if (currentLayer !== layer) {
+          const index = this.layers[currentLayer].indexOf(entity);
+          if (index !== -1) {
+            this.layers[currentLayer].splice(index, 1);
+          }
+          this.layerTracking.set(entity, layer);
+          this.layers[layer].push(entity);
+        }
+
+        // Update the entity.
+        if (entity.update) {
+          entity.update(dt);
+        }
+      }
+    }
+  }
 
   /**
    * Late update gets called after update. Sometimes it is useful to update entities again after the first update.
@@ -116,12 +187,53 @@ export class Scene {
    * @param dt The time passed since the last update in seconds.
    */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  lateUpdate(dt: number): void {}
+  lateUpdate(dt: number): void {
+    for (const entity of this.entities) {
+      if (entity.active && entity.lateUpdate) {
+        entity.lateUpdate(dt);
+      }
+    }
+  }
 
   /**
    * Draw gets called every frame. If you override it and don't call super.draw() entities will not be drawn.
    */
-  draw(): void {}
+  draw(): void {
+    const [currentCanvas] = love.graphics.getCanvas();
+    for (const camera of this.cameras) {
+      if (camera.active) {
+        camera.updateTransform();
+
+        love.graphics.setCanvas(camera.canvas);
+        const [r, g, b, a] = camera.bgColor.parts();
+        love.graphics.clear(r, g, b, a);
+
+        love.graphics.push();
+        love.graphics.applyTransform(camera.transform);
+
+        for (let i = 0; i < this.layers.length; i++) {
+          if (!camera.ignoredLayers.includes(i)) {
+            const layer = this.layers[i];
+            for (const entity of layer) {
+              if (entity.active && entity.draw) {
+                entity.draw();
+              }
+            }
+          }
+        }
+
+        love.graphics.pop();
+      }
+    }
+    love.graphics.setCanvas(currentCanvas);
+    love.graphics.origin();
+    const [r, g, b, a] = Color.WHITE.parts();
+    love.graphics.setColor(r, g, b, a);
+
+    for (const camera of this.cameras) {
+      love.graphics.draw(camera.canvas, camera.drawBounds.x, camera.drawBounds.y);
+    }
+  }
 
   /**
    * Resize gets called when the window resizes.

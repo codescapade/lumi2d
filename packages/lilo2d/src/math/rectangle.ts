@@ -1,3 +1,6 @@
+import { LiloMath } from './liloMath';
+import { Point } from './point';
+
 /**
  * Rectangle class.
  */
@@ -44,5 +47,88 @@ export class Rectangle {
    */
   hasPoint(x: number, y: number): boolean {
     return x >= this.x && x <= this.x + this.width && y >= this.y && y <= this.y + this.height;
+  }
+
+  /**
+   * Check if two rectangles intersect.
+   * @param rect The rectangle to check with.
+   * @returns True if the rectangles intersect.
+   */
+  intersects(rect: Rectangle): boolean {
+    return (
+      this.x < rect.x + rect.width &&
+      this.x + this.width > rect.x &&
+      this.y < rect.y + rect.height &&
+      this.y + this.height > rect.y
+    );
+  }
+
+  /**
+   * Check if a line intersects with this rectangle.
+   * @param startX The x position of the line start.
+   * @param startY The y position of the line start.
+   * @param endX The x position of the line end.
+   * @param endY The y position of the line end.
+   * @param out The intersect point.
+   * @returns True if the line intersects.
+   */
+  intersectsLine(startX: number, startY: number, endX: number, endY: number, out?: Point): boolean {
+    let intersects = false;
+
+    if (LiloMath.linesIntersect(startX, startY, endX, endY, this.x, this.y, this.x + this.width, this.y, out)) {
+      intersects = true;
+    }
+
+    if (
+      LiloMath.linesIntersect(
+        startX,
+        startY,
+        endX,
+        endY,
+        this.x + this.width,
+        this.y + this.height,
+        this.x + this.width,
+        this.y,
+        out
+      )
+    ) {
+      intersects = true;
+    }
+
+    if (
+      LiloMath.linesIntersect(
+        startX,
+        startY,
+        endX,
+        endY,
+        this.x + this.width,
+        this.y + this.height,
+        this.x,
+        this.y + this.height,
+        out
+      )
+    ) {
+      intersects = true;
+    }
+
+    if (LiloMath.linesIntersect(startX, startY, endX, endY, this.x, this.y, this.x, this.y + this.height, out)) {
+      intersects = true;
+    }
+
+    return intersects;
+  }
+
+  /**
+   * Update the rectangle values.
+   * @param x The new x position.
+   * @param y The new y position.
+   * @param width The new width.
+   * @param height The new height.
+   */
+  set(x: number, y: number, width: number, height: number): void {
+    this.x = x;
+    this.y = y;
+    this.width = width;
+    this.height = height;
   }
 }

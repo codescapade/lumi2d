@@ -9,8 +9,8 @@
       "path": "packages/lilo2d"
     },
     {
-      "name": "runloop",
-      "path": "testprojects/runloop"
+      "name": "bunnies",
+      "path": "testprojects/bunnies"
     }
   ],
   "settings": {

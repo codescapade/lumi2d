@@ -32,13 +32,13 @@ jobs:
       - name: Linting
         run: pnpm lint-lilo2d
 
-      - name: build
+      - name: Build Lilo2d
         run: pnpm build-lilo2d
 
-      - name: build tests
+      - name: Build Tests
         run: pnpm test-lilo2d
 
-      - name: test with busted
+      - name: Run Tests
         uses: lunarmodules/busted@v2.1.2
         with:
           args: packages/lilo2d/tests_out --pattern="%.test%." --lpath="packages/lilo2d/tests_out/?.lua"

@@ -57,6 +57,31 @@ importers:
         specifier: ^1.20.1
         version: 1.20.1(typescript@5.2.2)
 
+  testprojects/bunnies:
+    dependencies:
+      lilo2d:
+        specifier: workspace:*
+        version: link:../../packages/lilo2d
+    devDependencies:
+      '@typescript-to-lua/language-extensions':
+        specifier: ^1.19.0
+        version: 1.19.0
+      copyfiles:
+        specifier: ^2.4.1
+        version: 2.4.1
+      love-typescript-definitions:
+        specifier: ^11.4.2
+        version: 11.4.2
+      love.js:
+        specifier: ^11.4.1
+        version: 11.4.1
+      lua-types:
+        specifier: ^2.13.1
+        version: 2.13.1
+      typescript-to-lua:
+        specifier: ^1.20.1
+        version: 1.20.1(typescript@5.2.2)
+
   testprojects/runloop:
     dependencies:
       lilo2d:
@@ -454,6 +479,10 @@ packages:
     resolution: {integrity: sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==}
     dev: true
 
+  /commander@2.20.3:
+    resolution: {integrity: sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==}
+    dev: true
+
   /concat-map@0.0.1:
     resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
     dev: true
@@ -718,6 +747,14 @@ packages:
       signal-exit: 4.1.0
     dev: true
 
+  /fs-extra@3.0.1:
+    resolution: {integrity: sha512-V3Z3WZWVUYd8hoCL5xfXJCaHWYzmtwW5XWYSlLgERi8PWd8bx1kUHUk8L1BT57e49oKnDDD180mjfrHc1yA9rg==}
+    dependencies:
+      graceful-fs: 4.2.11
+      jsonfile: 3.0.1
+      universalify: 0.1.2
+    dev: true
+
   /fs.realpath@1.0.0:
     resolution: {integrity: sha512-OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw==}
     dev: true
@@ -913,10 +950,22 @@ packages:
     resolution: {integrity: sha512-gfFQZrcTc8CnKXp6Y4/CBT3fTc0OVuDofpre4aEeEpSBPV5X5v4+Vmx+8snU7RLPrNHPKSgLxGo9YuQzz20o+w==}
     dev: true
 
+  /jsonfile@3.0.1:
+    resolution: {integrity: sha512-oBko6ZHlubVB5mRFkur5vgYR1UyqX+S6Y/oCfLhqNdcc2fYFlDpIoNc7AfKS1KOGcnNAkvsr0grLck9ANM815w==}
+    optionalDependencies:
+      graceful-fs: 4.2.11
+    dev: true
+
   /keyv@4.5.4:
     resolution: {integrity: sha512-oxVHkHR/EJf2CNXnWxRLW6mg7JyCCUcG0DtEGmL2ctUo1PNTin1PUil+r/+4r5MpVgC/fn1kjsx7mjSujKqIpw==}
     dependencies:
       json-buffer: 3.0.1
+    dev: true
+
+  /klaw-sync@2.1.0:
+    resolution: {integrity: sha512-lIxVCUMQIF7hfygFfdZgv4Z+e1smLroaYNQMUcf1TcJ5oqxj9m8qk19iIuMVl+tXQPr3CSE4V+4XjGEqmsth0Q==}
+    optionalDependencies:
+      graceful-fs: 4.2.11
     dev: true
 
   /levn@0.4.1:
@@ -940,6 +989,18 @@ packages:
 
   /love-typescript-definitions@11.4.2:
     resolution: {integrity: sha512-JWsc4ocM0T2j5geS89UjAXBKIZlUCpUfYS5Lo5OAHiTyci1973tlAieBNZzP9hm196nltfdSr5iKUuLo9zGLAA==}
+    dev: true
+
+  /love.js@11.4.1:
+    resolution: {integrity: sha512-NLMD2GpIHOCsflgulr18p4+Crizfixgo5ZMbJmDrqVuR7jdketbUDL7X+LCR2o2uMkVU8ZwXnRwT86S7A75yhA==}
+    engines: {node: '>=7.10.0', npm: '>=4.2.0'}
+    hasBin: true
+    dependencies:
+      commander: 2.20.3
+      fs-extra: 3.0.1
+      klaw-sync: 2.1.0
+      mustache: 2.3.2
+      uuid: 3.4.0
     dev: true
 
   /lru-cache@10.0.1:
@@ -1007,6 +1068,12 @@ packages:
 
   /ms@2.1.2:
     resolution: {integrity: sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==}
+    dev: true
+
+  /mustache@2.3.2:
+    resolution: {integrity: sha512-KpMNwdQsYz3O/SBS1qJ/o3sqUJ5wSb8gb0pul8CO0S56b9Y2ALm8zCfsjPXsqGFfoNBkDwZuZIAjhsZI03gYVQ==}
+    engines: {npm: '>=1.4.0'}
+    hasBin: true
     dev: true
 
   /natural-compare@1.4.0:
@@ -1376,6 +1443,11 @@ packages:
     resolution: {integrity: sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==}
     dev: true
 
+  /universalify@0.1.2:
+    resolution: {integrity: sha512-rBJeI5CXAlmy1pV+617WB9J63U6XcazHHF2f2dbJix4XzpUF0RS3Zbj0FGIOCAva5P/d/GBOYaACQ1w+0azUkg==}
+    engines: {node: '>= 4.0.0'}
+    dev: true
+
   /untildify@4.0.0:
     resolution: {integrity: sha512-KK8xQ1mkzZeg9inewmFVDNkg3l5LUhoq9kN6iWYB/CC9YMG8HA+c1Q8HwDe6dEX7kErrEVNVBO3fWsVq5iDgtw==}
     engines: {node: '>=8'}
@@ -1389,6 +1461,12 @@ packages:
 
   /util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
+    dev: true
+
+  /uuid@3.4.0:
+    resolution: {integrity: sha512-HjSDRw6gZE5JMggctHBcjVak08+KEVhSIiDzFnT9S9aegmp85S/bReBVTb4QTFaRNptJ9kuYaNhnbNEOkbKb/A==}
+    deprecated: Please upgrade  to version 7 or higher.  Older versions may use Math.random() in certain circumstances, which is known to be problematic.  See https://v8.dev/blog/math-random for details.
+    hasBin: true
     dev: true
 
   /vscode-oniguruma@1.7.0:
