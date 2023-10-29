@@ -175,6 +175,16 @@ export class Point {
   }
 
   /**
+   * Create a new point.
+   * @param x The x position.
+   * @param y The y position.
+   */
+  constructor(x = 0, y = 0) {
+    this.x = x;
+    this.y = y;
+  }
+
+  /**
    * Get the length of this point.
    * @returns The length.
    */
@@ -196,11 +206,6 @@ export class Point {
 
     this.x *= value;
     this.y *= value;
-  }
-
-  constructor(x = 0, y = 0) {
-    this.x = x;
-    this.y = y;
   }
 
   /**

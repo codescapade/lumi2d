@@ -2,7 +2,6 @@ import { Entity } from './entity';
 import { EventHandler, Events } from './events';
 import { Color } from './graphics';
 import { Camera } from './graphics/camera';
-import { View } from './view';
 
 /**
  * The scene manager class.
@@ -270,12 +269,9 @@ export class Scene {
    */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   resize(width: number, height: number): void {
-    // Resize the view of all fullscreen cameras.
-    const [viewWidth, viewHeight] = View.getViewSize();
+    // Resize the view of all cameras.
     for (const camera of this.cameras) {
-      if (camera.isFullScreen) {
-        camera.updateScreenBounds(0, 0, viewWidth, viewHeight);
-      }
+      camera.resize();
     }
   }
 
