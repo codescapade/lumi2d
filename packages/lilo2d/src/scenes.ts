@@ -99,17 +99,17 @@ export class Scene {
   /**
    * All cameras in the scene.
    */
-  protected cameras: Camera[] = [];
+  cameras: Camera[] = [];
 
   /**
    * All entity layers.
    */
-  protected layers: Entity[][] = [];
+  layers: Entity[][] = [];
 
   /**
    * All entities in the scene.
    */
-  protected entities: Entity[] = [];
+  entities: Entity[] = [];
 
   /**
    * All events added to this scene using the global Events class.
@@ -131,7 +131,7 @@ export class Scene {
    * Create a new scene instance. Called by the Scene manager. Don't call this yourself.
    */
   constructor() {
-    for (const _ of $range(1, 16)) {
+    for (const _ of $range(1, 32)) {
       this.layers.push([]);
     }
     // Add a default camera to the scene.
@@ -149,6 +149,7 @@ export class Scene {
    */
   addEntity(entity: Entity): void {
     this.entities.push(entity);
+    entity.layer = math.floor(entity.layer);
     this.layerTracking.set(entity, entity.layer);
     this.layers[entity.layer].push(entity);
   }
@@ -237,8 +238,8 @@ export class Scene {
          * Render each layer of entities if the layer should not be ignored.
          */
         for (let i = 0; i < this.layers.length; i++) {
-          if (!camera.ignoredLayers.includes(i)) {
-            const layer = this.layers[i];
+          const layer = this.layers[i];
+          if (layer.length > 0 && !camera.ignoredLayers.includes(i)) {
             for (const entity of layer) {
               if (entity.active && entity.draw) {
                 entity.draw();
@@ -295,9 +296,11 @@ export class Scene {
    */
   protected updateEntityLayer(entity: Entity): void {
     // Update entity layer if it has changed.
-    const layer = entity.layer;
+    let layer = entity.layer;
     const currentLayer = this.layerTracking.get(entity);
     if (currentLayer !== layer) {
+      layer = math.floor(layer);
+      entity.layer = math.floor(layer);
       const index = this.layers[currentLayer].indexOf(entity);
       if (index !== -1) {
         this.layers[currentLayer].splice(index, 1);

@@ -148,7 +148,7 @@ export class Camera {
       (this.screenBounds.height * 0.5) / this.zoom +
       (y / windowHeight) * (this.screenBounds.height / this.zoom);
 
-    const [worldX, worldY] = LiloMath.rotateAround(tempX, tempY, this.position.x, this.position.y, -this.angle);
+    const [worldX, worldY] = LiloMath.rotateAround(tempX, tempY, this.position.x, this.position.y, this.angle);
 
     return $multi(worldX, worldY);
   }

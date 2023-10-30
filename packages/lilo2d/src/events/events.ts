@@ -58,7 +58,7 @@ export class Events {
    * Get the scene handler for the current scene.
    * @returns The scene handlers.
    */
-  static getSceneHanndlers(): LuaTable<string, EventHandler[]> {
+  static getSceneHandlers(): LuaTable<string, EventHandler[]> {
     return Events.sceneHandlers;
   }
 

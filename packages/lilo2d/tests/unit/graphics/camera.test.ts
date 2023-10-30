@@ -25,7 +25,7 @@ insulate('Camera tests:', () => {
     },
   };
 
-  describe('Test camera #dev', () => {
+  describe('Test graphics/camera', () => {
     setup(() => {
       View.init(800, 600);
     });

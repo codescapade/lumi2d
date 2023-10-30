@@ -8,7 +8,9 @@
     "copy-main": "copyfiles -u5 export/tests/game/bunnies/src/*.lua export/ && rimraf ./export/tests/game/bunnies/src/*.lua",
     "build": "rimraf ./export && tstl && pnpm copy-main && pnpm copy-assets",
     "run-love": "pnpm build && love export",
-    "build-web": "pnpm build && love.js -c export exportWeb"
+    "build-web": "pnpm build && love.js -c export exportWeb",
+    "prettier-check": "prettier -c src/**/*.ts",
+    "lint": "eslint src/**/*.ts"
   },
   "keywords": [],
   "author": "",

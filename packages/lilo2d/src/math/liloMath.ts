@@ -146,27 +146,28 @@ export class LiloMath {
    * Rotate a point around another point.
    * @param x The x position of the point to rotate.
    * @param y The y position of the point to rotate.
-   * @param originX The x position of the point to rotate around.
-   * @param originY The y position of the point to rotate around.
+   * @param centerX The x position of the point to rotate around.
+   * @param centerY The y position of the point to rotate around.
    * @param angle The angle to rotate to in degrees.
    * @returns The x and y point of the rotated position.
    */
   static rotateAround(
     x: number,
     y: number,
-    originX: number,
-    originY: number,
+    centerX: number,
+    centerY: number,
     angle: number
   ): LuaMultiReturn<[number, number]> {
-    const rad = math.rad(angle);
+    // Rotate clockwise.
+    const rad = math.rad(-angle);
     const c = math.cos(rad);
     const s = math.sin(rad);
 
-    const tx = x - originX;
-    const ty = y - originY;
+    const tx = x - centerX;
+    const ty = y - centerY;
 
-    x = c * tx + s * ty + originX;
-    y = c * ty - s * tx + originY;
+    x = c * tx + s * ty + centerX;
+    y = c * ty - s * tx + centerY;
 
     return $multi(x, y);
   }

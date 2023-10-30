@@ -150,7 +150,8 @@ export class Point {
    * @noSelf
    */
   static rotateAround(pos: Point, x: number, y: number, angle: number): Point {
-    const rad = math.rad(angle);
+    // Rotate clockwise.
+    const rad = math.rad(-angle);
     const c = math.cos(rad);
     const s = math.sin(rad);
 
