@@ -1,4 +1,4 @@
-name: lint, build and test Lilo2d
+name: Lint, Build and Test Lilo2d
 on:
   pull_request:
     types: [opened, synchronize, reopened]
