@@ -47,14 +47,18 @@ export class Events {
   private static sceneHandlers = new LuaTable<string, EventHandler[]>();
 
   /**
-   * Set a new
+   * Update the scene handlers.
    * @param handlers The new scene handlers.
    */
   static setSceneHandlers(handlers: LuaTable<string, EventHandler[]>): void {
     Events.sceneHandlers = handlers;
   }
 
-  static getSceneHanndlers(): LuaTable<string, EventHandler[]> {
+  /**
+   * Get the scene handler for the current scene.
+   * @returns The scene handlers.
+   */
+  static getSceneHandlers(): LuaTable<string, EventHandler[]> {
     return Events.sceneHandlers;
   }
 

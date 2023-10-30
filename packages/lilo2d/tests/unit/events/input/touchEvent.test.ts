@@ -14,12 +14,12 @@ insulate('Touch tests:', () => {
     it('Should get an event from the pool.', () => {
       const event = TouchEvent.get(TouchEvent.PRESSED, '' as unknown as LightUserData<'Touch'>, 5, 9, 2, 5, 0.1);
 
-      assert.is_equal(event.typeName, TouchEvent.PRESSED.typeName);
-      assert.is_equal(event.x, 5);
-      assert.is_equal(event.y, 9);
-      assert.is_equal(event.dx, 2);
-      assert.is_equal(event.dy, 5);
-      assert.is_equal(event.pressure, 0.1);
+      assert.is_equal(TouchEvent.PRESSED.typeName, event.typeName);
+      assert.is_equal(5, event.x);
+      assert.is_equal(9, event.y);
+      assert.is_equal(2, event.dx);
+      assert.is_equal(5, event.dy);
+      assert.is_equal(0.1, event.pressure);
     });
   });
 });

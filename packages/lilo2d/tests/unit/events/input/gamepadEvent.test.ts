@@ -8,10 +8,10 @@ describe('Test events/input/gamepadEvent:', () => {
     };
     const event = GamepadEvent.get(GamepadEvent.AXIS_CHANGED, gamepad as unknown as Joystick, 'leftx', 0.3, 'dpdown');
 
-    assert.is_equal(event.typeName, GamepadEvent.AXIS_CHANGED.typeName);
-    assert.is_equal(event.id, 3);
-    assert.is_equal(event.axis, 'leftx');
-    assert.is_equal(event.value, 0.3);
-    assert.is_equal(event.button, 'dpdown');
+    assert.is_equal(GamepadEvent.AXIS_CHANGED.typeName, event.typeName);
+    assert.is_equal(3, event.id);
+    assert.is_equal('leftx', event.axis);
+    assert.is_equal(0.3, event.value);
+    assert.is_equal('dpdown', event.button);
   });
 });

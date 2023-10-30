@@ -181,7 +181,11 @@ love.handlers.resize = (width: number, height: number): void => {
   View.scaleToWindow();
   const [viewWidth, viewHeight] = View.getViewSize();
   Game.canvas = love.graphics.newCanvas(viewWidth, viewHeight);
-  Scenes.current().resize(width, height);
+
+  // Call resize on all scenes.
+  for (const scene of Scenes.sceneStack) {
+    scene.resize(width, height);
+  }
 };
 
 // Input handlers.

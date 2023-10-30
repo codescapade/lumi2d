@@ -9,12 +9,37 @@
       "path": "packages/lilo2d"
     },
     {
-      "name": "runloop",
-      "path": "testprojects/runloop"
+      "name": "bunnies",
+      "path": "testprojects/bunnies"
     }
   ],
   "settings": {
     "Lua.workspace.ignoreDir": [".vscode", "node_modules/", "tests_out/", "export/"],
-    "Lua.runtime.version": "LuaJIT"
+    "Lua.runtime.version": "LuaJIT",
+    "cSpell.words": [
+      "drawcalls",
+      "gamepadaxis",
+      "gamepadpressed",
+      "gamepadreleased",
+      "isrepeat",
+      "joystickadded",
+      "joystickaxis",
+      "joystickhat",
+      "joystickpressed",
+      "joystickreleased",
+      "joystickremoved",
+      "keypressed",
+      "keyreleased",
+      "mousemoved",
+      "mousepressed",
+      "mousereleased",
+      "Scancode",
+      "texturememory",
+      "tilemaps",
+      "touchmoved",
+      "touchpressed",
+      "touchreleased",
+      "wheelmoved"
+    ]
   }
 }

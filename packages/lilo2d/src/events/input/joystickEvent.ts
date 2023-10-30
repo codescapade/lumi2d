@@ -107,15 +107,6 @@ export class JoystickEvent extends Event {
   }
 
   /**
-   * Remove all objects from the pool.
-   */
-  static clearPool(): void {
-    while (JoystickEvent.pool.length > 0) {
-      JoystickEvent.pool.pop();
-    }
-  }
-
-  /**
    * Puts the event back into the pool.
    */
   override put(): void {
