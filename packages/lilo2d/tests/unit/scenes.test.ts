@@ -3,7 +3,7 @@ import { Events } from '../../src/events';
 import { Scene, Scenes } from '../../src/scenes';
 import { Canvas } from 'love.graphics';
 
-insulate('View tests:', () => {
+insulate('Scenes tests:', () => {
   // Mock love functions.
   // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-member-access
   (_G as any).love = {
@@ -34,29 +34,29 @@ insulate('View tests:', () => {
 
     it('Should push a new scene.', () => {
       Scenes.push(TestScene);
-      assert.is_equal(Scenes.sceneStack.length, 1);
+      assert.is_equal(1, Scenes.sceneStack.length);
       assert.is_true(Scenes.current() instanceof TestScene);
-      assert.is_equal(Events.getSceneHanndlers(), Scenes.current().getEventHandlers());
+      assert.is_equal(Scenes.current().getEventHandlers(), Events.getSceneHanndlers());
     });
 
     it('Should pop a scene.', () => {
       Scenes.push(TestScene);
-      assert.is_equal(Scenes.sceneStack.length, 1);
-      assert.is_equal(Events.getSceneHanndlers(), Scenes.current().getEventHandlers());
+      assert.is_equal(1, Scenes.sceneStack.length);
+      assert.is_equal(Scenes.current().getEventHandlers(), Events.getSceneHanndlers());
 
       // Can't pop only scene.
       Scenes.pop();
-      assert.is_equal(Scenes.sceneStack.length, 1);
-      assert.is_equal(Events.getSceneHanndlers(), Scenes.current().getEventHandlers());
+      assert.is_equal(1, Scenes.sceneStack.length);
+      assert.is_equal(Scenes.current().getEventHandlers(), Events.getSceneHanndlers());
 
       Scenes.push(TestScene2);
-      assert.is_equal(Scenes.sceneStack.length, 2);
+      assert.is_equal(2, Scenes.sceneStack.length);
       const current = Scenes.current();
       spy.on(current, 'destroy');
 
       Scenes.pop();
-      assert.is_equal(Scenes.sceneStack.length, 1);
-      assert.is_equal(Events.getSceneHanndlers(), Scenes.current().getEventHandlers());
+      assert.is_equal(1, Scenes.sceneStack.length);
+      assert.is_equal(Scenes.current().getEventHandlers(), Events.getSceneHanndlers());
 
       // eslint-disable-next-line @typescript-eslint/unbound-method
       assert.spy(current.destroy).was.called();
@@ -64,16 +64,17 @@ insulate('View tests:', () => {
 
     it('Should replace a scene.', () => {
       Scenes.push(TestScene);
-      assert.is_equal(Scenes.sceneStack.length, 1);
+
+      assert.is_equal(1, Scenes.sceneStack.length);
       assert.is_true(Scenes.current() instanceof TestScene);
-      assert.is_equal(Events.getSceneHanndlers(), Scenes.current().getEventHandlers());
+      assert.is_equal(Scenes.current().getEventHandlers(), Events.getSceneHanndlers());
       const current = Scenes.current();
       spy.on(current, 'destroy');
 
       Scenes.replace(TestScene2);
-      assert.is_equal(Scenes.sceneStack.length, 1);
+      assert.is_equal(1, Scenes.sceneStack.length);
       assert.is_true(Scenes.current() instanceof TestScene2);
-      assert.is_equal(Events.getSceneHanndlers(), Scenes.current().getEventHandlers());
+      assert.is_equal(Scenes.current().getEventHandlers(), Events.getSceneHanndlers());
 
       // eslint-disable-next-line @typescript-eslint/unbound-method
       assert.spy(current.destroy).was.called();
@@ -96,9 +97,9 @@ insulate('View tests:', () => {
       spy.on(scene3, 'destroy');
 
       Scenes.replace(TestScene2, true);
-      assert.is_equal(Scenes.sceneStack.length, 1);
+      assert.is_equal(1, Scenes.sceneStack.length);
       assert.is_true(Scenes.current() instanceof TestScene2);
-      assert.is_equal(Events.getSceneHanndlers(), Scenes.current().getEventHandlers());
+      assert.is_equal(Scenes.current().getEventHandlers(), Events.getSceneHanndlers());
 
       // eslint-disable-next-line @typescript-eslint/unbound-method
       assert.spy(scene1.destroy).was.called();
@@ -120,7 +121,7 @@ insulate('View tests:', () => {
       spy.on(first, 'destroy');
 
       Scenes.replace(TestScene2, false, true);
-      assert.is_equal(Scenes.sceneStack.length, 2);
+      assert.is_equal(2, Scenes.sceneStack.length);
       assert.is_true(Scenes.sceneStack[0] instanceof TestScene2);
 
       // eslint-disable-next-line @typescript-eslint/unbound-method

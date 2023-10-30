@@ -75,10 +75,12 @@ export class Rectangle {
   intersectsLine(startX: number, startY: number, endX: number, endY: number, out?: Point): boolean {
     let intersects = false;
 
+    // Check top.
     if (LiloMath.linesIntersect(startX, startY, endX, endY, this.x, this.y, this.x + this.width, this.y, out)) {
       intersects = true;
     }
 
+    // Check right
     if (
       LiloMath.linesIntersect(
         startX,
@@ -95,6 +97,7 @@ export class Rectangle {
       intersects = true;
     }
 
+    // Check bottom.
     if (
       LiloMath.linesIntersect(
         startX,
@@ -111,6 +114,7 @@ export class Rectangle {
       intersects = true;
     }
 
+    // Check left.
     if (LiloMath.linesIntersect(startX, startY, endX, endY, this.x, this.y, this.x, this.y + this.height, out)) {
       intersects = true;
     }

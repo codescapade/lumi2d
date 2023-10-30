@@ -157,8 +157,8 @@ export class Point {
     const tx = pos.x - x;
     const ty = pos.y - y;
 
-    pos.x = tx * c - ty * s + x;
-    pos.y = tx * c + ty * c + y;
+    pos.x = c * tx + s * ty + x;
+    pos.y = c * ty - s * tx + y;
 
     return pos;
   }

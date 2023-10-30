@@ -68,19 +68,15 @@ export class Camera {
    * Create a new camera.
    * @param options The initialization options.
    */
-  constructor(options?: CameraOptions) {
-    if (!options) {
-      options = {};
-    }
-
-    const [viewWidth, viewHeight] = View.getViewSize();
-    this.position.set(options.x ?? viewWidth * 0.5, options.y ?? viewHeight * 0.5);
-    this.angle = options.angle ?? 0;
-    this.zoom = options.zoom ?? 1.0;
+  constructor({ x, y, angle, zoom, viewX, viewY, viewWidth, viewHeight, bgColor, ignoredLayers }: CameraOptions = {}) {
+    const [mainViewWidth, mainViewHeight] = View.getViewSize();
+    this.position.set(x ?? mainViewWidth * 0.5, y ?? mainViewHeight * 0.5);
+    this.angle = angle ?? 0;
+    this.zoom = zoom ?? 1.0;
     this.transform = love.math.newTransform();
-    this.bgColor = options.bgColor ?? Color.BLACK;
-    this.ignoredLayers = options.ignoredLayers ?? [];
-    this.updateView(options.viewX ?? 0, options.viewY ?? 0, options.viewWidth ?? 1, options.viewHeight ?? 1);
+    this.bgColor = bgColor ?? Color.BLACK;
+    this.ignoredLayers = ignoredLayers ?? [];
+    this.updateView(viewX ?? 0, viewY ?? 0, viewWidth ?? 1, viewHeight ?? 1);
     this.updateBounds();
   }
 
@@ -152,7 +148,7 @@ export class Camera {
       (this.screenBounds.height * 0.5) / this.zoom +
       (y / windowHeight) * (this.screenBounds.height / this.zoom);
 
-    const [worldX, worldY] = LiloMath.rotateAround(tempX, tempY, this.position.x, this.position.y, this.angle);
+    const [worldX, worldY] = LiloMath.rotateAround(tempX, tempY, this.position.x, this.position.y, -this.angle);
 
     return $multi(worldX, worldY);
   }
@@ -167,10 +163,8 @@ export class Camera {
     const [windowWidth, windowHeight] = View.getWindowSize();
     const [viewWidth, viewHeight] = View.getViewSize();
 
-    const tempX = (x / windowWidth) * viewWidth;
-    const tempY = (y / windowHeight) * viewHeight;
-
-    const [worldX, worldY] = LiloMath.rotateAround(tempX, tempY, this.position.x, this.position.y, this.angle);
+    const worldX = (x / windowWidth) * viewWidth;
+    const worldY = (y / windowHeight) * viewHeight;
 
     return $multi(worldX, worldY);
   }
@@ -184,6 +178,7 @@ export interface CameraOptions {
    * The x position of the center of the camera in world pixels.
    */
   x?: number;
+
   /**
    * The y position of the center of the camera in world pixels.
    */
@@ -208,10 +203,12 @@ export interface CameraOptions {
    * The y position inside the view (0 - 1).
    */
   viewY?: number;
+
   /**
    * The width inside the view (0 - 1).
    */
   viewWidth?: number;
+
   /**
    * The height inside the view (0 - 1).
    */

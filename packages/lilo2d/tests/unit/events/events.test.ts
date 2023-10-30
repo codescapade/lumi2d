@@ -31,7 +31,7 @@ describe('Test events/events:', () => {
     Events.on(TestEvent.TESTED, callback, true, true);
     new TestEvent(TestEvent.TESTED.typeName, 2).send();
 
-    assert.is_equal(result, 2);
+    assert.is_equal(2, result);
   });
 
   it('Should call a scene handler.', () => {
@@ -43,7 +43,7 @@ describe('Test events/events:', () => {
     Events.on(TestEvent.TESTED, callback);
     new TestEvent(TestEvent.TESTED.typeName, 2).send();
 
-    assert.is_equal(result, 2);
+    assert.is_equal(2, result);
   });
 
   it('Should call a global handler before a scene handler.', () => {
@@ -60,8 +60,8 @@ describe('Test events/events:', () => {
     Events.on(TestEvent.TESTED, callback, true, true);
     new TestEvent(TestEvent.TESTED.typeName, 2).send();
 
-    assert.is_equal(order[0], 'global');
-    assert.is_equal(order[1], 'scene');
+    assert.is_equal('global', order[0]);
+    assert.is_equal('scene', order[1]);
   });
 
   it('Should cancel an event.', () => {
@@ -79,8 +79,8 @@ describe('Test events/events:', () => {
     Events.on(TestEvent.TESTED, callback2);
     new TestEvent(TestEvent.TESTED.typeName, 2).send();
 
-    assert.is_equal(results.length, 1);
-    assert.is_equal(results[0], 3);
+    assert.is_equal(1, results.length);
+    assert.is_equal(3, results[0]);
   });
 
   it('Should ignore a canceled event for handler that cannot cancel.', () => {
@@ -98,9 +98,9 @@ describe('Test events/events:', () => {
     Events.on(TestEvent.TESTED, callback2);
     new TestEvent(TestEvent.TESTED.typeName, 2).send();
 
-    assert.is_equal(results.length, 2);
-    assert.is_equal(results[0], 3);
-    assert.is_equal(results[1], 5);
+    assert.is_equal(2, results.length);
+    assert.is_equal(3, results[0]);
+    assert.is_equal(5, results[1]);
   });
 
   it('Should remove a global handler.', () => {
@@ -112,12 +112,12 @@ describe('Test events/events:', () => {
     Events.on(TestEvent.TESTED, callback, true, true);
     new TestEvent(TestEvent.TESTED.typeName, 2).send();
 
-    assert.is_equal(result, 2);
+    assert.is_equal(2, result);
 
     Events.off(TestEvent.TESTED, callback, true);
     new TestEvent(TestEvent.TESTED.typeName, 10).send();
 
-    assert.is_equal(result, 2);
+    assert.is_equal(2, result);
   });
 
   it('Should remove a scene handler.', () => {
@@ -129,12 +129,12 @@ describe('Test events/events:', () => {
     Events.on(TestEvent.TESTED, callback);
     new TestEvent(TestEvent.TESTED.typeName, 2).send();
 
-    assert.is_equal(result, 2);
+    assert.is_equal(2, result);
 
     Events.off(TestEvent.TESTED, callback);
     new TestEvent(TestEvent.TESTED.typeName, 10).send();
 
-    assert.is_equal(result, 2);
+    assert.is_equal(2, result);
   });
 });
 

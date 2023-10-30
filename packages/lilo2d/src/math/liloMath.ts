@@ -165,8 +165,8 @@ export class LiloMath {
     const tx = x - originX;
     const ty = y - originY;
 
-    x = tx * c - ty * s + originX;
-    y = tx * c + ty * c + originY;
+    x = c * tx + s * ty + originX;
+    y = c * ty - s * tx + originY;
 
     return $multi(x, y);
   }
