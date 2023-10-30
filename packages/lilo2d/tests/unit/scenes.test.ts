@@ -130,11 +130,8 @@ insulate('Scenes tests:', () => {
       assert.is_true(Scenes.current() instanceof TestScene2);
       assert.is_equal(Scenes.current().getEventHandlers(), Events.getSceneHandlers());
 
-      // eslint-disable-next-line @typescript-eslint/unbound-method
       assert.spy(scene1.destroy).was.called();
-      // eslint-disable-next-line @typescript-eslint/unbound-method
       assert.spy(scene2.destroy).was.called();
-      // eslint-disable-next-line @typescript-eslint/unbound-method
       assert.spy(scene3.destroy).was.called();
     });
 
@@ -153,7 +150,6 @@ insulate('Scenes tests:', () => {
       assert.is_equal(2, Scenes.sceneStack.length);
       assert.is_true(Scenes.sceneStack[0] instanceof TestScene2);
 
-      // eslint-disable-next-line @typescript-eslint/unbound-method
       assert.spy(first.destroy).was.called();
     });
   });
