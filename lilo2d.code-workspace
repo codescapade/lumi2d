@@ -9,6 +9,10 @@
       "path": "packages/lilo2d"
     },
     {
+      "name": "site",
+      "path": "site"
+    },
+    {
       "name": "bunnies",
       "path": "testprojects/bunnies"
     }

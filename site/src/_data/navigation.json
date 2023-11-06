@@ -1,0 +1,24 @@
+{
+  "items": [
+    {
+      "text": "Examples",
+      "url": "/examples/",
+      "enabled": false
+    },
+    {
+      "text": "Docs",
+      "url": "/docs/",
+      "enabled": false
+    },
+    {
+      "text": "API",
+      "url": "/api/",
+      "enabled": false
+    },
+    {
+      "text": "Experiments",
+      "url": "/experiments/",
+      "enabled": true
+    }
+  ]
+}
