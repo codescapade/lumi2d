@@ -1,4 +1,5 @@
 ---
+title: Experiments
 layout: layouts/experiments.html
 ---
 
