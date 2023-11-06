@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  {% set css %}
+  {% include "src/styles/index.css" %}
+  {% endset %}
+  <style>
+    {{css | postcss | safe}}
+  </style>
+  <title>{{ title }}</title>
+</head>
+
+<body>
+  <div class="flex flex-col h-screen">
+    {% include "partials/nav.html" %}
+    <main class="mt-4 mb-auto">
+      {% block content%}{% endblock %}
+    </main>
+    {% include "partials/footer.html" %}
+  </div>
+
+  <script>
+    const themeToggleBtn = document.getElementById('theme-toggle');
+
+    if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.dataset.theme = 'night';
+      themeToggleBtn.checked = true;
+    } else {
+      document.documentElement.dataset.theme = 'corporate';
+      themeToggleBtn.checked = false;
+    }
+
+    themeToggleBtn.addEventListener('click', () => {
+      if (document.documentElement.dataset.theme === 'night') {
+        document.documentElement.dataset.theme = 'corporate';
+        localStorage.setItem('color-theme', 'light');
+      } else {
+        document.documentElement.dataset.theme = 'night';
+        localStorage.setItem('color-theme', 'dark');
+      }
+    });
+  </script>
+</body>
+
+</html>

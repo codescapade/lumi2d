@@ -1,0 +1,20 @@
+{
+  "items": [
+    {
+      "text": "Examples",
+      "url": "/examples/"
+    },
+    {
+      "text": "Docs",
+      "url": "/docs/"
+    },
+    {
+      "text": "API",
+      "url": "/api/"
+    },
+    {
+      "text": "Experiments",
+      "url": "/experiments/"
+    }
+  ]
+}
