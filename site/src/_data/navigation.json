@@ -2,19 +2,23 @@
   "items": [
     {
       "text": "Examples",
-      "url": "/examples/"
+      "url": "/examples/",
+      "enabled": false
     },
     {
       "text": "Docs",
-      "url": "/docs/"
+      "url": "/docs/",
+      "enabled": false
     },
     {
       "text": "API",
-      "url": "/api/"
+      "url": "/api/",
+      "enabled": false
     },
     {
       "text": "Experiments",
-      "url": "/experiments/"
+      "url": "/experiments/",
+      "enabled": true
     }
   ]
 }

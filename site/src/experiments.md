@@ -2,4 +2,4 @@
 layout: layouts/experiments.html
 ---
 
-Experiments
+## This is a collection of experiments and tests with Lilo2d.
