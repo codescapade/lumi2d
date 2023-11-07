@@ -15,7 +15,10 @@
         height={{height}}
       ></canvas>
     </div>
-    <p class="text-right">Published on {{ date | date }}</p>
+    <div class="float-right py-4">
+      <a class="btn btn-outline btn-primary" target="_blank" href="{{ lovelink }}">Download love file</a>
+    </div>
+    <p class="text-4xl font-bold py-4">{{ title }}</p>
     <article class="prose">
       {{ content | safe }}
     </article> 

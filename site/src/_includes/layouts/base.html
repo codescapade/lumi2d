@@ -29,13 +29,13 @@
       document.documentElement.dataset.theme = 'night';
       themeToggleBtn.checked = true;
     } else {
-      document.documentElement.dataset.theme = 'corporate';
+      document.documentElement.dataset.theme = 'winter';
       themeToggleBtn.checked = false;
     }
 
     themeToggleBtn.addEventListener('click', () => {
       if (document.documentElement.dataset.theme === 'night') {
-        document.documentElement.dataset.theme = 'corporate';
+        document.documentElement.dataset.theme = 'winter';
         localStorage.setItem('color-theme', 'light');
       } else {
         document.documentElement.dataset.theme = 'night';
