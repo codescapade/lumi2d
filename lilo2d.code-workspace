@@ -9,6 +9,10 @@
       "path": "packages/lilo2d"
     },
     {
+      "name": "📦 lilo2d-atlas",
+      "path": "packages/lilo2d-atlas"
+    },
+    {
       "name": "site",
       "path": "site"
     },
