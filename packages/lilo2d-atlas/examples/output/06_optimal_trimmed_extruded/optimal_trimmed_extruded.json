@@ -1,0 +1,130 @@
+{
+  "frames": [
+    {
+      "filename": "green_box",
+      "frame": {
+        "x": 1,
+        "y": 1,
+        "w": 36,
+        "h": 72
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 16,
+        "y": 11,
+        "w": 70,
+        "h": 90
+      },
+      "sourceSize": {
+        "w": 70,
+        "h": 90
+      }
+    },
+    {
+      "filename": "orange_box",
+      "frame": {
+        "x": 39,
+        "y": 1,
+        "w": 18,
+        "h": 64
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 19,
+        "y": 4,
+        "w": 54,
+        "h": 72
+      },
+      "sourceSize": {
+        "w": 54,
+        "h": 72
+      }
+    },
+    {
+      "filename": "yellow_box",
+      "frame": {
+        "x": 39,
+        "y": 67,
+        "w": 72,
+        "h": 52
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 7,
+        "y": 33,
+        "w": 86,
+        "h": 100
+      },
+      "sourceSize": {
+        "w": 86,
+        "h": 100
+      }
+    },
+    {
+      "filename": "red_box",
+      "frame": {
+        "x": 59,
+        "y": 1,
+        "w": 72,
+        "h": 48
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 13,
+        "y": 10,
+        "w": 96,
+        "h": 64
+      },
+      "sourceSize": {
+        "w": 96,
+        "h": 64
+      }
+    },
+    {
+      "filename": "blue_box",
+      "frame": {
+        "x": 1,
+        "y": 75,
+        "w": 36,
+        "h": 36
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 6,
+        "y": 5,
+        "w": 48,
+        "h": 46
+      },
+      "sourceSize": {
+        "w": 48,
+        "h": 46
+      }
+    },
+    {
+      "filename": "purple_box",
+      "frame": {
+        "x": 59,
+        "y": 51,
+        "w": 48,
+        "h": 12
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 8,
+        "y": 12,
+        "w": 66,
+        "h": 34
+      },
+      "sourceSize": {
+        "w": 66,
+        "h": 34
+      }
+    }
+  ]
+}

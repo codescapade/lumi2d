@@ -23,7 +23,7 @@
   ],
   "types": "./dist/index.d.ts",
   "keywords": [],
-  "author": "codescapade",
+  "author": "Codescapade",
   "license": "MIT",
   "devDependencies": {
     "busted-tstl": "0.1.2-rc.0"
