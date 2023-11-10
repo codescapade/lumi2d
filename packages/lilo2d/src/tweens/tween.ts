@@ -1,5 +1,5 @@
 import { Color } from '../graphics';
-import { TimeStep } from '../utils';
+import { Dict, TimeStep } from '../utils';
 import { Ease, easeLinear } from './easing';
 
 /**
@@ -14,7 +14,7 @@ export class Tween {
   /**
    * The object to tween the properties on.
    */
-  target: TableStrAny;
+  target: Dict;
 
   /**
    * The current time position on the tween in seconds.
@@ -64,7 +64,7 @@ export class Tween {
   /**
    * The function to call every time the tween updates.
    */
-  onUpdate?: (target: TableStrAny) => void;
+  onUpdate?: (target: Dict) => void;
 
   /**
    * The properties and values that are being tweened.
@@ -85,18 +85,18 @@ export class Tween {
    * Create a new tween.
    * @param target The object to tween.
    * @param duration The tween length in seconds.
-   * @param properties The properties to tween.
-   * @param isColor Are the properties colors.
+   * @param from The start values.
+   * @param to The end values.
    * @param repeat How many times should the tween repeat. -1 Repeats forever.
    * @param ignoreTimescale Should the time scale be ignored.
    */
-  constructor(target: TableStrAny, duration: number, properties: TableStrAny, repeat = 0, ignoreTimescale = false) {
+  constructor(target: Dict, duration: number, from: Dict, to: Dict, repeat = 0, ignoreTimescale = false) {
     this.target = target;
     this.duration = duration;
     this.repeat = repeat;
     this.ignoreTimescale = ignoreTimescale;
 
-    this.createDataList(target, properties);
+    this.createDataList(target, from, to);
   }
 
   /**
@@ -106,6 +106,7 @@ export class Tween {
     if (this.onComplete) {
       this.onComplete();
     }
+    this.restart();
   }
 
   /**
@@ -135,7 +136,7 @@ export class Tween {
    * @param onUpdate
    * @returns This tween.
    */
-  setOnUpdate(onUpdate: (target: TableStrAny) => void): Tween {
+  setOnUpdate(onUpdate: (target: Dict) => void): Tween {
     this.onUpdate = onUpdate;
 
     return this;
@@ -159,16 +160,24 @@ export class Tween {
     this.time = 0;
     this.delayTime = 0;
     this.timesCompleted = 0;
+    this.paused = false;
+    this.complete = false;
+  }
+
+  restart(): void {
+    this.time = 0;
+    this.complete = false;
   }
 
   /**
    * Update the target an properties on an existing tween.
    * @param target
-   * @param properties
+   * @param from The start values.
+   * @param to The end values.
    */
-  updateTarget(target: TableStrAny, properties: TableStrAny): void {
+  updateTarget(target: Dict, from: Dict, to: Dict): void {
     this.target = target;
-    this.createDataList(target, properties);
+    this.createDataList(target, from, to);
   }
 
   /**
@@ -206,15 +215,20 @@ export class Tween {
   /**
    * Create an array of all properties with start and end values.
    * @param target The object to tween.
-   * @param properties The properties to tween.
+   * @param from The start values.
+   * @param to The end values.
    */
-  private createDataList(target: TableStrAny, properties: TableStrAny): void {
+  private createDataList(target: Dict, from: Dict, to: Dict): void {
     this.dataList = [];
-    for (const [key, value] of properties) {
-      if (target.has(key)) {
-        const change = target.get(key) instanceof Color ? undefined : (value as number) - (target.get(key) as number);
+    for (const key in from) {
+      if (target[key]) {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-        const data: PropertyData = { start: target.get(key), end: value, change, propertyName: key };
+        const fromValue = from[key];
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        const toValue = to[key];
+        const change = target[key] instanceof Color ? undefined : (toValue as number) - (fromValue as number);
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        const data: PropertyData = { start: fromValue, end: toValue, change, propertyName: key };
         this.dataList.push(data);
       }
     }
@@ -225,7 +239,7 @@ export class Tween {
    * @param property The property to update.
    */
   private updateProperty(property: PropertyData): void {
-    if (this.target.get(property.propertyName) instanceof Color) {
+    if (this.target[property.propertyName] instanceof Color) {
       const factor = this.ease(this.time, 0, 1, this.duration);
       const start = property.start as Color;
       const end = property.end as Color;
@@ -233,13 +247,13 @@ export class Tween {
       if (this.complete) {
         color = end;
       }
-      this.target.set(property.propertyName, color);
+      this.target[property.propertyName] = color;
     } else {
       let value = this.ease(this.time, property.start as number, property.change as number, this.duration);
       if (this.complete) {
         value = property.end as number;
       }
-      this.target.set(property.propertyName, value);
+      this.target[property.propertyName] = value;
     }
   }
 }
@@ -250,6 +264,3 @@ type PropertyData = {
   change?: number;
   propertyName: string;
 };
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type TableStrAny = LuaTable<string, any>;

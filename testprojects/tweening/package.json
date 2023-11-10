@@ -1,14 +1,13 @@
 {
-  "name": "bunnies",
+  "name": "tweening",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "copy-assets": "copyfiles -u 1 assets/**/*.* export/assets",
-    "build": "rimraf ./export && tstl && pnpm copy-assets",
+    "build": "rimraf ./export && tstl",
     "run-love": "pnpm build && love export",
     "build-web": "pnpm build && love.js -c export exportWeb",
-    "export-experiment": "pnpm build && love.js -c -g export ../../site/src/experimentFiles/bunnies",
+    "export-experiment": "pnpm build && love.js -c -g export ../../site/src/experimentFiles/tweening",
     "prettier-check": "prettier -c src/**/*.ts",
     "lint": "eslint src/**/*.ts"
   },

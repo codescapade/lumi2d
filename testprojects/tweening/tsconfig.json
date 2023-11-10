@@ -16,7 +16,7 @@
     "luaTarget": "JIT",
     "noImplicitSelf": true,
     "luaLibImport": "require-minimal",
-    // "luaBundle": "main.lua",
-    // "luaBundleEntry": "src/main.ts"
+    "luaBundle": "main.lua",
+    "luaBundleEntry": "src/main.ts"
   }
 }

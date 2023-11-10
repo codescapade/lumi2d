@@ -9,7 +9,7 @@ export class TweenSequence {
 
   repeat = 0;
 
-  constructor(repeat = 0, ...tweens: Tween[]) {
+  constructor(repeat: number, ...tweens: Tween[]) {
     this.repeat = repeat;
     this.list = tweens;
   }
@@ -24,6 +24,13 @@ export class TweenSequence {
 
     for (const tween of this.list) {
       tween.reset();
+    }
+  }
+
+  restart(): void {
+    this.index = 0;
+    for (const tween of this.list) {
+      tween.restart();
     }
   }
 }

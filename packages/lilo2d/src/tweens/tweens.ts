@@ -29,6 +29,7 @@ export class Tweens {
       if (tween.complete) {
         // Repeat from the start.
         if (tween.repeat > tween.timesCompleted || tween.repeat === -1) {
+          tween.restart();
           tween.timesCompleted++;
           tween.time = 0;
         } else {
@@ -46,6 +47,9 @@ export class Tweens {
     }
 
     for (const sequence of sequences) {
+      if (sequence.index > sequence.list.length - 1) {
+        sequence.index = 0;
+      }
       const tween = sequence.current();
       tween.update(dt);
       if (tween.complete) {
@@ -53,21 +57,20 @@ export class Tweens {
         if (tween.repeat > tween.timesCompleted || tween.repeat === -1) {
           tween.timesCompleted++;
           tween.time = 0;
+          tween.complete = false;
+          tween.paused = false;
         } else {
           tween.runComplete();
 
           // Go to next tween in the sequence.
-          if (sequence.index < sequence.list.length - 1) {
-            sequence.index++;
+          sequence.index++;
+
+          // Repeat the sequence.
+          if (sequence.repeat > sequence.timesCompleted || sequence.repeat === -1) {
+            sequence.timesCompleted++;
           } else {
-            // Repeat the sequence.
-            if (sequence.repeat > sequence.timesCompleted || sequence.repeat === -1) {
-              sequence.timesCompleted++;
-              sequence.index = 0;
-            } else {
-              const index = sequences.indexOf(sequence);
-              sequences.splice(index, 1);
-            }
+            const index = sequences.indexOf(sequence);
+            sequences.splice(index, 1);
           }
         }
       }
