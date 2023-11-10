@@ -164,6 +164,9 @@ export class Tween {
     this.complete = false;
   }
 
+  /**
+   * Restart this tween from the beginning.
+   */
   restart(): void {
     this.time = 0;
     this.complete = false;

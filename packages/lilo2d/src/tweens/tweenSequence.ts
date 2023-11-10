@@ -9,9 +9,9 @@ export class TweenSequence {
 
   repeat = 0;
 
-  constructor(repeat: number, ...tweens: Tween[]) {
-    this.repeat = repeat;
+  constructor(tweens: Tween[], repeat = 0) {
     this.list = tweens;
+    this.repeat = repeat;
   }
 
   current(): Tween {
