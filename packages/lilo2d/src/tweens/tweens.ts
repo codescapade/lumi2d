@@ -1,3 +1,4 @@
+import { Dict } from '../utils';
 import { Tween } from './tween';
 import { TweenSequence } from './tweenSequence';
 
@@ -51,7 +52,6 @@ export class Tweens {
         if (tween.repeat > tween.timesCompleted || tween.repeat === -1) {
           tween.restart();
           tween.timesCompleted++;
-          tween.time = 0;
         } else {
           completed.push(tween);
         }
@@ -77,7 +77,7 @@ export class Tweens {
         // Repeat tween.
         if (tween.repeat > tween.timesCompleted || tween.repeat === -1) {
           tween.timesCompleted++;
-          tween.time = 0;
+          tween.resetTime();
           tween.complete = false;
           tween.paused = false;
         } else {
@@ -128,7 +128,7 @@ export class Tweens {
    * Remove a tween.
    * @param tween The tween to remove.
    */
-  static remove(tween: Tween): void {
+  static removeTween(tween: Tween): void {
     const index = Tweens.list.current.indexOf(tween);
     if (index !== -1) {
       Tweens.list.current.splice(index, 1);
@@ -151,11 +151,11 @@ export class Tweens {
    * @param target The target to remove the tweens from.
    */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  static removeAllFrom(target: any): void {
+  static removeAllFrom(target: Dict): void {
     const indexes: number[] = [];
 
     for (const tween of Tweens.list.current) {
-      if (tween.target === target) {
+      if (tween.hasTarget(target)) {
         const index = Tweens.list.current.indexOf(tween);
         indexes.push(index);
       }

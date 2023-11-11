@@ -12,16 +12,6 @@ export class Tween {
   active = true;
 
   /**
-   * The object to tween the properties on.
-   */
-  target: Dict;
-
-  /**
-   * The current time position on the tween in seconds.
-   */
-  time = 0;
-
-  /**
    * The length of the tween in seconds.
    */
   duration = 0;
@@ -30,11 +20,6 @@ export class Tween {
    * Track if the tween is complete.
    */
   complete = false;
-
-  /**
-   * The time position of the delay in seconds.
-   */
-  delayTime = 0;
 
   /**
    * Track if this tween is paused.
@@ -77,6 +62,21 @@ export class Tween {
   private delay = 0;
 
   /**
+   * The time position of the delay in seconds.
+   */
+  private delayTime = 0;
+
+  /**
+   * The object to tween the properties on.
+   */
+  private target: Dict;
+
+  /**
+   * The current time position on the tween in seconds.
+   */
+  private time = 0;
+
+  /**
    * The ease function this tween is using.
    */
   private ease = easeLinear;
@@ -106,7 +106,7 @@ export class Tween {
     if (this.onComplete) {
       this.onComplete();
     }
-    this.restart();
+    this.time = 0;
   }
 
   /**
@@ -170,6 +170,14 @@ export class Tween {
   restart(): void {
     this.time = 0;
     this.complete = false;
+  }
+
+  resetTime(): void {
+    this.time = 0;
+  }
+
+  hasTarget(target: Dict): boolean {
+    return this.target === target;
   }
 
   /**
