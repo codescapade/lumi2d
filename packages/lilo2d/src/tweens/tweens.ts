@@ -161,7 +161,7 @@ export class Tweens {
       }
     }
 
-    // Sort hight to low so we don't shift indexes when splicing below.
+    // Sort high to low so we don't shift indexes when splicing below.
     indexes.sort((a, b) => {
       return b - a;
     });

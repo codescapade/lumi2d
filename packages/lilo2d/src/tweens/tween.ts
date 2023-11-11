@@ -172,10 +172,18 @@ export class Tween {
     this.complete = false;
   }
 
+  /**
+   * Reset the tween time back to 0.
+   */
   resetTime(): void {
     this.time = 0;
   }
 
+  /**
+   * Check if this tween uses this target.
+   * @param target The target to compare with.
+   * @returns True is the targets match.
+   */
   hasTarget(target: Dict): boolean {
     return this.target === target;
   }

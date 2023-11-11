@@ -94,6 +94,7 @@ export class MainScene extends Scene {
     const label = new Label(20, y, this.font, name);
     this.addEntity(label);
 
+    // The x positions of the start of the tween. there are 3 per row.
     const xStarts = [130, 370, 610];
     for (let i = 0; i < easing.length; i++) {
       const x = xStarts[i];
