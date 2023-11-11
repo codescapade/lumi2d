@@ -2,6 +2,7 @@ import { Entity } from './entity';
 import { EventHandler, Events } from './events';
 import { Color } from './graphics';
 import { Camera } from './graphics/camera';
+import { TweenList, Tweens } from './tweens/tweens';
 
 /**
  * The scene manager class.
@@ -37,6 +38,7 @@ export class Scenes {
       const scene = Scenes.sceneStack.pop()!;
       scene.destroy();
       Events.setSceneHandlers(Scenes.current().getEventHandlers());
+      Tweens.setTweenList(Scenes.current().getTweenList());
     }
   }
 
@@ -75,13 +77,16 @@ export class Scenes {
       }
       // Set the events to the below scene until everything has been loaded.
       Events.setSceneHandlers(scene.getEventHandlers());
+      Tweens.setTweenList(scene.getTweenList());
       scene.load();
 
       // Set the events back to the current scene.
       Events.setSceneHandlers(Scenes.current().getEventHandlers());
+      Tweens.setTweenList(Scenes.current().getTweenList());
     } else {
       Scenes.sceneStack.push(scene);
       Events.setSceneHandlers(scene.getEventHandlers());
+      Tweens.setTweenList(scene.getTweenList());
       scene.load();
     }
   }
@@ -115,6 +120,11 @@ export class Scene {
    * All events added to this scene using the global Events class.
    */
   private eventHandlers = new LuaTable<string, EventHandler[]>();
+
+  /**
+   * All tween added to the tween manager for this scene.
+   */
+  private tweenList: TweenList = { current: [], completed: [], sequences: [] };
 
   /**
    * A list of entities to remove on the next update.
@@ -288,6 +298,14 @@ export class Scene {
    */
   getEventHandlers(): LuaTable<string, EventHandler[]> {
     return this.eventHandlers;
+  }
+
+  /**
+   * Get the scene tween list.
+   * @returns The tween list.
+   */
+  getTweenList(): TweenList {
+    return this.tweenList;
   }
 
   /**

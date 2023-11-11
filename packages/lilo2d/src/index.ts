@@ -1,6 +1,7 @@
 export * from './events';
 export * from './graphics';
 export * from './math';
+export * from './tweens';
 export * from './utils';
 
 export * from './assets';

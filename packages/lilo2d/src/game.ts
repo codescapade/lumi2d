@@ -10,6 +10,7 @@ import { TouchEvent } from './events/input/touchEvent';
 import { Scene, Scenes } from './scenes';
 import { TimeStep } from './utils';
 import { View } from './view';
+import { Tweens } from './tweens';
 
 // Define the global love arg which are the arguments passed in when starting love.
 declare const arg: string[];
@@ -66,6 +67,8 @@ export class Game {
    */
   static update(dt: number): void {
     TimeStep.update(dt);
+    Tweens.update(dt);
+
     const scene = Scenes.current();
     scene.update(dt);
     scene.lateUpdate(dt);

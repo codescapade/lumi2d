@@ -19,6 +19,10 @@
     {
       "name": "bunnies",
       "path": "testprojects/bunnies"
+    },
+    {
+      "name": "tweening",
+      "path": "testprojects/tweening"
     }
   ],
   "settings": {

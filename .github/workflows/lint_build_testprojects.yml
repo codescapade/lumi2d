@@ -7,6 +7,7 @@ on:
       - main
 jobs:
   lint-and-build:
+    name: 'lint and build test projects'
     runs-on: ubuntu-latest
     strategy:
       matrix:
