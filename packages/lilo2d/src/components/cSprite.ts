@@ -25,6 +25,10 @@ export class CSprite {
    */
   private frame!: AtlasFrame;
 
+  /**
+   * Create a new sprite component.
+   * @param options The initial value.
+   */
   constructor(options: CSpriteOptions) {
     this.anchor.x = options.anchorX ?? 0.5;
     this.anchor.y = options.anchorY ?? 0.5;
