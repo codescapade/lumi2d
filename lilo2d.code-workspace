@@ -5,23 +5,23 @@
       "path": "."
     },
     {
-      "name": "📦 lilo2d",
-      "path": "packages/lilo2d"
+      "name": "📦 @lilo2d/atlas",
+      "path": "packages/atlas"
     },
     {
-      "name": "📦 lilo2d-atlas",
-      "path": "packages/lilo2d-atlas"
+      "name": "📦 @lilo2d/lilo",
+      "path": "packages/lilo"
     },
     {
       "name": "site",
       "path": "site"
     },
     {
-      "name": "bunnies",
+      "name": "@testprojects/bunnies",
       "path": "testprojects/bunnies"
     },
     {
-      "name": "tweening",
+      "name": "@testprojects/tweening",
       "path": "testprojects/tweening"
     }
   ],

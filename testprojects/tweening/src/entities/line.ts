@@ -1,4 +1,4 @@
-import { Color, Entity, Point } from 'lilo2d';
+import { Color, Entity, Point } from '@lilo2d/lilo';
 
 export class Line implements Entity {
   layer = 0;

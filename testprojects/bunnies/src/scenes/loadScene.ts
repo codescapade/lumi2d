@@ -1,4 +1,4 @@
-import { Assets, Scene, Scenes } from 'lilo2d';
+import { Assets, Scene, Scenes } from '@lilo2d/lilo';
 import { GameScene } from './gameScene';
 
 /**

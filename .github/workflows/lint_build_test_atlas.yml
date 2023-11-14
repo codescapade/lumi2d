@@ -1,4 +1,4 @@
-name: Lint, Build and Test Lilo2d Atlas
+name: Lint, Build and Test Atlas
 on:
   pull_request:
     types: [opened, synchronize, reopened]
@@ -7,7 +7,7 @@ on:
       - main
 jobs:
   lint-build-and-test:
-    name: 'lint, build and test lilo2d atlas'
+    name: 'lint, build and test atlas'
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -28,13 +28,13 @@ jobs:
         run: pnpm install
 
       - name: Prettier check
-        run: pnpm prettier-lilo2d-atlas
+        run: pnpm prettier-atlas
 
       - name: Linting
-        run: pnpm lint-lilo2d-atlas
+        run: pnpm lint-atlas
 
-      - name: Build Lilo2d
-        run: pnpm build-lilo2d-atlas
+      - name: Build Atlas
+        run: pnpm build-atlas
 
       - name: Run Tests
-        run: pnpm test-lilo2d-atlas
+        run: pnpm test-atlas

@@ -1,4 +1,4 @@
-import { Color, Ease, Entity, Point, Tween, Tweens, TweenSequence } from 'lilo2d';
+import { Color, Ease, Entity, Point, Tween, Tweens, TweenSequence } from '@lilo2d/lilo';
 
 export class TweenGraphic implements Entity {
   layer = 1;

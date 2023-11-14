@@ -1,4 +1,4 @@
-name: Lint, Build and Test Lilo2d
+name: Lint, Build and Test Lilo
 on:
   pull_request:
     types: [opened, synchronize, reopened]
@@ -7,7 +7,7 @@ on:
       - main
 jobs:
   lint-build-and-test:
-    name: 'lint, build and test lilo2d'
+    name: 'lint, build and test lilo'
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -28,18 +28,18 @@ jobs:
         run: pnpm install
 
       - name: Prettier check
-        run: pnpm prettier-lilo2d
+        run: pnpm prettier-lilo
 
       - name: Linting
-        run: pnpm lint-lilo2d
+        run: pnpm lint-lilo
 
-      - name: Build Lilo2d
-        run: pnpm build-lilo2d
+      - name: Build Lilo
+        run: pnpm build-lilo
 
       - name: Build Tests
-        run: pnpm test-lilo2d
+        run: pnpm test-lilo
 
       - name: Run Tests
         uses: lunarmodules/busted@v2.1.2
         with:
-          args: packages/lilo2d/tests_out --pattern="%.test%." --lpath="packages/lilo2d/tests_out/?.lua"
+          args: packages/lilo/tests_out --pattern="%.test%." --lpath="packages/lilo/tests_out/?.lua"

@@ -1,4 +1,4 @@
-import { Color, Entity } from 'lilo2d';
+import { Color, Entity } from '@lilo2d/lilo';
 import { Font } from 'love.graphics';
 
 export class Label implements Entity {
