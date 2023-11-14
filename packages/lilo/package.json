@@ -1,5 +1,5 @@
 {
-  "name": "lilo2d",
+  "name": "@lilo2d/lilo",
   "version": "0.1.0",
   "description": "A TypeScript Lua Game Engine on top of Love2d.",
   "main": "dist/index",

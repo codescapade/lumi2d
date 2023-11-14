@@ -3,22 +3,22 @@
   "version": "0.1.0",
   "description": "A TypeScript Lua Game Engine on top of Love2d.",
   "scripts": {
-    "build-lilo2d": "pnpm --filter lilo2d build",
-    "lint-lilo2d": "pnpm --filter lilo2d lint",
-    "prettier-lilo2d": "pnpm --filter lilo2d prettier-check",
-    "test-lilo2d": "pnpm --filter lilo2d build-test",
+    "build-lilo": "pnpm --filter @lilo2d/lilo build",
+    "lint-lilo": "pnpm --filter @lilo2d/lilo lint",
+    "prettier-lilo": "pnpm --filter @lilo2d/lilo prettier-check",
+    "test-lilo": "pnpm --filter @lilo2d/lilo build-test",
     
     "lint-testprojects": "pnpm --parallel --filter ./testprojects/** lint",
     "prettier-testprojects": "pnpm --parallel --filter ./testprojects/** prettier-check",
     "build-testprojects": "pnpm --parallel --filter ./testprojects/** build",
 
-    "build-lilo2d-atlas": "pnpm --filter lilo2d-atlas build",
-    "lint-lilo2d-atlas": "pnpm --filter lilo2d-atlas lint",
-    "prettier-lilo2d-atlas": "pnpm --filter lilo2d-atlas prettier-check",
-    "test-lilo2d-atlas": "pnpm --filter lilo2d-atlas build-test"
+    "build-atlas": "pnpm --filter @lilo2d/atlas build",
+    "lint-atlas": "pnpm --filter @lilo2d/atlas lint",
+    "prettier-atlas": "pnpm --filter @lilo2d/atlas prettier-check",
+    "test-atlas": "pnpm --filter @lilo2d/atlas build-test"
   },
   "keywords": [],
-  "author": "codescapade",
+  "author": "Codescapade",
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^20.9.0",

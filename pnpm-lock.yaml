@@ -57,13 +57,7 @@ importers:
         specifier: ^1.21.0
         version: 1.21.0(typescript@5.2.2)
 
-  packages/lilo2d:
-    devDependencies:
-      busted-tstl:
-        specifier: 0.1.2-rc.0
-        version: 0.1.2-rc.0
-
-  packages/lilo2d-atlas:
+  packages/atlas:
     dependencies:
       '@ltd/j-toml':
         specifier: ^1.38.0
@@ -88,6 +82,12 @@ importers:
         specifier: ^29.1.1
         version: 29.1.1(@babel/core@7.23.2)(jest@29.7.0)(typescript@5.2.2)
 
+  packages/lilo:
+    devDependencies:
+      busted-tstl:
+        specifier: 0.1.2-rc.0
+        version: 0.1.2-rc.0
+
   site:
     devDependencies:
       '@11ty/eleventy':
@@ -111,15 +111,15 @@ importers:
 
   testprojects/bunnies:
     dependencies:
-      lilo2d:
+      '@lilo2d/lilo':
         specifier: workspace:*
-        version: link:../../packages/lilo2d
+        version: link:../../packages/lilo
 
   testprojects/tweening:
     dependencies:
-      lilo2d:
+      '@lilo2d/lilo':
         specifier: workspace:*
-        version: link:../../packages/lilo2d
+        version: link:../../packages/lilo
 
 packages:
 
