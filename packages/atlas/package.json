@@ -3,10 +3,12 @@
   "version": "1.0.0",
   "description": "",
   "files": [
-    "/bin",
     "/lib",
     "/template"
   ],
+  "bin": {
+    "lilo-atlas": "lib/index.js"
+  },
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
     "prettier-check": "prettier -c \"src/**/*.ts\" \"tests/**/*.ts\"",
