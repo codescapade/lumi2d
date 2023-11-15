@@ -13,6 +13,10 @@
       "path": "packages/lilo"
     },
     {
+      "name": "📦 @lilo2d/minify",
+      "path": "packages/minify"
+    },
+    {
       "name": "site",
       "path": "site"
     },

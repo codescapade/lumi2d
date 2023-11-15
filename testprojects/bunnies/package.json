@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "copy-assets": "copyfiles -u 1 assets/**/*.* export/assets",
-    "build": "rimraf ./export && tstl && pnpm copy-assets",
+    "build": "rimraf ./export && tstl && pnpm copy-assets && lilo-minify export/main.lua",
     "run-love": "pnpm build && love export",
     "build-web": "pnpm build && love.js -c export exportWeb",
     "export-experiment": "pnpm build && love.js -c -g export ../../site/src/experimentFiles/bunnies",
@@ -16,6 +16,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@lilo2d/lilo": "workspace:*"
+    "@lilo2d/lilo": "workspace:*",
+    "@lilo2d/minify": "workspace:*"
   }
 }

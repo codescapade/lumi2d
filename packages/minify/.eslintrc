@@ -1,0 +1,23 @@
+{
+  "extends": [
+    "eslint:recommended",
+    "prettier"
+  ],
+  "root": true,
+  "ignorePatterns": [],
+  "rules": {
+    "no-unused-labels": "off",
+    "no-fallthrough": "off",
+    "no-restricted-syntax": [
+      "error",
+      {
+        "selector": "MethodDefinition[static = true] ThisExpression",
+        "message": "Don't use this in static functions."
+      }
+    ]
+  },
+  "env": {
+    "node": true,
+    "es2021": true
+  }
+}

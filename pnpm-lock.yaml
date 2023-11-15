@@ -88,6 +88,12 @@ importers:
         specifier: 0.1.2-rc.0
         version: 0.1.2-rc.0
 
+  packages/minify:
+    dependencies:
+      luamin:
+        specifier: ^1.0.4
+        version: 1.0.4
+
   site:
     devDependencies:
       '@11ty/eleventy':
@@ -114,6 +120,9 @@ importers:
       '@lilo2d/lilo':
         specifier: workspace:*
         version: link:../../packages/lilo
+      '@lilo2d/minify':
+        specifier: workspace:*
+        version: link:../../packages/minify
 
   testprojects/tweening:
     dependencies:
@@ -3543,6 +3552,18 @@ packages:
   /lua-types@2.13.1:
     resolution: {integrity: sha512-rRwtvX6kS+5MpuO3xpvKsnYjdSDDI064Qq1OqX8gY+r+0l7m3dFLiZPDFoHqH22jaBpEvcHcPs6+WD7qkdmFsA==}
     dev: true
+
+  /luamin@1.0.4:
+    resolution: {integrity: sha512-z1h0bclRD/QGsS/Dz4Skp9z0qPTmmm+IKcrCapGmdTczPWVdN9f9jk6WqkNrcifQr8+n9Pzsm9WkwpOH1JBUAQ==}
+    hasBin: true
+    dependencies:
+      luaparse: 0.2.1
+    dev: false
+
+  /luaparse@0.2.1:
+    resolution: {integrity: sha512-VKBcryd5nJte4ZNR29NOk8F/UkMipjeb4yoxcSS51z6QAzg9DXUC2WsfLniS0J1eh3pr/ZL3e9ha6V8fhoLbBQ==}
+    hasBin: true
+    dev: false
 
   /lunr@2.3.9:
     resolution: {integrity: sha512-zTU3DaZaF3Rt9rhN3uBMGQD3dD2/vFQqnvZCDv4dl5iOzq2IZQqTxu90r4E5J+nP70J3ilqVCrbho2eWaeW8Ow==}
