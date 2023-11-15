@@ -5,7 +5,6 @@ const path = require('path');
 async function minify() {
   const args = process.argv;
 
-  console.log(args);
   if (args.length < 3) {
     return;
   }
