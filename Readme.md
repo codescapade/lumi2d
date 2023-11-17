@@ -1,4 +1,4 @@
-# Lilo2d
+# Lumi2d
 
 A game engine in TypeScript on top of the LOVE framework.
 

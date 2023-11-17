@@ -1,4 +1,4 @@
-import { Assets, Events, Game, KeyboardEvent, MouseEvent, Scene, Scenes, View } from '@lilo2d/lilo';
+import { Assets, Events, Game, KeyboardEvent, MouseEvent, Scene, Scenes, View } from '@lumi2d/lumi';
 import { Image } from 'love.graphics';
 import { Bunny } from '../entities/bunny';
 import { Label } from '../entities/label';

@@ -1,5 +1,5 @@
 {
-  "name": "@lilo2d/atlas",
+  "name": "@lumi2d/atlas",
   "version": "1.0.0",
   "description": "",
   "files": [
@@ -7,7 +7,7 @@
     "/template"
   ],
   "bin": {
-    "lilo-atlas": "lib/index.js"
+    "lumi-atlas": "lib/index.js"
   },
   "scripts": {
     "build": "tsc -p tsconfig.build.json",

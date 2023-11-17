@@ -1,0 +1,45 @@
+name: Lint, Build and Test Lumi
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  push:
+    branches:
+      - main
+jobs:
+  lint-build-and-test:
+    name: 'lint, build and test lumi'
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [20]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Prettier check
+        run: pnpm prettier-lumi
+
+      - name: Linting
+        run: pnpm lint-lumi
+
+      - name: Build Lumi
+        run: pnpm build-lumi
+
+      - name: Build Tests
+        run: pnpm test-lumi
+
+      - name: Run Tests
+        uses: lunarmodules/busted@v2.1.2
+        with:
+          args: packages/lumi/tests_out --pattern="%.test%." --lpath="packages/lumi/tests_out/?.lua"

@@ -43,6 +43,6 @@ module.exports = (config) => {
       input: 'src',
       output: '../docs'
     },
-    pathPrefix: '/lilo2d/'
+    pathPrefix: '/lumi2d/'
   };
 };

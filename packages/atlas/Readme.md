@@ -1,17 +1,17 @@
-# Lilo2d Atlas
+# Lumi2d Atlas
 
-Lilo2d Atlas is a command line image atlas packing tool. It combines multiple images into one and exports it together with a JSON file that has information on the size and position of each of the images inside the atlas.
+Lumi2d Atlas is a command line image atlas packing tool. It combines multiple images into one and exports it together with a JSON file that has information on the size and position of each of the images inside the atlas.
 
 ## Installation
-To install the tool, run `npm install 'https://gitpkg.now.sh/codescapade/lilo2d/packages/lilo2d-atlas?main'`.
+To install the tool, run `npm install 'https://gitpkg.now.sh/codescapade/lumi2d/packages/atlas?main'`.
 This is until the package is published on npm when the engine is ready.
 
-## How to use Lilo2d Atlas
-After installation you can run `npx lilo2d-atlas init` to generate an `atlas.toml` configuration file.
+## How to use Lumi2d Atlas
+After installation you can run `npx lumi-atlas init` to generate an `atlas.toml` configuration file.
 
-To generate the atlas run `npx lilo2d-atlas`.
+To generate the atlas run `npx lumi-atlas`.
 
-You can provide a different folder for the `.toml` file using `npx lilo2d-atlas -p <path to your .toml>`.
+You can provide a different folder for the `.toml` file using `npx lumi-atlas -p <path to your .toml>`.
 
 ## The toml schema
 The atlas config file can contain multiple configurations so you can generate multiple atlases at the same time.
