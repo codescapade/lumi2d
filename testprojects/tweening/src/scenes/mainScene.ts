@@ -35,7 +35,7 @@ import {
   easeOutQuart,
   easeOutQuint,
   easeOutSine,
-} from '@lilo2d/lilo';
+} from '@lumi2d/lumi';
 import { TweenGraphic } from '../entities/tweenGraphic';
 import { Font } from 'love.graphics';
 import { Label } from '../entities/label';

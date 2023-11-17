@@ -1,4 +1,4 @@
-import { Game } from '@lilo2d/lilo';
+import { Game } from '@lumi2d/lumi';
 import { LoadScene } from './scenes/loadScene';
 
 love.window.setTitle('Bunnies');

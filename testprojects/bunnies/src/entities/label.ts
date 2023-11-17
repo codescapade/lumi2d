@@ -1,4 +1,4 @@
-import { Color, Entity, Point } from '@lilo2d/lilo';
+import { Color, Entity, Point } from '@lumi2d/lumi';
 import { Font } from 'love.graphics';
 
 /**

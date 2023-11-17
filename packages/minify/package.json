@@ -1,16 +1,16 @@
 {
-  "name": "@lilo2d/minify",
+  "name": "@lumi2d/minify",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "bin": {
-    "lilo-minify": "index.js"
+    "lumi-minify": "index.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
+  "author": "Codescapade",
   "license": "MIT",
   "dependencies": {
     "luamin": "^1.0.4"

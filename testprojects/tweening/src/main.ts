@@ -1,4 +1,4 @@
-import { Game } from '@lilo2d/lilo';
+import { Game } from '@lumi2d/lumi';
 import { MainScene } from './scenes/mainScene';
 
 love.window.setTitle('Tweening');

@@ -92,7 +92,7 @@ window.onerror = function (event) {
 
 let s = document.createElement('script');
 s.type = 'text/javascript';
-s.src = '/lilo2d/static/love/love.js';
+s.src = '/lumi2d/static/love/love.js';
 s.async = true;
 s.onload = () => {
   Love(Module);

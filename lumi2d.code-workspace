@@ -1,0 +1,61 @@
+{
+  "folders": [
+    {
+      "name": "✨ lumi2d-monorepo",
+      "path": "."
+    },
+    {
+      "name": "📦 @lumi2d/atlas",
+      "path": "packages/atlas"
+    },
+    {
+      "name": "📦 @lumi2d/lumi",
+      "path": "packages/lumi"
+    },
+    {
+      "name": "📦 @lumi2d/minify",
+      "path": "packages/minify"
+    },
+    {
+      "name": "site",
+      "path": "site"
+    },
+    {
+      "name": "@testprojects/bunnies",
+      "path": "testprojects/bunnies"
+    },
+    {
+      "name": "@testprojects/tweening",
+      "path": "testprojects/tweening"
+    }
+  ],
+  "settings": {
+    "Lua.workspace.ignoreDir": [".vscode", "node_modules/", "tests_out/", "export/"],
+    "Lua.runtime.version": "LuaJIT",
+    "cSpell.words": [
+      "drawcalls",
+      "gamepadaxis",
+      "gamepadpressed",
+      "gamepadreleased",
+      "isrepeat",
+      "joystickadded",
+      "joystickaxis",
+      "joystickhat",
+      "joystickpressed",
+      "joystickreleased",
+      "joystickremoved",
+      "keypressed",
+      "keyreleased",
+      "mousemoved",
+      "mousepressed",
+      "mousereleased",
+      "Scancode",
+      "texturememory",
+      "tilemaps",
+      "touchmoved",
+      "touchpressed",
+      "touchreleased",
+      "wheelmoved"
+    ]
+  }
+}
