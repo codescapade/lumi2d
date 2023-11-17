@@ -6,7 +6,7 @@
     "build-lumi": "pnpm --filter @lumi2d/lumi build",
     "lint-lumi": "pnpm --filter @lumi2d/lumi lint",
     "prettier-lumi": "pnpm --filter @lumi2d/lumi prettier-check",
-    "test-lumi": "pnpm --filter @umi2d/lumi build-test",
+    "test-lumi": "pnpm --filter @lumi2d/lumi build-test",
     
     "lint-testprojects": "pnpm --parallel --filter ./testprojects/** lint",
     "prettier-testprojects": "pnpm --parallel --filter ./testprojects/** prettier-check",
