@@ -5,6 +5,11 @@ const bodyColor = new Color(0, 0.45, 0.8);
 const staticBodyColor = new Color(0, 0.8, 0);
 const kinematicBodyColor = new Color(0.2, 0.45, 0);
 
+/**
+ * Debug draw love physics world.
+ * @param world The physics world to draw.
+ * @param camera Optional camera to offset the debug draw.
+ */
 export function lovePhysDraw(world: World, camera?: Camera): void {
   if (camera) {
     love.graphics.push();

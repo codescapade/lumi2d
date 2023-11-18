@@ -5,6 +5,9 @@ import { RayHitList } from './rayHits';
 let MAX_BODIES = 4;
 let MAX_DEPTH = 6;
 
+/**
+ * The quad tree for broad phase collision checking.
+ */
 export class QuadTree {
   bounds: Rectangle;
   root: Node;

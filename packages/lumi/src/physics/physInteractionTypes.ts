@@ -1,5 +1,8 @@
 import { Bitset } from '../utils';
 
+/**
+ * Collide directions.
+ */
 export class PhysCollide extends Bitset {
   static readonly NONE = 0b0000;
   static readonly LEFT = 0b0001;
@@ -9,6 +12,9 @@ export class PhysCollide extends Bitset {
   static readonly ALL = 0b1111;
 }
 
+/**
+ * Touch directions.
+ */
 export class PhysTouching extends Bitset {
   static readonly NONE = 0b0000;
   static readonly LEFT = 0b0001;
@@ -17,6 +23,9 @@ export class PhysTouching extends Bitset {
   static readonly BOTTOM = 0b1000;
 }
 
+/**
+ * Collision groups.
+ */
 export class PhysCollisionFilter extends Bitset {
   static readonly GROUP_01 = 0b0000000000000001;
   static readonly GROUP_02 = 0b0000000000000010;
@@ -36,6 +45,9 @@ export class PhysCollisionFilter extends Bitset {
   static readonly GROUP_16 = 0b1000000000000000;
 }
 
+/**
+ * Interaction types.
+ */
 export type PhysInteractionType =
   | 'triggerStart'
   | 'triggerStay'

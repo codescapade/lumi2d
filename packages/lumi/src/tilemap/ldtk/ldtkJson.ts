@@ -1,4 +1,4 @@
-// json types for verion 1.3.4
+// json types for verion 1.4.1
 
 export interface ProjectJson {
   jsonVersion: string;
@@ -126,6 +126,7 @@ export interface LayerDefJson {
   parallaxFactorY: number;
   parallaxScaling: boolean;
   intGridValues: IntGridValueDef[];
+  intGridValuesGroups: IntGridValueGroupDef[];
   autoSourceLayerDefUid?: number;
   tilesetDefUid?: number;
 }
@@ -146,6 +147,7 @@ export interface EntityDefJson {
   color: string;
   tilesetId?: number;
   tileRect?: TilesetRect;
+  uiTileRect?: TilesetRect;
   tileRenderMode: EntityTileRenderMode;
   nineSliceBorders: number[];
   pivotX: number;
@@ -223,6 +225,12 @@ export interface IntGridValueDef {
   identifier?: string;
   color: string;
   tile?: TilesetRect;
+}
+
+export interface IntGridValueGroupDef {
+  uid: number;
+  identifier?: string;
+  color?: string;
 }
 
 export interface EnumTagValue {

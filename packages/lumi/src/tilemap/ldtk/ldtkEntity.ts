@@ -1,15 +1,53 @@
 import { EntityInstanceJson } from './ldtkJson';
 
+/**
+ * An Ldtk entity representation
+ */
 export class LdtkEntity {
+  /**
+   * The entity id.
+   */
   id: string;
+
+  /**
+   * The x position in the level in pixels.
+   */
   x: number;
+
+  /**
+   * The y position in the level in pixels.
+   */
   y: number;
+
+  /**
+   * The x axis pivot point.
+   */
   pivotX: number;
+
+  /**
+   * The y axis pivot point.
+   */
   pivotY: number;
+
+  /**
+   * The width in pixels.
+   */
   width: number;
+
+  /**
+   * The height in pixels.
+   */
   height: number;
+
+  /**
+   * Custom entity fields.
+   */
   fields: LdtkEntityField[];
 
+  /**
+   * Create a new entity.
+   * @param entity The json entity data.
+   */
   constructor(entity?: EntityInstanceJson) {
     if (entity) {
       this.id = entity.__identifier;
@@ -37,6 +75,10 @@ export class LdtkEntity {
     }
   }
 
+  /**
+   * Clone this entity.
+   * @returns A new instance of this entity.
+   */
   clone(): LdtkEntity {
     const entity = new LdtkEntity();
     entity.id = this.id;
@@ -56,6 +98,9 @@ export class LdtkEntity {
   }
 }
 
+/**
+ * Custom entity field.
+ */
 export class LdtkEntityField {
   constructor(
     public id: string,
