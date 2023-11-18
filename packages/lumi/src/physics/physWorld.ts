@@ -9,37 +9,86 @@ import { RayHitList } from './rayHits';
 /** @noSelf */
 export type InteractionCallback = (body1: PhysBody, body2: PhysBody) => void;
 
+/**
+ * The physics world. This does the AABB physics simulation.
+ */
 export class PhysWorld {
+  /**
+   * Only an active world updates.
+   */
   active = true;
+
+  /**
+   * Debug draw ray casts.
+   */
   drawRays = false;
+
+  /**
+   * Show the quad tree in debug draw.
+   */
   showQuadTree = false;
+
+  /**
+   * Physics iterations per update.
+   */
   iterations = 8;
+
+  /**
+   * The world gravity.
+   */
   gravity = new Point();
-  bodies: PhysBody[] = [];
-  treeList: PhysBody[] = [];
 
-  triggerStartListeners = new LuaTable<string, LuaTable<string, InteractionCallback[]>>();
-  triggerStayListeners = new LuaTable<string, LuaTable<string, InteractionCallback[]>>();
-  triggerEndListeners = new LuaTable<string, LuaTable<string, InteractionCallback[]>>();
+  /**
+   * All bodies currently in the world.
+   */
+  private bodies: PhysBody[] = [];
 
-  collisionStartListeners = new LuaTable<string, LuaTable<string, InteractionCallback[]>>();
-  collisionStayListeners = new LuaTable<string, LuaTable<string, InteractionCallback[]>>();
-  collisionEndListeners = new LuaTable<string, LuaTable<string, InteractionCallback[]>>();
+  /**
+   * Internal body list that can collide with another body.
+   */
+  private treeList: PhysBody[] = [];
 
-  interactions: PhysInteraction[] = [];
+  // All trigger listeners.
+  private triggerStartListeners = new LuaTable<string, LuaTable<string, InteractionCallback[]>>();
+  private triggerStayListeners = new LuaTable<string, LuaTable<string, InteractionCallback[]>>();
+  private triggerEndListeners = new LuaTable<string, LuaTable<string, InteractionCallback[]>>();
 
-  bounds = new Rectangle();
+  // All collision listeners.
+  private collisionStartListeners = new LuaTable<string, LuaTable<string, InteractionCallback[]>>();
+  private collisionStayListeners = new LuaTable<string, LuaTable<string, InteractionCallback[]>>();
+  private collisionEndListeners = new LuaTable<string, LuaTable<string, InteractionCallback[]>>();
 
-  tree: QuadTree;
+  /**
+   * List of interactions in an update.
+   */
+  private interactions: PhysInteraction[] = [];
 
-  debugRays: RayDraw[] = [];
+  /**
+   * The world bounds.
+   */
+  private bounds = new Rectangle();
 
+  /**
+   * Internal quad tree.
+   */
+  private tree: QuadTree;
+
+  /**
+   * Rays for debug draw ray casts.
+   */
+  private debugRays: RayDraw[] = [];
+
+  // Debug draw colors.
   private boundsColor = new Color(0.4, 0.4, 0.4);
   private bodyColor = new Color(0, 0.45, 0.8);
   private staticBodyColor = new Color(0, 0.8, 0);
   private rayColor = new Color(1, 0.5, 0);
   private rayHitColor = new Color(1, 1, 0);
 
+  /**
+   * Create a new physics world.
+   * @param options
+   */
   constructor(options: PhysWorldOptions) {
     if (options.gravity) {
       this.gravity.set(options.gravity.x, options.gravity.y);
@@ -56,11 +105,19 @@ export class PhysWorld {
     this.tree = new QuadTree(x, y, options.width, options.height);
   }
 
+  /**
+   * Add a body to the world.
+   * @param body The body to add.
+   */
   addBody(body: PhysBody): void {
     body.world = this;
     this.bodies.push(body);
   }
 
+  /**
+   * Remove a body from the world.
+   * @param body The body to remove.
+   */
   removeBody(body: PhysBody): void {
     body.world = undefined;
     const index = this.bodies.indexOf(body);
@@ -69,18 +126,30 @@ export class PhysWorld {
     }
   }
 
+  /**
+   * Add multiple bodies to the world.
+   * @param bodies The list of bodies.
+   */
   addBodies(bodies: PhysBody[]): void {
     for (const body of bodies) {
       this.addBody(body);
     }
   }
 
+  /**
+   * Remove multiple bodies from the world.
+   * @param bodies The list of bodies.
+   */
   removeBodies(bodies: PhysBody[]): void {
     for (const body of bodies) {
       this.removeBody(body);
     }
   }
 
+  /**
+   * Update the world.
+   * @param dt The time passed since the last update in seconds.
+   */
   update(dt: number): void {
     if (!this.active) {
       return;
@@ -94,14 +163,17 @@ export class PhysWorld {
 
     for (const body of this.bodies) {
       if (body.active) {
+        // Update the interactions and reset touching.
         this.updatePastInteractions(body);
         body.wasTouching.value = body.touching.value;
         body.touching.value = PhysTouching.NONE;
         body.lastX = body.bounds.x;
         body.lastY = body.bounds.y;
 
+        // Only update bodies inside the world.
         if (this.bounds.intersects(body.bounds)) {
           if (body.bodyType !== 'static') {
+            // Update velocity on dynamic bodies.
             if (body.bodyType === 'dynamic') {
               if (body.useGravity) {
                 body.velocity.x += (body.acceleration.x + this.gravity.x) * dt;
@@ -131,11 +203,13 @@ export class PhysWorld {
             body.bounds.x += body.velocity.x * dt;
             body.bounds.y += body.velocity.y * dt;
           }
+          // Insert it into the quad tree.
           this.tree.insert(body);
         }
       }
     }
 
+    // Update collisions.
     for (let i = 0; i < this.iterations; i++) {
       for (const body of this.bodies) {
         if (body.active) {
@@ -152,6 +226,7 @@ export class PhysWorld {
       }
     }
 
+    // Set the interactions.
     for (const body of this.bodies) {
       if (body.active) {
         for (const b of body.wasCollidingWith) {
@@ -168,6 +243,7 @@ export class PhysWorld {
       }
     }
 
+    // Dispatch all interactions.
     while (this.interactions.length > 0) {
       const interaction = this.interactions.pop()!;
       this.dispatchInteraction(interaction);
@@ -175,6 +251,10 @@ export class PhysWorld {
     }
   }
 
+  /**
+   * Draw the body outlines.
+   * @param camera Option camera for offset.
+   */
   debugDraw(camera?: Camera): void {
     if (camera) {
       love.graphics.push();
@@ -228,6 +308,16 @@ export class PhysWorld {
     }
   }
 
+  /**
+   * Cast a ray to see if it hits one or more bodies.
+   * @param p1X The x position of the start point in pixels.
+   * @param p1Y The y position of the first point in pixels.
+   * @param p2X The x position of the second point in pixels.
+   * @param p2Y The y position of the second point in pixels.
+   * @param tags Optional tags to look for.
+   * @param out The hit list with bodies that got hit.
+   * @returns The list with bodies that got hit.
+   */
   raycast(p1X: number, p1Y: number, p2X: number, p2Y: number, tags?: string[], out?: RayHitList): RayHitList {
     out = this.tree.getLineList(p1X, p1Y, p2X, p2Y, out);
 
@@ -243,6 +333,13 @@ export class PhysWorld {
     return out;
   }
 
+  /**
+   * Add an interaction listener.
+   * @param type The type of listener.
+   * @param tag1 The tag of the first body.
+   * @param tag2 The tag of the second body.
+   * @param callback The function to call on hit.
+   */
   addListener(type: PhysInteractionType, tag1: string, tag2: string, callback: InteractionCallback): void {
     let list: LuaTable<string, LuaTable<string, InteractionCallback[]>> | undefined;
 
@@ -272,6 +369,13 @@ export class PhysWorld {
     }
   }
 
+  /**
+   * Remove an interaction listener.
+   * @param type The type of listener.
+   * @param tag1 The tag of the first body.
+   * @param tag2 The tag of the second body.
+   * @param callback The function to call on hit.
+   */
   removeListener(type: PhysInteractionType, tag1: string, tag2: string, callback: InteractionCallback): void {
     let list: LuaTable<string, LuaTable<string, InteractionCallback[]>> | undefined;
 
@@ -300,20 +404,38 @@ export class PhysWorld {
     }
   }
 
+  /**
+   * Get the top left position of the world in pixels.
+   * @returns The x and y position.
+   */
   getPosition(): LuaMultiReturn<[number, number]> {
     return $multi(this.bounds.x, this.bounds.y);
   }
 
+  /**
+   * Update the top left position of the world.
+   * @param x The new x position in pixels.
+   * @param y The new y position in pixels.
+   */
   setPosition(x: number, y: number): void {
     this.bounds.x = x;
     this.bounds.y = y;
     this.tree.updatePosition(x, y);
   }
 
+  /**
+   * Get the world size in pixels.
+   * @returns The width and height.
+   */
   getSize(): LuaMultiReturn<[number, number]> {
     return $multi(this.bounds.width, this.bounds.height);
   }
 
+  /**
+   * Update the world size.
+   * @param width The new width in pixels.
+   * @param height The new height in pixels.
+   */
   setSize(width: number, height: number): void {
     this.bounds.width = width;
     this.bounds.height = height;
