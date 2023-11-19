@@ -3,7 +3,7 @@
     {
       "text": "Examples",
       "url": "/examples/",
-      "enabled": false
+      "enabled": true
     },
     {
       "text": "Docs",
@@ -14,11 +14,6 @@
       "text": "API",
       "url": "/api/",
       "enabled": false
-    },
-    {
-      "text": "Experiments",
-      "url": "/experiments/",
-      "enabled": true
     }
   ]
 }

@@ -1,10 +1,10 @@
 {
-  "name": "@lumi2d/minify",
-  "version": "1.0.0",
+  "name": "@lumi2d/lumi-cli",
+  "version": "0.0.1",
   "description": "",
   "main": "index.js",
   "bin": {
-    "lumi-minify": "index.js"
+    "lumi": "index.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -13,6 +13,8 @@
   "author": "Codescapade",
   "license": "MIT",
   "dependencies": {
+    "archiver": "^6.0.1",
+    "commander": "^11.1.0",
     "luamin": "^1.0.4"
   }
 }

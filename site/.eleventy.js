@@ -14,7 +14,7 @@ const md = markdownIt(MARKDOWN_OPTIONS);
 
 module.exports = (config) => {
   config.addPassthroughCopy('src/static');
-  config.addPassthroughCopy({'src/experimentFiles': 'experiments'});
+  config.addPassthroughCopy({'src/exampleFiles': 'examples'});
 
   config.setLibrary("md", md);
 
@@ -31,8 +31,8 @@ module.exports = (config) => {
 
   config.addNunjucksFilter('date', dateFilter);
 
-  config.addCollection('experiments', (collection) => {
-    return collection.getFilteredByGlob('./src/experiments/**/*.md');
+  config.addCollection('examples', (collection) => {
+    return collection.getFilteredByGlob('./src/examples/**/*.md');
   });
 
   return {

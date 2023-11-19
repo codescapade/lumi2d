@@ -1,0 +1,4901 @@
+--[[ Generated with https://github.com/TypeScriptToLua/TypeScriptToLua ]]
+
+local ____modules = {}
+local ____moduleCache = {}
+local ____originalRequire = require
+local function require(file, ...)
+    if ____moduleCache[file] then
+        return ____moduleCache[file].value
+    end
+    if ____modules[file] then
+        local module = ____modules[file]
+        ____moduleCache[file] = { value = (select("#", ...) > 0) and module(...) or module(file) }
+        return ____moduleCache[file].value
+    else
+        if ____originalRequire then
+            return ____originalRequire(file)
+        else
+            error("module '" .. file .. "' not found")
+        end
+    end
+end
+____modules = {
+["lualib_bundle"] = function(...) 
+local function __TS__Class(self)
+    local c = {prototype = {}}
+    c.prototype.__index = c.prototype
+    c.prototype.constructor = c
+    return c
+end
+
+local function __TS__New(target, ...)
+    local instance = setmetatable({}, target.prototype)
+    instance:____constructor(...)
+    return instance
+end
+
+local function __TS__ArrayUnshift(self, ...)
+    local items = {...}
+    local numItemsToInsert = #items
+    if numItemsToInsert == 0 then
+        return #self
+    end
+    for i = #self, 1, -1 do
+        self[i + numItemsToInsert] = self[i]
+    end
+    for i = 1, numItemsToInsert do
+        self[i] = items[i]
+    end
+    return #self
+end
+
+local function __TS__ArrayIndexOf(self, searchElement, fromIndex)
+    if fromIndex == nil then
+        fromIndex = 0
+    end
+    local len = #self
+    if len == 0 then
+        return -1
+    end
+    if fromIndex >= len then
+        return -1
+    end
+    if fromIndex < 0 then
+        fromIndex = len + fromIndex
+        if fromIndex < 0 then
+            fromIndex = 0
+        end
+    end
+    for i = fromIndex + 1, len do
+        if self[i] == searchElement then
+            return i - 1
+        end
+    end
+    return -1
+end
+
+local function __TS__CountVarargs(...)
+    return select("#", ...)
+end
+
+local function __TS__ArraySplice(self, ...)
+    local args = {...}
+    local len = #self
+    local actualArgumentCount = __TS__CountVarargs(...)
+    local start = args[1]
+    local deleteCount = args[2]
+    if start < 0 then
+        start = len + start
+        if start < 0 then
+            start = 0
+        end
+    elseif start > len then
+        start = len
+    end
+    local itemCount = actualArgumentCount - 2
+    if itemCount < 0 then
+        itemCount = 0
+    end
+    local actualDeleteCount
+    if actualArgumentCount == 0 then
+        actualDeleteCount = 0
+    elseif actualArgumentCount == 1 then
+        actualDeleteCount = len - start
+    else
+        actualDeleteCount = deleteCount or 0
+        if actualDeleteCount < 0 then
+            actualDeleteCount = 0
+        end
+        if actualDeleteCount > len - start then
+            actualDeleteCount = len - start
+        end
+    end
+    local out = {}
+    for k = 1, actualDeleteCount do
+        local from = start + k
+        if self[from] ~= nil then
+            out[k] = self[from]
+        end
+    end
+    if itemCount < actualDeleteCount then
+        for k = start + 1, len - actualDeleteCount do
+            local from = k + actualDeleteCount
+            local to = k + itemCount
+            if self[from] then
+                self[to] = self[from]
+            else
+                self[to] = nil
+            end
+        end
+        for k = len - actualDeleteCount + itemCount + 1, len do
+            self[k] = nil
+        end
+    elseif itemCount > actualDeleteCount then
+        for k = len - actualDeleteCount, start + 1, -1 do
+            local from = k + actualDeleteCount
+            local to = k + itemCount
+            if self[from] then
+                self[to] = self[from]
+            else
+                self[to] = nil
+            end
+        end
+    end
+    local j = start + 1
+    for i = 3, actualArgumentCount do
+        self[j] = args[i]
+        j = j + 1
+    end
+    for k = #self, len - actualDeleteCount + itemCount + 1, -1 do
+        self[k] = nil
+    end
+    return out
+end
+
+local function __TS__ArrayIncludes(self, searchElement, fromIndex)
+    if fromIndex == nil then
+        fromIndex = 0
+    end
+    local len = #self
+    local k = fromIndex
+    if fromIndex < 0 then
+        k = len + fromIndex
+    end
+    if k < 0 then
+        k = 0
+    end
+    for i = k + 1, len do
+        if self[i] == searchElement then
+            return true
+        end
+    end
+    return false
+end
+
+local function __TS__ArraySort(self, compareFn)
+    if compareFn ~= nil then
+        table.sort(
+            self,
+            function(a, b) return compareFn(nil, a, b) < 0 end
+        )
+    else
+        table.sort(self)
+    end
+    return self
+end
+
+local function __TS__ClassExtends(target, base)
+    target.____super = base
+    local staticMetatable = setmetatable({__index = base}, base)
+    setmetatable(target, staticMetatable)
+    local baseMetatable = getmetatable(base)
+    if baseMetatable then
+        if type(baseMetatable.__index) == "function" then
+            staticMetatable.__index = baseMetatable.__index
+        end
+        if type(baseMetatable.__newindex) == "function" then
+            staticMetatable.__newindex = baseMetatable.__newindex
+        end
+    end
+    setmetatable(target.prototype, base.prototype)
+    if type(base.prototype.__index) == "function" then
+        target.prototype.__index = base.prototype.__index
+    end
+    if type(base.prototype.__newindex) == "function" then
+        target.prototype.__newindex = base.prototype.__newindex
+    end
+    if type(base.prototype.__tostring) == "function" then
+        target.prototype.__tostring = base.prototype.__tostring
+    end
+end
+
+local function __TS__ArrayFindIndex(self, callbackFn, thisArg)
+    for i = 1, #self do
+        if callbackFn(thisArg, self[i], i - 1, self) then
+            return i - 1
+        end
+    end
+    return -1
+end
+
+local __TS__Symbol, Symbol
+do
+    local symbolMetatable = {__tostring = function(self)
+        return ("Symbol(" .. (self.description or "")) .. ")"
+    end}
+    function __TS__Symbol(description)
+        return setmetatable({description = description}, symbolMetatable)
+    end
+    Symbol = {
+        asyncDispose = __TS__Symbol("Symbol.asyncDispose"),
+        dispose = __TS__Symbol("Symbol.dispose"),
+        iterator = __TS__Symbol("Symbol.iterator"),
+        hasInstance = __TS__Symbol("Symbol.hasInstance"),
+        species = __TS__Symbol("Symbol.species"),
+        toStringTag = __TS__Symbol("Symbol.toStringTag")
+    }
+end
+
+local function __TS__InstanceOf(obj, classTbl)
+    if type(classTbl) ~= "table" then
+        error("Right-hand side of 'instanceof' is not an object", 0)
+    end
+    if classTbl[Symbol.hasInstance] ~= nil then
+        return not not classTbl[Symbol.hasInstance](classTbl, obj)
+    end
+    if type(obj) == "table" then
+        local luaClass = obj.constructor
+        while luaClass ~= nil do
+            if luaClass == classTbl then
+                return true
+            end
+            luaClass = luaClass.____super
+        end
+    end
+    return false
+end
+
+return {
+  __TS__Class = __TS__Class,
+  __TS__New = __TS__New,
+  __TS__ArrayUnshift = __TS__ArrayUnshift,
+  __TS__ArrayIndexOf = __TS__ArrayIndexOf,
+  __TS__ArraySplice = __TS__ArraySplice,
+  __TS__ArrayIncludes = __TS__ArrayIncludes,
+  __TS__ArraySort = __TS__ArraySort,
+  __TS__ClassExtends = __TS__ClassExtends,
+  __TS__ArrayFindIndex = __TS__ArrayFindIndex,
+  __TS__InstanceOf = __TS__InstanceOf
+}
+ end,
+["entities.tweenGraphic"] = function(...) 
+local ____lualib = require("lualib_bundle")
+local __TS__Class = ____lualib.__TS__Class
+local __TS__New = ____lualib.__TS__New
+local ____exports = {}
+local ____lumi = require("lua_modules.@lumi2d.lumi.dist.index")
+local Tween = ____lumi.Tween
+local Tweens = ____lumi.Tweens
+local TweenSequence = ____lumi.TweenSequence
+____exports.TweenGraphic = __TS__Class()
+local TweenGraphic = ____exports.TweenGraphic
+TweenGraphic.name = "TweenGraphic"
+function TweenGraphic.prototype.____constructor(self, start, ____end, ease, duration, color)
+    self.layer = 1
+    self.active = true
+    self.radius = 10
+    self.x = start.x
+    self.y = start.y
+    self.color = color
+    local tweenStart = __TS__New(
+        Tween,
+        self,
+        duration,
+        {x = start.x, y = start.y},
+        {x = ____end.x, y = ____end.y}
+    ):setEase(ease)
+    local tweenPauseEnd = __TS__New(
+        Tween,
+        self,
+        0.5,
+        {x = ____end.x, y = ____end.y},
+        {x = ____end.x, y = ____end.y}
+    )
+    local tweenReturn = __TS__New(
+        Tween,
+        self,
+        duration,
+        {x = ____end.x, y = ____end.y},
+        {x = start.x, y = start.y}
+    ):setEase(ease)
+    local tweenPauseStart = __TS__New(
+        Tween,
+        self,
+        0.5,
+        {x = start.x, y = start.y},
+        {x = start.x, y = start.y}
+    )
+    local sequence = __TS__New(TweenSequence, {tweenStart, tweenPauseEnd, tweenReturn, tweenPauseStart}, -1)
+    Tweens.addSequence(sequence)
+end
+function TweenGraphic.prototype.draw(self)
+    local r, g, b, a = self.color:parts()
+    love.graphics.setColor(r, g, b, a)
+    love.graphics.circle(
+        "fill",
+        self.x,
+        self.y,
+        self.radius,
+        32
+    )
+end
+return ____exports
+ end,
+["lua_modules.@lumi2d.lumi.dist.index"] = function(...) 
+--[[ Generated with https://github.com/TypeScriptToLua/TypeScriptToLua ]]
+local ____exports = {}
+do
+    local ____export = require("lua_modules.@lumi2d.lumi.dist.components.index")
+    for ____exportKey, ____exportValue in pairs(____export) do
+        if ____exportKey ~= "default" then
+            ____exports[____exportKey] = ____exportValue
+        end
+    end
+end
+do
+    local ____export = require("lua_modules.@lumi2d.lumi.dist.events.index")
+    for ____exportKey, ____exportValue in pairs(____export) do
+        if ____exportKey ~= "default" then
+            ____exports[____exportKey] = ____exportValue
+        end
+    end
+end
+do
+    local ____export = require("lua_modules.@lumi2d.lumi.dist.graphics.index")
+    for ____exportKey, ____exportValue in pairs(____export) do
+        if ____exportKey ~= "default" then
+            ____exports[____exportKey] = ____exportValue
+        end
+    end
+end
+do
+    local ____export = require("lua_modules.@lumi2d.lumi.dist.math.index")
+    for ____exportKey, ____exportValue in pairs(____export) do
+        if ____exportKey ~= "default" then
+            ____exports[____exportKey] = ____exportValue
+        end
+    end
+end
+do
+    local ____export = require("lua_modules.@lumi2d.lumi.dist.tweens.index")
+    for ____exportKey, ____exportValue in pairs(____export) do
+        if ____exportKey ~= "default" then
+            ____exports[____exportKey] = ____exportValue
+        end
+    end
+end
+do
+    local ____export = require("lua_modules.@lumi2d.lumi.dist.utils.index")
+    for ____exportKey, ____exportValue in pairs(____export) do
+        if ____exportKey ~= "default" then
+            ____exports[____exportKey] = ____exportValue
+        end
+    end
+end
+do
+    local ____export = require("lua_modules.@lumi2d.lumi.dist.assets")
+    for ____exportKey, ____exportValue in pairs(____export) do
+        if ____exportKey ~= "default" then
+            ____exports[____exportKey] = ____exportValue
+        end
+    end
+end
+do
+    local ____export = require("lua_modules.@lumi2d.lumi.dist.game")
+    for ____exportKey, ____exportValue in pairs(____export) do
+        if ____exportKey ~= "default" then
+            ____exports[____exportKey] = ____exportValue
+        end
+    end
+end
+do
+    local ____export = require("lua_modules.@lumi2d.lumi.dist.scenes")
+    for ____exportKey, ____exportValue in pairs(____export) do
+        if ____exportKey ~= "default" then
+            ____exports[____exportKey] = ____exportValue
+        end
+    end
+end
+do
+    local ____export = require("lua_modules.@lumi2d.lumi.dist.view.index")
+    for ____exportKey, ____exportValue in pairs(____export) do
+        if ____exportKey ~= "default" then
+            ____exports[____exportKey] = ____exportValue
+        end
+    end
+end
+return ____exports
+ end,
+["lua_modules.@lumi2d.lumi.dist.view.index"] = function(...) 
+--[[ Generated with https://github.com/TypeScriptToLua/TypeScriptToLua ]]
+local ____exports = {}
+do
+    local ____export = require("lua_modules.@lumi2d.lumi.dist.view.scaleMode")
+    for ____exportKey, ____exportValue in pairs(____export) do
+        if ____exportKey ~= "default" then
+            ____exports[____exportKey] = ____exportValue
+        end
+    end
+end
+do
+    local ____export = require("lua_modules.@lumi2d.lumi.dist.view.view")
+    for ____exportKey, ____exportValue in pairs(____export) do
+        if ____exportKey ~= "default" then
+            ____exports[____exportKey] = ____exportValue
+        end
+    end
+end
+return ____exports
+ end,
+["lua_modules.@lumi2d.lumi.dist.view.view"] = function(...) 
+local ____lualib = require("lualib_bundle")
+local __TS__Class = ____lualib.__TS__Class
+local ____exports = {}
+local ____scaleMode = require("lua_modules.@lumi2d.lumi.dist.view.scaleMode")
+local scaleModeFitView = ____scaleMode.scaleModeFitView
+--- The view class has view related information like design, view, and window size.
+-- 
+-- @noSelf
+____exports.View = __TS__Class()
+local View = ____exports.View
+View.name = "View"
+function View.prototype.____constructor(self)
+end
+function View.init(width, height)
+    ____exports.View.designWidth = width
+    ____exports.View.designHeight = height
+    ____exports.View.scaleMode = scaleModeFitView
+    ____exports.View.scaleToWindow()
+end
+function View.scaleToWindow()
+    local ____temp_0 = {____exports.View.scaleMode(____exports.View.designWidth, ____exports.View.designHeight, ____exports.View.viewAnchorX, ____exports.View.viewAnchorY)}
+    ____exports.View.viewWidth = ____temp_0[1]
+    ____exports.View.viewHeight = ____temp_0[2]
+    ____exports.View.viewScaleFactorX = ____temp_0[3]
+    ____exports.View.viewScaleFactorY = ____temp_0[4]
+    ____exports.View.viewOffsetX = ____temp_0[5]
+    ____exports.View.viewOffsetY = ____temp_0[6]
+end
+function View.setScaleMode(mode)
+    ____exports.View.scaleMode = mode
+    ____exports.View.scaleToWindow()
+end
+function View.getDesignSize()
+    return ____exports.View.designWidth, ____exports.View.designHeight
+end
+function View.getViewSize()
+    return ____exports.View.viewWidth, ____exports.View.viewHeight
+end
+function View.getViewCenter()
+    return math.floor(____exports.View.viewWidth * 0.5), math.floor(____exports.View.viewHeight * 0.5)
+end
+function View.getWindowSize()
+    return love.graphics.getWidth(), love.graphics.getHeight()
+end
+function View.getWindowCenter()
+    return math.floor(love.graphics.getWidth() * 0.5), math.floor(love.graphics.getHeight() * 0.5)
+end
+function View.getViewScaleFactor()
+    return ____exports.View.viewScaleFactorX, ____exports.View.viewScaleFactorY
+end
+function View.getViewOffset()
+    return ____exports.View.viewOffsetX, ____exports.View.viewOffsetY
+end
+View.viewAnchorX = 0
+View.viewAnchorY = 0
+View.designWidth = 0
+View.designHeight = 0
+View.viewWidth = 0
+View.viewHeight = 0
+View.viewScaleFactorX = 1
+View.viewScaleFactorY = 1
+View.viewOffsetX = 0
+View.viewOffsetY = 0
+return ____exports
+ end,
+["lua_modules.@lumi2d.lumi.dist.view.scaleMode"] = function(...) 
+--[[ Generated with https://github.com/TypeScriptToLua/TypeScriptToLua ]]
+local ____exports = {}
+--- Fit view will use fill width or fill height depending what fill the screen the most.
+-- 
+-- @param designWidth
+-- @param designHeight
+-- @param anchorX
+-- @param anchorY
+-- @returns
+function ____exports.scaleModeFitView(designWidth, designHeight, anchorX, anchorY)
+    local windowWidth = love.graphics.getWidth()
+    local windowHeight = love.graphics.getHeight()
+    local designRatio = designWidth / designHeight
+    local windowRatio = windowWidth / windowHeight
+    local viewWidth = 0
+    local viewHeight = 0
+    if windowRatio < designRatio then
+        viewWidth = designWidth
+        viewHeight = math.ceil(viewWidth / windowRatio)
+    else
+        viewHeight = designHeight
+        viewWidth = math.ceil(viewHeight * windowRatio)
+    end
+    local scaleFactor = windowWidth / viewWidth
+    local xOffset = (windowWidth - designWidth * scaleFactor) * anchorX
+    local yOffset = (windowHeight - designHeight * scaleFactor) * anchorY
+    return viewWidth, viewHeight, scaleFactor, scaleFactor, xOffset, yOffset
+end
+--- Fill the width of the screen by scaling the view.
+-- 
+-- @param designWidth
+-- @param designHeight
+-- @param anchorX
+-- @param anchorY
+-- @returns
+function ____exports.scaleModeFitWidth(designWidth, designHeight, anchorX, anchorY)
+    local windowWidth = love.graphics.getWidth()
+    local windowHeight = love.graphics.getHeight()
+    local windowRatio = windowWidth / windowHeight
+    local viewWidth = designWidth
+    local viewHeight = math.ceil(viewWidth / windowRatio)
+    local scaleFactor = windowWidth / viewWidth
+    local xOffset = (windowWidth - designWidth * scaleFactor) * anchorX
+    local yOffset = (windowHeight - designHeight * scaleFactor) * anchorY
+    return viewWidth, viewHeight, scaleFactor, scaleFactor, xOffset, yOffset
+end
+--- Fill the height of the screen by scaling the view.
+-- 
+-- @param designWidth
+-- @param designHeight
+-- @param anchorX
+-- @param anchorY
+-- @returns
+function ____exports.scaleModeFitHeight(designWidth, designHeight, anchorX, anchorY)
+    local windowWidth = love.graphics.getWidth()
+    local windowHeight = love.graphics.getHeight()
+    local windowRatio = windowWidth / windowHeight
+    local viewHeight = designHeight
+    local viewWidth = math.ceil(viewHeight * windowRatio)
+    local scaleFactor = windowHeight / viewHeight
+    local xOffset = (windowWidth - designWidth * scaleFactor) * anchorX
+    local yOffset = (windowHeight - designHeight * scaleFactor) * anchorY
+    return viewWidth, viewHeight, scaleFactor, scaleFactor, xOffset, yOffset
+end
+--- Don't scale the view at all.
+-- 
+-- @param designWidth
+-- @param designHeight
+-- @param anchorX
+-- @param anchorY
+-- @returns
+function ____exports.scaleModeNoScale(designWidth, designHeight, anchorX, anchorY)
+    local windowWidth = love.graphics.getWidth()
+    local windowHeight = love.graphics.getHeight()
+    local xOffset = (windowWidth - designWidth) * anchorX
+    local yOffset = (windowHeight - designHeight) * anchorY
+    return designWidth, designHeight, 1, 1, xOffset, yOffset
+end
+--- Stretch the width and height to fill the screen.
+-- 
+-- @param designWidth
+-- @param designHeight
+-- @param _anchorX
+-- @param _anchorY
+-- @returns
+function ____exports.scaleModeStretch(designWidth, designHeight, _anchorX, _anchorY)
+    local windowWidth = love.graphics.getWidth()
+    local windowHeight = love.graphics.getHeight()
+    local viewWidth = designWidth
+    local viewHeight = designHeight
+    local scaleFactorX = windowWidth / viewWidth
+    local scaleFactorY = windowHeight / viewHeight
+    return viewWidth, viewHeight, scaleFactorX, scaleFactorY, 0, 0
+end
+return ____exports
+ end,
+["lua_modules.@lumi2d.lumi.dist.scenes"] = function(...) 
+local ____lualib = require("lualib_bundle")
+local __TS__Class = ____lualib.__TS__Class
+local __TS__New = ____lualib.__TS__New
+local __TS__ArrayUnshift = ____lualib.__TS__ArrayUnshift
+local __TS__ArrayIndexOf = ____lualib.__TS__ArrayIndexOf
+local __TS__ArraySplice = ____lualib.__TS__ArraySplice
+local __TS__ArrayIncludes = ____lualib.__TS__ArrayIncludes
+local ____exports = {}
+local ____events = require("lua_modules.@lumi2d.lumi.dist.events.index")
+local Events = ____events.Events
+local ____graphics = require("lua_modules.@lumi2d.lumi.dist.graphics.index")
+local Color = ____graphics.Color
+local ____camera = require("lua_modules.@lumi2d.lumi.dist.graphics.camera")
+local Camera = ____camera.Camera
+local ____tweens = require("lua_modules.@lumi2d.lumi.dist.tweens.tweens")
+local Tweens = ____tweens.Tweens
+--- The scene manager class.
+-- 
+-- @noSelf
+____exports.Scenes = __TS__Class()
+local Scenes = ____exports.Scenes
+Scenes.name = "Scenes"
+function Scenes.prototype.____constructor(self)
+end
+function Scenes.current()
+    return ____exports.Scenes.sceneStack[#____exports.Scenes.sceneStack]
+end
+function Scenes.push(sceneClass)
+    ____exports.Scenes.createScene(sceneClass)
+end
+function Scenes.pop()
+    if #____exports.Scenes.sceneStack > 1 then
+        local scene = table.remove(____exports.Scenes.sceneStack)
+        scene:destroy()
+        Events.setSceneHandlers(____exports.Scenes.current():getEventHandlers())
+        Tweens.setTweenList(____exports.Scenes.current():getTweenList())
+    end
+end
+function Scenes.replace(sceneClass, replaceAll, below)
+    if replaceAll == nil then
+        replaceAll = false
+    end
+    if below == nil then
+        below = false
+    end
+    if replaceAll then
+        while #____exports.Scenes.sceneStack > 0 do
+            table.remove(____exports.Scenes.sceneStack):destroy()
+        end
+    elseif not below then
+        table.remove(____exports.Scenes.sceneStack):destroy()
+    end
+    ____exports.Scenes.createScene(sceneClass, below)
+end
+function Scenes.createScene(sceneClass, below)
+    if below == nil then
+        below = false
+    end
+    local scene = __TS__New(sceneClass)
+    if below then
+        if #____exports.Scenes.sceneStack <= 1 then
+            __TS__ArrayUnshift(____exports.Scenes.sceneStack, scene)
+        else
+            ____exports.Scenes.sceneStack[#____exports.Scenes.sceneStack - 2 + 1]:destroy()
+            ____exports.Scenes.sceneStack[#____exports.Scenes.sceneStack - 2 + 1] = scene
+        end
+        Events.setSceneHandlers(scene:getEventHandlers())
+        Tweens.setTweenList(scene:getTweenList())
+        scene:load()
+        Events.setSceneHandlers(____exports.Scenes.current():getEventHandlers())
+        Tweens.setTweenList(____exports.Scenes.current():getTweenList())
+    else
+        local ____exports_Scenes_sceneStack_0 = ____exports.Scenes.sceneStack
+        ____exports_Scenes_sceneStack_0[#____exports_Scenes_sceneStack_0 + 1] = scene
+        Events.setSceneHandlers(scene:getEventHandlers())
+        Tweens.setTweenList(scene:getTweenList())
+        scene:load()
+    end
+end
+Scenes.sceneStack = {}
+--- Base scene class. Extend this class to create different scenes like a menu or game scene for example.
+____exports.Scene = __TS__Class()
+local Scene = ____exports.Scene
+Scene.name = "Scene"
+function Scene.prototype.____constructor(self)
+    self.isOverlay = false
+    self.cameras = {}
+    self.layers = {}
+    self.entities = {}
+    self.eventHandlers = {}
+    self.tweenList = {current = {}, completed = {}, sequences = {}}
+    self.entitiesToRemove = {}
+    self.layerTracking = {}
+    for _ = 1, 32 do
+        local ____self_layers_1 = self.layers
+        ____self_layers_1[#____self_layers_1 + 1] = {}
+    end
+    local ____self_cameras_2 = self.cameras
+    ____self_cameras_2[#____self_cameras_2 + 1] = __TS__New(Camera)
+end
+function Scene.prototype.load(self)
+end
+function Scene.prototype.addEntity(self, entity)
+    local ____self_entities_3 = self.entities
+    ____self_entities_3[#____self_entities_3 + 1] = entity
+    entity.layer = math.floor(entity.layer)
+    self.layerTracking[entity] = entity.layer
+    local ____self_layers_index_4 = self.layers[entity.layer + 1]
+    ____self_layers_index_4[#____self_layers_index_4 + 1] = entity
+end
+function Scene.prototype.removeEntity(self, entity)
+    local ____self_entitiesToRemove_5 = self.entitiesToRemove
+    ____self_entitiesToRemove_5[#____self_entitiesToRemove_5 + 1] = entity
+end
+function Scene.prototype.update(self, dt)
+    while #self.entitiesToRemove > 0 do
+        local entity = table.remove(self.entitiesToRemove)
+        if entity.destroy then
+            entity:destroy()
+        end
+        local index = __TS__ArrayIndexOf(self.entities, entity)
+        if index ~= -1 then
+            __TS__ArraySplice(self.entities, index, 1)
+        end
+        local layer = self.layerTracking[entity]
+        index = __TS__ArrayIndexOf(self.layers[layer + 1], entity)
+        if index ~= -1 then
+            __TS__ArraySplice(self.layers[layer + 1], index, 1)
+        end
+        self.layerTracking[entity] = -1
+    end
+    for ____, entity in ipairs(self.entities) do
+        if entity.active then
+            self:updateEntityLayer(entity)
+            if entity.update then
+                entity:update(dt)
+            end
+        end
+    end
+end
+function Scene.prototype.lateUpdate(self, dt)
+    for ____, entity in ipairs(self.entities) do
+        if entity.active and entity.lateUpdate then
+            entity:lateUpdate(dt)
+        end
+    end
+end
+function Scene.prototype.draw(self)
+    local currentCanvas = love.graphics.getCanvas()
+    for ____, camera in ipairs(self.cameras) do
+        if camera.active then
+            camera:updateTransform()
+            love.graphics.setCanvas(camera.canvas)
+            local r, g, b, a = camera.bgColor:parts()
+            love.graphics.clear(r, g, b, a)
+            love.graphics.push()
+            love.graphics.applyTransform(camera.transform)
+            do
+                local i = 0
+                while i < #self.layers do
+                    local layer = self.layers[i + 1]
+                    if #layer > 0 and not __TS__ArrayIncludes(camera.ignoredLayers, i) then
+                        for ____, entity in ipairs(layer) do
+                            if entity.active and entity.draw then
+                                entity:draw()
+                            end
+                        end
+                    end
+                    i = i + 1
+                end
+            end
+            love.graphics.pop()
+        end
+    end
+    love.graphics.setCanvas(currentCanvas)
+    love.graphics.origin()
+    local r, g, b, a = Color.WHITE:parts()
+    love.graphics.setColor(r, g, b, a)
+    for ____, camera in ipairs(self.cameras) do
+        love.graphics.draw(camera.canvas, camera.screenBounds.x, camera.screenBounds.y)
+    end
+end
+function Scene.prototype.resize(self, width, height)
+    for ____, camera in ipairs(self.cameras) do
+        camera:resize()
+    end
+end
+function Scene.prototype.destroy(self)
+end
+function Scene.prototype.getEventHandlers(self)
+    return self.eventHandlers
+end
+function Scene.prototype.getTweenList(self)
+    return self.tweenList
+end
+function Scene.prototype.updateEntityLayer(self, entity)
+    local layer = entity.layer
+    local currentLayer = self.layerTracking[entity]
+    if currentLayer ~= layer then
+        layer = math.floor(layer)
+        entity.layer = math.floor(layer)
+        local index = __TS__ArrayIndexOf(self.layers[currentLayer + 1], entity)
+        if index ~= -1 then
+            __TS__ArraySplice(self.layers[currentLayer + 1], index, 1)
+        end
+        self.layerTracking[entity] = layer
+        local ____self_layers_index_6 = self.layers[layer + 1]
+        ____self_layers_index_6[#____self_layers_index_6 + 1] = entity
+    end
+end
+return ____exports
+ end,
+["lua_modules.@lumi2d.lumi.dist.tweens.tweens"] = function(...) 
+local ____lualib = require("lualib_bundle")
+local __TS__Class = ____lualib.__TS__Class
+local __TS__ArrayIndexOf = ____lualib.__TS__ArrayIndexOf
+local __TS__ArraySplice = ____lualib.__TS__ArraySplice
+local __TS__ArraySort = ____lualib.__TS__ArraySort
+local ____exports = {}
+--- Tween manager.
+-- 
+-- @noSelf
+____exports.Tweens = __TS__Class()
+local Tweens = ____exports.Tweens
+Tweens.name = "Tweens"
+function Tweens.prototype.____constructor(self)
+end
+function Tweens.setTweenList(list)
+    ____exports.Tweens.list = list
+end
+function Tweens.addTween(tween)
+    local ____exports_Tweens_list_current_0 = ____exports.Tweens.list.current
+    ____exports_Tweens_list_current_0[#____exports_Tweens_list_current_0 + 1] = tween
+end
+function Tweens.addSequence(sequence)
+    local ____exports_Tweens_list_sequences_1 = ____exports.Tweens.list.sequences
+    ____exports_Tweens_list_sequences_1[#____exports_Tweens_list_sequences_1 + 1] = sequence
+end
+function Tweens.update(dt)
+    local current = ____exports.Tweens.list.current
+    local completed = ____exports.Tweens.list.completed
+    local sequences = ____exports.Tweens.list.sequences
+    for ____, tween in ipairs(current) do
+        tween:update(dt)
+        if tween.complete then
+            if tween["repeat"] > tween.timesCompleted or tween["repeat"] == -1 then
+                tween:restart()
+                tween.timesCompleted = tween.timesCompleted + 1
+            else
+                completed[#completed + 1] = tween
+            end
+        end
+    end
+    while #completed > 0 do
+        local tween = table.remove(completed)
+        local index = __TS__ArrayIndexOf(current, tween)
+        __TS__ArraySplice(current, index, 1)
+        tween:runComplete()
+    end
+    for ____, sequence in ipairs(sequences) do
+        if sequence.index > #sequence.list - 1 then
+            sequence.index = 0
+        end
+        local tween = sequence:current()
+        tween:update(dt)
+        if tween.complete then
+            if tween["repeat"] > tween.timesCompleted or tween["repeat"] == -1 then
+                tween.timesCompleted = tween.timesCompleted + 1
+                tween:resetTime()
+                tween.complete = false
+                tween.paused = false
+            else
+                tween:runComplete()
+                sequence.index = sequence.index + 1
+                if sequence["repeat"] > sequence.timesCompleted or sequence["repeat"] == -1 then
+                    for ____, tween in ipairs(sequence.list) do
+                        tween.complete = false
+                        tween:resetTime()
+                    end
+                    sequence.timesCompleted = sequence.timesCompleted + 1
+                else
+                    local index = __TS__ArrayIndexOf(sequences, sequence)
+                    __TS__ArraySplice(sequences, index, 1)
+                end
+            end
+        end
+    end
+end
+function Tweens.pauseAll()
+    for ____, tween in ipairs(____exports.Tweens.list.current) do
+        tween.paused = true
+    end
+    for ____, sequence in ipairs(____exports.Tweens.list.sequences) do
+        sequence:current().paused = true
+    end
+end
+function Tweens.resumeAll()
+    for ____, tween in ipairs(____exports.Tweens.list.current) do
+        tween.paused = false
+    end
+    for ____, sequence in ipairs(____exports.Tweens.list.sequences) do
+        sequence:current().paused = false
+    end
+end
+function Tweens.removeTween(tween)
+    local index = __TS__ArrayIndexOf(____exports.Tweens.list.current, tween)
+    if index ~= -1 then
+        __TS__ArraySplice(____exports.Tweens.list.current, index, 1)
+    end
+end
+function Tweens.removeSequence(sequence)
+    local index = __TS__ArrayIndexOf(____exports.Tweens.list.sequences, sequence)
+    if index ~= -1 then
+        __TS__ArraySplice(____exports.Tweens.list.sequences, index, 1)
+    end
+end
+function Tweens.removeAllFrom(target)
+    local indexes = {}
+    for ____, tween in ipairs(____exports.Tweens.list.current) do
+        if tween:hasTarget(target) then
+            local index = __TS__ArrayIndexOf(____exports.Tweens.list.current, tween)
+            indexes[#indexes + 1] = index
+        end
+    end
+    __TS__ArraySort(
+        indexes,
+        function(____, a, b)
+            return b - a
+        end
+    )
+    for ____, index in ipairs(indexes) do
+        __TS__ArraySplice(____exports.Tweens.list.current, index, 1)
+    end
+end
+Tweens.list = {current = {}, completed = {}, sequences = {}}
+return ____exports
+ end,
+["lua_modules.@lumi2d.lumi.dist.graphics.camera"] = function(...) 
+local ____lualib = require("lualib_bundle")
+local __TS__Class = ____lualib.__TS__Class
+local __TS__New = ____lualib.__TS__New
+local ____exports = {}
+local ____math = require("lua_modules.@lumi2d.lumi.dist.math.index")
+local LumiMath = ____math.LumiMath
+local Point = ____math.Point
+local Rectangle = ____math.Rectangle
+local ____view = require("lua_modules.@lumi2d.lumi.dist.view.index")
+local View = ____view.View
+local ____color = require("lua_modules.@lumi2d.lumi.dist.graphics.color")
+local Color = ____color.Color
+--- Game camera class.
+____exports.Camera = __TS__Class()
+local Camera = ____exports.Camera
+Camera.name = "Camera"
+function Camera.prototype.____constructor(self, ____bindingPattern0)
+    if ____bindingPattern0 == nil then
+        ____bindingPattern0 = {}
+    end
+    local ignoredLayers
+    local bgColor
+    local viewHeight
+    local viewWidth
+    local viewY
+    local viewX
+    local zoom
+    local angle
+    local y
+    local x
+    x = ____bindingPattern0.x
+    y = ____bindingPattern0.y
+    angle = ____bindingPattern0.angle
+    zoom = ____bindingPattern0.zoom
+    viewX = ____bindingPattern0.viewX
+    viewY = ____bindingPattern0.viewY
+    viewWidth = ____bindingPattern0.viewWidth
+    viewHeight = ____bindingPattern0.viewHeight
+    bgColor = ____bindingPattern0.bgColor
+    ignoredLayers = ____bindingPattern0.ignoredLayers
+    self.active = true
+    self.position = __TS__New(Point)
+    self.angle = 0
+    self.zoom = 1
+    self.ignoredLayers = {}
+    self.bounds = __TS__New(Rectangle)
+    self.screenBounds = __TS__New(Rectangle)
+    self.viewRect = __TS__New(Rectangle)
+    local mainViewWidth, mainViewHeight = View.getViewSize()
+    self.position:set(x or mainViewWidth * 0.5, y or mainViewHeight * 0.5)
+    self.angle = angle or 0
+    self.zoom = zoom or 1
+    self.transform = love.math.newTransform()
+    self.bgColor = bgColor or Color.BLACK
+    self.ignoredLayers = ignoredLayers or ({})
+    self:updateView(viewX or 0, viewY or 0, viewWidth or 1, viewHeight or 1)
+    self:updateBounds()
+end
+function Camera.prototype.updateTransform(self)
+    self:updateBounds()
+    self.transform:reset()
+    self.transform:translate(self.screenBounds.width * 0.5, self.screenBounds.height * 0.5):rotate(math.rad(self.angle)):scale(self.zoom, self.zoom):translate(-self.position.x, -self.position.y)
+end
+function Camera.prototype.updateView(self, x, y, width, height)
+    x = LumiMath.clamp(x, 0, 1)
+    y = LumiMath.clamp(y, 0, 1)
+    width = LumiMath.clamp(width, 0, 1)
+    height = LumiMath.clamp(height, 0, 1)
+    self.viewRect:set(x, y, width, height)
+    local viewWidth, viewHeight = View.getViewSize()
+    self.screenBounds:set(x * viewWidth, y * viewHeight, width * viewWidth, height * viewHeight)
+    self.canvas = love.graphics.newCanvas(width * viewWidth, height * viewHeight)
+end
+function Camera.prototype.updateBounds(self)
+    self.bounds.x = self.position.x - self.screenBounds.width * 0.5 / self.zoom
+    self.bounds.y = self.position.y - self.screenBounds.height * 0.5 / self.zoom
+    self.bounds.width = self.screenBounds.width / self.zoom
+    self.bounds.height = self.screenBounds.height / self.zoom
+end
+function Camera.prototype.resize(self)
+    self:updateView(self.viewRect.x, self.viewRect.y, self.viewRect.width, self.viewRect.height)
+    self:updateBounds()
+end
+function Camera.prototype.screenToWorld(self, x, y)
+    local windowWidth, windowHeight = View.getWindowSize()
+    local tempX = self.position.x - self.screenBounds.width * 0.5 / self.zoom + x / windowWidth * (self.screenBounds.width / self.zoom)
+    local tempY = self.position.y - self.screenBounds.height * 0.5 / self.zoom + y / windowHeight * (self.screenBounds.height / self.zoom)
+    local worldX, worldY = LumiMath.rotateAround(
+        tempX,
+        tempY,
+        self.position.x,
+        self.position.y,
+        self.angle
+    )
+    return worldX, worldY
+end
+function Camera.prototype.screenToView(self, x, y)
+    local windowWidth, windowHeight = View.getWindowSize()
+    local viewWidth, viewHeight = View.getViewSize()
+    local worldX = x / windowWidth * viewWidth
+    local worldY = y / windowHeight * viewHeight
+    return worldX, worldY
+end
+return ____exports
+ end,
+["lua_modules.@lumi2d.lumi.dist.graphics.color"] = function(...) 
+local ____lualib = require("lualib_bundle")
+local __TS__Class = ____lualib.__TS__Class
+local __TS__New = ____lualib.__TS__New
+local ____exports = {}
+--- rgba color class stored as 0 - 1 values.
+____exports.Color = __TS__Class()
+local Color = ____exports.Color
+Color.name = "Color"
+function Color.prototype.____constructor(self, red, green, blue, alpha)
+    if alpha == nil then
+        alpha = 1
+    end
+    self.red = red
+    self.green = green
+    self.blue = blue
+    self.alpha = alpha
+end
+function Color.interpolate(color1, color2, factor, out)
+    local red = (color2.red - color1.red) * factor + color1.red
+    local green = (color2.green - color1.green) * factor + color1.green
+    local blue = (color2.blue - color1.blue) * factor + color1.blue
+    local alpha = (color2.alpha - color1.alpha) * factor + color1.alpha
+    if out then
+        out:set(red, green, blue, alpha)
+        return out
+    end
+    return __TS__New(
+        ____exports.Color,
+        red,
+        green,
+        blue,
+        alpha
+    )
+end
+function Color.fromBytes(self, red, green, blue, alpha)
+    if alpha == nil then
+        alpha = 255
+    end
+    return __TS__New(
+        ____exports.Color,
+        red / 255,
+        green / 255,
+        blue / 255,
+        alpha / 255
+    )
+end
+function Color.prototype.set(self, red, green, blue, alpha)
+    if alpha == nil then
+        alpha = 1
+    end
+    self.red = red
+    self.green = green
+    self.blue = blue
+    self.alpha = alpha
+end
+function Color.prototype.clone(self, out)
+    if out then
+        out:set(self.red, self.green, self.blue, self.alpha)
+        return out
+    end
+    return __TS__New(
+        ____exports.Color,
+        self.red,
+        self.green,
+        self.blue,
+        self.alpha
+    )
+end
+function Color.prototype.copyFrom(self, source)
+    self:set(source.red, source.green, source.blue, source.alpha)
+end
+function Color.prototype.parts(self)
+    return self.red, self.green, self.blue, self.alpha
+end
+Color.TRANSPARENT = __TS__New(
+    ____exports.Color,
+    0,
+    0,
+    0,
+    0
+)
+Color.BLACK = __TS__New(____exports.Color, 0, 0, 0)
+Color.WHITE = __TS__New(____exports.Color, 1, 1, 1)
+Color.GRAY = __TS__New(____exports.Color, 0.5, 0.5, 0.5)
+Color.RED = __TS__New(____exports.Color, 1, 0, 0)
+Color.GREEN = __TS__New(____exports.Color, 0, 1, 0)
+Color.BLUE = __TS__New(____exports.Color, 0, 0, 1)
+Color.ORANGE = __TS__New(____exports.Color, 1, 0.5, 0)
+Color.PURPLE = __TS__New(____exports.Color, 0.5, 0, 0.5)
+Color.MAGENTA = __TS__New(____exports.Color, 1, 0, 1)
+Color.CYAN = __TS__New(____exports.Color, 0, 1, 1)
+return ____exports
+ end,
+["lua_modules.@lumi2d.lumi.dist.math.index"] = function(...) 
+--[[ Generated with https://github.com/TypeScriptToLua/TypeScriptToLua ]]
+local ____exports = {}
+do
+    local ____export = require("lua_modules.@lumi2d.lumi.dist.math.lumiMath")
+    for ____exportKey, ____exportValue in pairs(____export) do
+        if ____exportKey ~= "default" then
+            ____exports[____exportKey] = ____exportValue
+        end
+    end
+end
+do
+    local ____export = require("lua_modules.@lumi2d.lumi.dist.math.point")
+    for ____exportKey, ____exportValue in pairs(____export) do
+        if ____exportKey ~= "default" then
+            ____exports[____exportKey] = ____exportValue
+        end
+    end
+end
+do
+    local ____export = require("lua_modules.@lumi2d.lumi.dist.math.rectangle")
+    for ____exportKey, ____exportValue in pairs(____export) do
+        if ____exportKey ~= "default" then
+            ____exports[____exportKey] = ____exportValue
+        end
+    end
+end
+return ____exports
+ end,
+["lua_modules.@lumi2d.lumi.dist.math.rectangle"] = function(...) 
+local ____lualib = require("lualib_bundle")
+local __TS__Class = ____lualib.__TS__Class
+local ____exports = {}
+local ____lumiMath = require("lua_modules.@lumi2d.lumi.dist.math.lumiMath")
+local LumiMath = ____lumiMath.LumiMath
+--- Rectangle class.
+____exports.Rectangle = __TS__Class()
+local Rectangle = ____exports.Rectangle
+Rectangle.name = "Rectangle"
+function Rectangle.prototype.____constructor(self, x, y, width, height)
+    if x == nil then
+        x = 0
+    end
+    if y == nil then
+        y = 0
+    end
+    if width == nil then
+        width = 0
+    end
+    if height == nil then
+        height = 0
+    end
+    self.x = x
+    self.y = y
+    self.width = width
+    self.height = height
+end
+function Rectangle.prototype.hasPoint(self, x, y)
+    return x >= self.x and x <= self.x + self.width and y >= self.y and y <= self.y + self.height
+end
+function Rectangle.prototype.intersects(self, rect)
+    return self.x < rect.x + rect.width and self.x + self.width > rect.x and self.y < rect.y + rect.height and self.y + self.height > rect.y
+end
+function Rectangle.prototype.intersectsLine(self, startX, startY, endX, endY, out)
+    local intersects = false
+    if LumiMath.linesIntersect(
+        startX,
+        startY,
+        endX,
+        endY,
+        self.x,
+        self.y,
+        self.x + self.width,
+        self.y,
+        out
+    ) then
+        intersects = true
+    end
+    if LumiMath.linesIntersect(
+        startX,
+        startY,
+        endX,
+        endY,
+        self.x + self.width,
+        self.y + self.height,
+        self.x + self.width,
+        self.y,
+        out
+    ) then
+        intersects = true
+    end
+    if LumiMath.linesIntersect(
+        startX,
+        startY,
+        endX,
+        endY,
+        self.x + self.width,
+        self.y + self.height,
+        self.x,
+        self.y + self.height,
+        out
+    ) then
+        intersects = true
+    end
+    if LumiMath.linesIntersect(
+        startX,
+        startY,
+        endX,
+        endY,
+        self.x,
+        self.y,
+        self.x,
+        self.y + self.height,
+        out
+    ) then
+        intersects = true
+    end
+    return intersects
+end
+function Rectangle.prototype.set(self, x, y, width, height)
+    self.x = x
+    self.y = y
+    self.width = width
+    self.height = height
+end
+return ____exports
+ end,
+["lua_modules.@lumi2d.lumi.dist.math.lumiMath"] = function(...) 
+local ____lualib = require("lualib_bundle")
+local __TS__Class = ____lualib.__TS__Class
+local ____exports = {}
+local ____point = require("lua_modules.@lumi2d.lumi.dist.math.point")
+local Point = ____point.Point
+--- Math helper functions.
+-- 
+-- @noSelf
+____exports.LumiMath = __TS__Class()
+local LumiMath = ____exports.LumiMath
+LumiMath.name = "LumiMath"
+function LumiMath.prototype.____constructor(self)
+end
+function LumiMath.lerp(a, b, position)
+    return a + position * (b - a)
+end
+function LumiMath.clamp(value, min, max)
+    if min > max then
+        local temp = max
+        max = min
+        min = temp
+    end
+    local lower = value < min and min or value
+    if lower > max then
+        return max
+    else
+        return lower
+    end
+end
+function LumiMath.distance(x1, y1, x2, y2)
+    return math.sqrt(math.pow(x2 - x1, 2) + math.pow(y2 - y1, 2))
+end
+function LumiMath.fuzzyEqual(a, b, epsilon)
+    if epsilon == nil then
+        epsilon = 0.0001
+    end
+    return math.abs(a - b) < epsilon
+end
+function LumiMath.linesIntersect(p1StartX, p1StartY, p1EndX, p1EndY, p2StartX, p2StartY, p2EndX, p2EndY, out)
+    local b = Point.get(p1EndX - p1StartX, p1EndY - p1StartY)
+    local d = Point.get(p2EndX - p2StartX, p2EndY - p2StartY)
+    local bDotDPrep = b.x * d.y - b.y * d.x
+    if bDotDPrep == 0 then
+        b:put()
+        d:put()
+        return false
+    end
+    local c = Point.get(p2StartX - p1StartX, p2StartY - p1StartY)
+    local t = (c.x * d.y - c.y * d.x) / bDotDPrep
+    if t < 0 or t > 1 then
+        b:put()
+        d:put()
+        c:put()
+        return false
+    end
+    local u = (c.x * b.y - c.y * b.x) / bDotDPrep
+    if u < 0 or u > 1 then
+        b:put()
+        d:put()
+        c:put()
+        return false
+    end
+    if out then
+        local point = Point.get(p1StartX, p1StartY)
+        b:multiplyVal(t)
+        point:add(b)
+        if out:equals(Point.ZERO) then
+            out:copyFrom(point)
+        else
+            local p1Start = Point.get(p1StartX, p1StartY)
+            if Point.distance(p1Start, point) < Point.distance(p1Start, out) then
+                out:copyFrom(point)
+            end
+            p1Start:put()
+        end
+        point:put()
+    end
+    b:put()
+    d:put()
+    c:put()
+    return true
+end
+function LumiMath.rotateAround(x, y, centerX, centerY, angle)
+    local rad = math.rad(-angle)
+    local c = math.cos(rad)
+    local s = math.sin(rad)
+    local tx = x - centerX
+    local ty = y - centerY
+    x = c * tx + s * ty + centerX
+    y = c * ty - s * tx + centerY
+    return x, y
+end
+return ____exports
+ end,
+["lua_modules.@lumi2d.lumi.dist.math.point"] = function(...) 
+local ____lualib = require("lualib_bundle")
+local __TS__Class = ____lualib.__TS__Class
+local __TS__New = ____lualib.__TS__New
+local ____exports = {}
+--- 2D point class.
+____exports.Point = __TS__Class()
+local Point = ____exports.Point
+Point.name = "Point"
+function Point.prototype.____constructor(self, x, y)
+    if x == nil then
+        x = 0
+    end
+    if y == nil then
+        y = 0
+    end
+    self.x = x
+    self.y = y
+end
+function Point.get(x, y)
+    if x == nil then
+        x = 0
+    end
+    if y == nil then
+        y = 0
+    end
+    if #____exports.Point.pool > 0 then
+        local point = table.remove(____exports.Point.pool)
+        point.x = x
+        point.y = y
+        return point
+    else
+        return __TS__New(____exports.Point, x, y)
+    end
+end
+function Point.addPoints(a, b, out)
+    if not out then
+        out = __TS__New(____exports.Point)
+    end
+    out:set(a.x + b.x, a.y + b.y)
+    return out
+end
+function Point.subtractPoints(a, b, out)
+    if not out then
+        out = __TS__New(____exports.Point)
+    end
+    out:set(a.x - b.x, a.y - b.y)
+    return out
+end
+function Point.multiplyPoints(a, b, out)
+    if not out then
+        out = __TS__New(____exports.Point)
+    end
+    out:set(a.x * b.x, a.y * b.y)
+    return out
+end
+function Point.dividePoints(a, b, out)
+    if not out then
+        out = __TS__New(____exports.Point)
+    end
+    out:set(a.x / b.x, a.y / b.y)
+    return out
+end
+function Point.distance(a, b)
+    return math.sqrt(math.pow(b.x - a.x, 2) + math.pow(b.y - a.y, 2))
+end
+function Point.rotateAround(pos, x, y, angle)
+    local rad = math.rad(-angle)
+    local c = math.cos(rad)
+    local s = math.sin(rad)
+    local tx = pos.x - x
+    local ty = pos.y - y
+    pos.x = c * tx + s * ty + x
+    pos.y = c * ty - s * tx + y
+    return pos
+end
+function Point.rotateAroundPoint(self, pos, point, angle)
+    return ____exports.Point.rotateAround(pos, point.x, point.y, angle)
+end
+function Point.prototype.getLength(self)
+    return math.sqrt(self.x * self.x + self.y * self.y)
+end
+function Point.prototype.setLength(self, value)
+    local l = self:getLength()
+    if l > 0 then
+        self.x = self.x / l
+        self.y = self.y / l
+    end
+    self.x = self.x * value
+    self.y = self.y * value
+end
+function Point.prototype.set(self, x, y)
+    self.x = x
+    self.y = y
+    return self
+end
+function Point.prototype.clone(self, out)
+    if not out then
+        out = __TS__New(____exports.Point)
+    end
+    out:set(self.x, self.y)
+    return out
+end
+function Point.prototype.copyFrom(self, other)
+    self.x = other.x
+    self.y = other.y
+    return self
+end
+function Point.prototype.equals(self, other)
+    return self.x == other.x and self.y == other.y
+end
+function Point.prototype.add(self, other)
+    self.x = self.x + other.x
+    self.y = self.y + other.y
+    return self
+end
+function Point.prototype.addVal(self, value)
+    self.x = self.x + value
+    self.y = self.y + value
+    return self
+end
+function Point.prototype.subtract(self, other)
+    self.x = self.x - other.x
+    self.y = self.y - other.y
+    return self
+end
+function Point.prototype.subtractVal(self, value)
+    self.x = self.x - value
+    self.y = self.y - value
+    return self
+end
+function Point.prototype.multiply(self, other)
+    self.x = self.x * other.x
+    self.y = self.y * other.y
+    return self
+end
+function Point.prototype.multiplyVal(self, value)
+    self.x = self.x * value
+    self.y = self.y * value
+    return self
+end
+function Point.prototype.divide(self, other)
+    self.x = self.x / other.x
+    self.y = self.y / other.y
+    return self
+end
+function Point.prototype.divideVal(self, value)
+    self.x = self.x / value
+    self.y = self.y / value
+    return self
+end
+function Point.prototype.dot(self, other)
+    return self.x * other.x + self.y * other.y
+end
+function Point.prototype.normalize(self)
+    local l = self:getLength()
+    if l > 0 then
+        self.x = self.x / l
+        self.y = self.y / l
+    end
+    return self
+end
+function Point.prototype.normalized(self, out)
+    if out then
+        return out:copyFrom(self):normalize()
+    else
+        return self:clone():normalize()
+    end
+end
+function Point.prototype.put(self)
+    local ____exports_Point_pool_0 = ____exports.Point.pool
+    ____exports_Point_pool_0[#____exports_Point_pool_0 + 1] = self
+end
+Point.LEFT = __TS__New(____exports.Point, -1, 0)
+Point.RIGHT = __TS__New(____exports.Point, 1, 0)
+Point.UP = __TS__New(____exports.Point, 0, -1)
+Point.DOWN = __TS__New(____exports.Point, 0, 1)
+Point.ZERO = __TS__New(____exports.Point, 0, 0)
+Point.pool = {}
+return ____exports
+ end,
+["lua_modules.@lumi2d.lumi.dist.graphics.index"] = function(...) 
+--[[ Generated with https://github.com/TypeScriptToLua/TypeScriptToLua ]]
+local ____exports = {}
+do
+    local ____export = require("lua_modules.@lumi2d.lumi.dist.graphics.animation")
+    for ____exportKey, ____exportValue in pairs(____export) do
+        if ____exportKey ~= "default" then
+            ____exports[____exportKey] = ____exportValue
+        end
+    end
+end
+do
+    local ____export = require("lua_modules.@lumi2d.lumi.dist.graphics.atlas")
+    for ____exportKey, ____exportValue in pairs(____export) do
+        if ____exportKey ~= "default" then
+            ____exports[____exportKey] = ____exportValue
+        end
+    end
+end
+do
+    local ____export = require("lua_modules.@lumi2d.lumi.dist.graphics.camera")
+    for ____exportKey, ____exportValue in pairs(____export) do
+        if ____exportKey ~= "default" then
+            ____exports[____exportKey] = ____exportValue
+        end
+    end
+end
+do
+    local ____export = require("lua_modules.@lumi2d.lumi.dist.graphics.color")
+    for ____exportKey, ____exportValue in pairs(____export) do
+        if ____exportKey ~= "default" then
+            ____exports[____exportKey] = ____exportValue
+        end
+    end
+end
+return ____exports
+ end,
+["lua_modules.@lumi2d.lumi.dist.graphics.atlas"] = function(...) 
+local ____lualib = require("lualib_bundle")
+local __TS__Class = ____lualib.__TS__Class
+local __TS__New = ____lualib.__TS__New
+local ____exports = {}
+local ____lib = require("lua_modules.@lumi2d.lumi.dist.lib.index")
+local Json = ____lib.Json
+local ____math = require("lua_modules.@lumi2d.lumi.dist.math.index")
+local Rectangle = ____math.Rectangle
+--- Sprite atlas class. Having sprites in a single atlas can help with batching draw calls.
+____exports.Atlas = __TS__Class()
+local Atlas = ____exports.Atlas
+Atlas.name = "Atlas"
+function Atlas.prototype.____constructor(self, image, data)
+    self.frames = {}
+    self.image = image
+    local atlasData = Json.decode(data)
+    local width = image:getWidth()
+    local height = image:getHeight()
+    for ____, frameData in ipairs(atlasData.frames) do
+        local frame = __TS__New(____exports.AtlasFrame, frameData, width, height)
+        self.frames[frame.name] = frame
+    end
+end
+function Atlas.prototype.getFrame(self, name)
+    return self.frames[name]
+end
+--- A single frame in the atlas.
+____exports.AtlasFrame = __TS__Class()
+local AtlasFrame = ____exports.AtlasFrame
+AtlasFrame.name = "AtlasFrame"
+function AtlasFrame.prototype.____constructor(self, frameInfo, imageWidth, imageHeight)
+    local frame = frameInfo.frame
+    local spriteSize = frameInfo.spriteSourceSize
+    local size = frameInfo.sourceSize
+    self.name = frameInfo.filename
+    self.quad = love.graphics.newQuad(
+        frame.x,
+        frame.y,
+        frame.w,
+        frame.h,
+        imageWidth,
+        imageHeight
+    )
+    self.trimmed = frameInfo.trimmed
+    self.sourceRect = __TS__New(
+        Rectangle,
+        spriteSize.x,
+        spriteSize.y,
+        spriteSize.w,
+        spriteSize.h
+    )
+    self.sourceSize = {width = size.w, height = size.h}
+end
+return ____exports
+ end,
+["lua_modules.@lumi2d.lumi.dist.lib.index"] = function(...) 
+--[[ Generated with https://github.com/TypeScriptToLua/TypeScriptToLua ]]
+local ____exports = {}
+____exports.Bit = require("lua_modules.@lumi2d.lumi.dist.lib.bit")
+____exports.Json = require("lua_modules.@lumi2d.lumi.dist.lib.json")
+return ____exports
+ end,
+["lua_modules.@lumi2d.lumi.dist.lib.json"] = function(...) 
+--
+-- json.lua
+--
+-- Copyright (c) 2020 rxi
+--
+-- Permission is hereby granted, free of charge, to any person obtaining a copy of
+-- this software and associated documentation files (the "Software"), to deal in
+-- the Software without restriction, including without limitation the rights to
+-- use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+-- of the Software, and to permit persons to whom the Software is furnished to do
+-- so, subject to the following conditions:
+--
+-- The above copyright notice and this permission notice shall be included in all
+-- copies or substantial portions of the Software.
+--
+-- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+-- IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+-- FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+-- AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+-- LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+-- OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+-- SOFTWARE.
+--
+---@class lumi.utils.Json
+local json = { _version = '0.1.2' }
+
+-------------------------------------------------------------------------------
+-- Encode
+-------------------------------------------------------------------------------
+
+local encode
+
+local escape_char_map = {
+  ['\\'] = '\\',
+  ['"'] = '"',
+  ['\b'] = 'b',
+  ['\f'] = 'f',
+  ['\n'] = 'n',
+  ['\r'] = 'r',
+  ['\t'] = 't'
+}
+
+local escape_char_map_inv = { ['/'] = '/' }
+for k, v in pairs(escape_char_map) do
+  escape_char_map_inv[v] = k
+end
+
+local function escape_char(c)
+  return '\\' .. (escape_char_map[c] or string.format('u%04x', c:byte()))
+end
+
+
+local function encode_nil(val)
+  return 'null'
+end
+
+
+local function encode_table(val, stack)
+  local res = {}
+  stack = stack or {}
+
+  -- Circular reference?
+  if stack[val] then
+    error('circular reference')
+  end
+
+  stack[val] = true
+
+  if rawget(val, 1) ~= nil or next(val) == nil then
+    -- Treat as array -- check keys are valid and it is not sparse
+    local n = 0
+    for k in pairs(val) do
+      if type(k) ~= 'number' then
+        error('invalid table: mixed or invalid key types')
+      end
+      n = n + 1
+    end
+    if n ~= #val then
+      error('invalid table: sparse array')
+    end
+    -- Encode
+    for i, v in ipairs(val) do
+      table.insert(res, encode(v, stack))
+    end
+    stack[val] = nil
+    return '[' .. table.concat(res, ',') .. ']'
+
+  else
+    -- Treat as an object
+    for k, v in pairs(val) do
+      if type(k) ~= 'string' then
+        error('invalid table: mixed or invalid key types')
+      end
+      table.insert(res, encode(k, stack) .. ':' .. encode(v, stack))
+    end
+    stack[val] = nil
+    return '{' .. table.concat(res, ',') .. '}'
+  end
+end
+
+
+local function encode_string(val)
+  return '"' .. val:gsub('[%z\1-\31\\"]', escape_char) .. '"'
+end
+
+
+local function encode_number(val)
+  -- Check for NaN, -inf and inf
+  if val ~= val or val <= -math.huge or val >= math.huge then
+    error('unexpected number value \'' .. tostring(val) .. '\'')
+  end
+  return string.format('%.14g', val)
+end
+
+
+local type_func_map = {
+  ['nil'] = encode_nil,
+  ['table'] = encode_table,
+  ['string'] = encode_string,
+  ['number'] = encode_number,
+  ['boolean'] = tostring
+}
+
+encode = function(val, stack)
+  local t = type(val)
+  local f = type_func_map[t]
+  if f then
+    return f(val, stack)
+  end
+  error('unexpected type \'' .. t .. '\'')
+end
+
+
+function json.encode(val)
+  return (encode(val))
+end
+
+
+-------------------------------------------------------------------------------
+-- Decode
+-------------------------------------------------------------------------------
+
+local parse
+
+local function create_set(...)
+  local res = {}
+  for i = 1, select('#', ...) do
+    res[select(i, ...)] = true
+  end
+  return res
+end
+
+
+local space_chars = create_set(' ', '\t', '\r', '\n')
+local delim_chars = create_set(' ', '\t', '\r', '\n', ']', '}', ',')
+local escape_chars = create_set('\\', '/', '"', 'b', 'f', 'n', 'r', 't', 'u')
+local literals = create_set('true', 'false', 'null')
+
+local literal_map = { ['true'] = true, ['false'] = false, ['null'] = nil }
+
+local function next_char(str, idx, set, negate)
+  for i = idx, #str do
+    if set[str:sub(i, i)] ~= negate then
+      return i
+    end
+  end
+  return #str + 1
+end
+
+
+local function decode_error(str, idx, msg)
+  local line_count = 1
+  local col_count = 1
+  for i = 1, idx - 1 do
+    col_count = col_count + 1
+    if str:sub(i, i) == '\n' then
+      line_count = line_count + 1
+      col_count = 1
+    end
+  end
+  error(string.format('%s at line %d col %d', msg, line_count, col_count))
+end
+
+
+local function codepoint_to_utf8(n)
+  -- http://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=iws-appendixa
+  local f = math.floor
+  if n <= 0x7f then
+    return string.char(n)
+  elseif n <= 0x7ff then
+    return string.char(f(n / 64) + 192, n % 64 + 128)
+  elseif n <= 0xffff then
+    return string.char(f(n / 4096) + 224, f(n % 4096 / 64) + 128, n % 64 + 128)
+  elseif n <= 0x10ffff then
+    return string.char(f(n / 262144) + 240, f(n % 262144 / 4096) + 128, f(n % 4096 / 64) + 128, n % 64 + 128)
+  end
+  error(string.format('invalid unicode codepoint \'%x\'', n))
+end
+
+
+local function parse_unicode_escape(s)
+  local n1 = tonumber(s:sub(1, 4), 16)
+  local n2 = tonumber(s:sub(7, 10), 16)
+  -- Surrogate pair?
+  if n2 then
+    return codepoint_to_utf8((n1 - 0xd800) * 0x400 + (n2 - 0xdc00) + 0x10000)
+  else
+    return codepoint_to_utf8(n1)
+  end
+end
+
+
+local function parse_string(str, i)
+  local res = ''
+  local j = i + 1
+  local k = j
+
+  while j <= #str do
+    local x = str:byte(j)
+
+    if x < 32 then
+      decode_error(str, j, 'control character in string')
+
+    elseif x == 92 then -- `\`: Escape
+      res = res .. str:sub(k, j - 1)
+      j = j + 1
+      local c = str:sub(j, j)
+      if c == 'u' then
+        local hex = str:match('^[dD][89aAbB]%x%x\\u%x%x%x%x', j + 1) or str:match('^%x%x%x%x', j + 1) or
+                        decode_error(str, j - 1, 'invalid unicode escape in string')
+        res = res .. parse_unicode_escape(hex)
+        j = j + #hex
+      else
+        if not escape_chars[c] then
+          decode_error(str, j - 1, 'invalid escape char \'' .. c .. '\' in string')
+        end
+        res = res .. escape_char_map_inv[c]
+      end
+      k = j + 1
+
+    elseif x == 34 then -- `"`: End of string
+      res = res .. str:sub(k, j - 1)
+      return res, j + 1
+    end
+
+    j = j + 1
+  end
+
+  decode_error(str, i, 'expected closing quote for string')
+end
+
+
+local function parse_number(str, i)
+  local x = next_char(str, i, delim_chars)
+  local s = str:sub(i, x - 1)
+  local n = tonumber(s)
+  if not n then
+    decode_error(str, i, 'invalid number \'' .. s .. '\'')
+  end
+  return n, x
+end
+
+
+local function parse_literal(str, i)
+  local x = next_char(str, i, delim_chars)
+  local word = str:sub(i, x - 1)
+  if not literals[word] then
+    decode_error(str, i, 'invalid literal \'' .. word .. '\'')
+  end
+  return literal_map[word], x
+end
+
+
+local function parse_array(str, i)
+  local res = {}
+  local n = 1
+  i = i + 1
+  while 1 do
+    local x
+    i = next_char(str, i, space_chars, true)
+    -- Empty / end of array?
+    if str:sub(i, i) == ']' then
+      i = i + 1
+      break
+    end
+    -- Read token
+    x, i = parse(str, i)
+    res[n] = x
+    n = n + 1
+    -- Next token
+    i = next_char(str, i, space_chars, true)
+    local chr = str:sub(i, i)
+    i = i + 1
+    if chr == ']' then
+      break
+    end
+    if chr ~= ',' then
+      decode_error(str, i, 'expected \']\' or \',\'')
+    end
+  end
+  return res, i
+end
+
+
+local function parse_object(str, i)
+  local res = {}
+  i = i + 1
+  while 1 do
+    local key, val
+    i = next_char(str, i, space_chars, true)
+    -- Empty / end of object?
+    if str:sub(i, i) == '}' then
+      i = i + 1
+      break
+    end
+    -- Read key
+    if str:sub(i, i) ~= '"' then
+      decode_error(str, i, 'expected string for key')
+    end
+    key, i = parse(str, i)
+    -- Read ':' delimiter
+    i = next_char(str, i, space_chars, true)
+    if str:sub(i, i) ~= ':' then
+      decode_error(str, i, 'expected \':\' after key')
+    end
+    i = next_char(str, i + 1, space_chars, true)
+    -- Read value
+    val, i = parse(str, i)
+    -- Set
+    res[key] = val
+    -- Next token
+    i = next_char(str, i, space_chars, true)
+    local chr = str:sub(i, i)
+    i = i + 1
+    if chr == '}' then
+      break
+    end
+    if chr ~= ',' then
+      decode_error(str, i, 'expected \'}\' or \',\'')
+    end
+  end
+  return res, i
+end
+
+
+local char_func_map = {
+  ['"'] = parse_string,
+  ['0'] = parse_number,
+  ['1'] = parse_number,
+  ['2'] = parse_number,
+  ['3'] = parse_number,
+  ['4'] = parse_number,
+  ['5'] = parse_number,
+  ['6'] = parse_number,
+  ['7'] = parse_number,
+  ['8'] = parse_number,
+  ['9'] = parse_number,
+  ['-'] = parse_number,
+  ['t'] = parse_literal,
+  ['f'] = parse_literal,
+  ['n'] = parse_literal,
+  ['['] = parse_array,
+  ['{'] = parse_object
+}
+
+parse = function(str, idx)
+  local chr = str:sub(idx, idx)
+  local f = char_func_map[chr]
+  if f then
+    return f(str, idx)
+  end
+  decode_error(str, idx, 'unexpected character \'' .. chr .. '\'')
+end
+
+
+function json.decode(str)
+  if type(str) ~= 'string' then
+    error('expected argument of type string, got ' .. type(str))
+  end
+  local res, idx = parse(str, next_char(str, 1, space_chars, true))
+  idx = next_char(str, idx, space_chars, true)
+  if idx <= #str then
+    decode_error(str, idx, 'trailing garbage')
+  end
+  return res
+end
+
+
+return json
+ end,
+["lua_modules.@lumi2d.lumi.dist.lib.bit"] = function(...) 
+--[[
+
+LUA MODULE
+
+  bit.numberlua - Bitwise operations implemented in pure Lua as numbers,
+    with Lua 5.2 'bit32' and (LuaJIT) LuaBitOp 'bit' compatibility interfaces.
+
+SYNOPSIS
+
+  local bit = require 'bit.numberlua'
+  print(bit.band(0xff00ff00, 0x00ff00ff)) --> 0xffffffff
+  
+  -- Interface providing strong Lua 5.2 'bit32' compatibility
+  local bit32 = require 'bit.numberlua'.bit32
+  assert(bit32.band(-1) == 0xffffffff)
+  
+  -- Interface providing strong (LuaJIT) LuaBitOp 'bit' compatibility
+  local bit = require 'bit.numberlua'.bit
+  assert(bit.tobit(0xffffffff) == -1)
+  
+DESCRIPTION
+  
+  This library implements bitwise operations entirely in Lua.
+  This module is typically intended if for some reasons you don't want
+  to or cannot  install a popular C based bit library like BitOp 'bit' [1]
+  (which comes pre-installed with LuaJIT) or 'bit32' (which comes
+  pre-installed with Lua 5.2) but want a similar interface.
+  
+  This modules represents bit arrays as non-negative Lua numbers. [1]
+  It can represent 32-bit bit arrays when Lua is compiled
+  with lua_Number as double-precision IEEE 754 floating point.
+
+  The module is nearly the most efficient it can be but may be a few times
+  slower than the C based bit libraries and is orders or magnitude
+  slower than LuaJIT bit operations, which compile to native code.  Therefore,
+  this library is inferior in performane to the other modules.
+
+  The `xor` function in this module is based partly on Roberto Ierusalimschy's
+  post in http://lua-users.org/lists/lua-l/2002-09/msg00134.html .
+  
+  The included BIT.bit32 and BIT.bit sublibraries aims to provide 100%
+  compatibility with the Lua 5.2 "bit32" and (LuaJIT) LuaBitOp "bit" library.
+  This compatbility is at the cost of some efficiency since inputted
+  numbers are normalized and more general forms (e.g. multi-argument
+  bitwise operators) are supported.
+  
+STATUS
+
+  WARNING: Not all corner cases have been tested and documented.
+  Some attempt was made to make these similar to the Lua 5.2 [2]
+  and LuaJit BitOp [3] libraries, but this is not fully tested and there
+  are currently some differences.  Addressing these differences may
+  be improved in the future but it is not yet fully determined how to
+  resolve these differences.
+  
+  The BIT.bit32 library passes the Lua 5.2 test suite (bitwise.lua)
+  http://www.lua.org/tests/5.2/ .  The BIT.bit library passes the LuaBitOp
+  test suite (bittest.lua).  However, these have not been tested on
+  platforms with Lua compiled with 32-bit integer numbers.
+
+API
+
+  BIT.tobit(x) --> z
+  
+    Similar to function in BitOp.
+    
+  BIT.tohex(x, n)
+  
+    Similar to function in BitOp.
+  
+  BIT.band(x, y) --> z
+  
+    Similar to function in Lua 5.2 and BitOp but requires two arguments.
+  
+  BIT.bor(x, y) --> z
+  
+    Similar to function in Lua 5.2 and BitOp but requires two arguments.
+
+  BIT.bxor(x, y) --> z
+  
+    Similar to function in Lua 5.2 and BitOp but requires two arguments.
+  
+  BIT.bnot(x) --> z
+  
+    Similar to function in Lua 5.2 and BitOp.
+
+  BIT.lshift(x, disp) --> z
+  
+    Similar to function in Lua 5.2 (warning: BitOp uses unsigned lower 5 bits of shift),
+  
+  BIT.rshift(x, disp) --> z
+  
+    Similar to function in Lua 5.2 (warning: BitOp uses unsigned lower 5 bits of shift),
+
+  BIT.extract(x, field [, width]) --> z
+  
+    Similar to function in Lua 5.2.
+  
+  BIT.replace(x, v, field, width) --> z
+  
+    Similar to function in Lua 5.2.
+  
+  BIT.bswap(x) --> z
+  
+    Similar to function in Lua 5.2.
+
+  BIT.rrotate(x, disp) --> z
+  BIT.ror(x, disp) --> z
+  
+    Similar to function in Lua 5.2 and BitOp.
+
+  BIT.lrotate(x, disp) --> z
+  BIT.rol(x, disp) --> z
+
+    Similar to function in Lua 5.2 and BitOp.
+  
+  BIT.arshift
+  
+    Similar to function in Lua 5.2 and BitOp.
+    
+  BIT.btest
+  
+    Similar to function in Lua 5.2 with requires two arguments.
+
+  BIT.bit32
+  
+    This table contains functions that aim to provide 100% compatibility
+    with the Lua 5.2 "bit32" library.
+    
+    bit32.arshift (x, disp) --> z
+    bit32.band (...) --> z
+    bit32.bnot (x) --> z
+    bit32.bor (...) --> z
+    bit32.btest (...) --> true | false
+    bit32.bxor (...) --> z
+    bit32.extract (x, field [, width]) --> z
+    bit32.replace (x, v, field [, width]) --> z
+    bit32.lrotate (x, disp) --> z
+    bit32.lshift (x, disp) --> z
+    bit32.rrotate (x, disp) --> z
+    bit32.rshift (x, disp) --> z
+
+  BIT.bit
+  
+    This table contains functions that aim to provide 100% compatibility
+    with the LuaBitOp "bit" library (from LuaJIT).
+    
+    bit.tobit(x) --> y
+    bit.tohex(x [,n]) --> y
+    bit.bnot(x) --> y
+    bit.bor(x1 [,x2...]) --> y
+    bit.band(x1 [,x2...]) --> y
+    bit.bxor(x1 [,x2...]) --> y
+    bit.lshift(x, n) --> y
+    bit.rshift(x, n) --> y
+    bit.arshift(x, n) --> y
+    bit.rol(x, n) --> y
+    bit.ror(x, n) --> y
+    bit.bswap(x) --> y
+    
+DEPENDENCIES
+
+  None (other than Lua 5.1 or 5.2).
+    
+DOWNLOAD/INSTALLATION
+
+  If using LuaRocks:
+    luarocks install lua-bit-numberlua
+
+  Otherwise, download <https://github.com/davidm/lua-bit-numberlua/zipball/master>.
+  Alternately, if using git:
+    git clone git://github.com/davidm/lua-bit-numberlua.git
+    cd lua-bit-numberlua
+  Optionally unpack:
+    ./util.mk
+  or unpack and install in LuaRocks:
+    ./util.mk install 
+
+REFERENCES
+
+  [1] http://lua-users.org/wiki/FloatingPoint
+  [2] http://www.lua.org/manual/5.2/
+  [3] http://bitop.luajit.org/
+  
+LICENSE
+
+  (c) 2008-2011 David Manura.  Licensed under the same terms as Lua (MIT).
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to deal
+  in the Software without restriction, including without limitation the rights
+  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+  THE SOFTWARE.
+  (end license)
+
+]] --
+local M = {
+    _TYPE = 'module',
+    _NAME = 'bit.numberlua',
+    _VERSION = '0.3.1.20120131'
+}
+
+local floor = math.floor
+
+local MOD = 2 ^ 32
+local MODM = MOD - 1
+
+local function memoize(f)
+    local mt = {}
+    local t = setmetatable({}, mt)
+    function mt:__index(k)
+        local v = f(k);
+        t[k] = v
+        return v
+    end
+
+    return t
+end
+
+local function make_bitop_uncached(t, m)
+    local function bitop(a, b)
+        local res, p = 0, 1
+        while a ~= 0 and b ~= 0 do
+            local am, bm = a % m, b % m
+            res = res + t[am][bm] * p
+            a = (a - am) / m
+            b = (b - bm) / m
+            p = p * m
+        end
+        res = res + (a + b) * p
+        return res
+    end
+
+    return bitop
+end
+
+local function make_bitop(t)
+    local op1 = make_bitop_uncached(t, 2 ^ 1)
+    local op2 = memoize(function(a)
+        return memoize(function(b) return op1(a, b) end)
+    end)
+    return make_bitop_uncached(op2, 2 ^ (t.n or 1))
+end
+
+-- ok?  probably not if running on a 32-bit int Lua number type platform
+function M.tobit(x) return x % 2 ^ 32 end
+
+M.bxor = make_bitop {[0] = {[0] = 0, [1] = 1}, [1] = {[0] = 1, [1] = 0}, n = 4}
+local bxor = M.bxor
+
+function M.bnot(a) return MODM - a end
+
+local bnot = M.bnot
+
+function M.band(a, b) return ((a + b) - bxor(a, b)) / 2 end
+
+local band = M.band
+
+function M.bor(a, b) return MODM - band(MODM - a, MODM - b) end
+
+local bor = M.bor
+
+local lshift, rshift -- forward declare
+
+function M.rshift(a, disp) -- Lua5.2 insipred
+    if disp < 0 then return lshift(a, -disp) end
+    return floor(a % 2 ^ 32 / 2 ^ disp)
+end
+
+rshift = M.rshift
+
+function M.lshift(a, disp) -- Lua5.2 inspired
+    if disp < 0 then return rshift(a, -disp) end
+    return (a * 2 ^ disp) % 2 ^ 32
+end
+
+lshift = M.lshift
+
+function M.tohex(x, n) -- BitOp style
+    n = n or 8
+    local up
+    if n <= 0 then
+        if n == 0 then return '' end
+        up = true
+        n = -n
+    end
+    x = band(x, 16 ^ n - 1)
+    return ('%0' .. n .. (up and 'X' or 'x')):format(x)
+end
+
+local tohex = M.tohex
+
+function M.extract(n, field, width) -- Lua5.2 inspired
+    width = width or 1
+    return band(rshift(n, field), 2 ^ width - 1)
+end
+
+local extract = M.extract
+
+function M.replace(n, v, field, width) -- Lua5.2 inspired
+    width = width or 1
+    local mask1 = 2 ^ width - 1
+    v = band(v, mask1) -- required by spec?
+    local mask = bnot(lshift(mask1, field))
+    return band(n, mask) + lshift(v, field)
+end
+
+local replace = M.replace
+
+function M.bswap(x) -- BitOp style
+    local a = band(x, 0xff);
+    x = rshift(x, 8)
+    local b = band(x, 0xff);
+    x = rshift(x, 8)
+    local c = band(x, 0xff);
+    x = rshift(x, 8)
+    local d = band(x, 0xff)
+    return lshift(lshift(lshift(a, 8) + b, 8) + c, 8) + d
+end
+
+local bswap = M.bswap
+
+function M.rrotate(x, disp) -- Lua5.2 inspired
+    disp = disp % 32
+    local low = band(x, 2 ^ disp - 1)
+    return rshift(x, disp) + lshift(low, 32 - disp)
+end
+
+local rrotate = M.rrotate
+
+function M.lrotate(x, disp) -- Lua5.2 inspired
+    return rrotate(x, -disp)
+end
+
+local lrotate = M.lrotate
+
+M.rol = M.lrotate -- LuaOp inspired
+M.ror = M.rrotate -- LuaOp insipred
+
+function M.arshift(x, disp) -- Lua5.2 inspired
+    local z = rshift(x, disp)
+    if x >= 0x80000000 then z = z + lshift(2 ^ disp - 1, 32 - disp) end
+    return z
+end
+
+local arshift = M.arshift
+
+function M.btest(x, y) -- Lua5.2 inspired
+    return band(x, y) ~= 0
+end
+
+--
+-- Start Lua 5.2 "bit32" compat section.
+--
+
+M.bit32 = {} -- Lua 5.2 'bit32' compatibility
+
+local function bit32_bnot(x) return (-1 - x) % MOD end
+
+M.bit32.bnot = bit32_bnot
+
+local function bit32_bxor(a, b, c, ...)
+    local z
+    if b then
+        a = a % MOD
+        b = b % MOD
+        z = bxor(a, b)
+        if c then z = bit32_bxor(z, c, ...) end
+        return z
+    elseif a then
+        return a % MOD
+    else
+        return 0
+    end
+end
+
+M.bit32.bxor = bit32_bxor
+
+local function bit32_band(a, b, c, ...)
+    local z
+    if b then
+        a = a % MOD
+        b = b % MOD
+        z = ((a + b) - bxor(a, b)) / 2
+        if c then z = bit32_band(z, c, ...) end
+        return z
+    elseif a then
+        return a % MOD
+    else
+        return MODM
+    end
+end
+
+M.bit32.band = bit32_band
+
+local function bit32_bor(a, b, c, ...)
+    local z
+    if b then
+        a = a % MOD
+        b = b % MOD
+        z = MODM - band(MODM - a, MODM - b)
+        if c then z = bit32_bor(z, c, ...) end
+        return z
+    elseif a then
+        return a % MOD
+    else
+        return 0
+    end
+end
+
+M.bit32.bor = bit32_bor
+
+function M.bit32.btest(...) return bit32_band(...) ~= 0 end
+
+function M.bit32.lrotate(x, disp) return lrotate(x % MOD, disp) end
+
+function M.bit32.rrotate(x, disp) return rrotate(x % MOD, disp) end
+
+function M.bit32.lshift(x, disp)
+    if disp > 31 or disp < -31 then return 0 end
+    return lshift(x % MOD, disp)
+end
+
+function M.bit32.rshift(x, disp)
+    if disp > 31 or disp < -31 then return 0 end
+    return rshift(x % MOD, disp)
+end
+
+function M.bit32.arshift(x, disp)
+    x = x % MOD
+    if disp >= 0 then
+        if disp > 31 then
+            return (x >= 0x80000000) and MODM or 0
+        else
+            local z = rshift(x, disp)
+            if x >= 0x80000000 then
+                z = z + lshift(2 ^ disp - 1, 32 - disp)
+            end
+            return z
+        end
+    else
+        return lshift(x, -disp)
+    end
+end
+
+function M.bit32.extract(x, field, ...)
+    local width = ... or 1
+    if field < 0 or field > 31 or width < 0 or field + width > 32 then
+        error 'out of range'
+    end
+    x = x % MOD
+    return extract(x, field, ...)
+end
+
+function M.bit32.replace(x, v, field, ...)
+    local width = ... or 1
+    if field < 0 or field > 31 or width < 0 or field + width > 32 then
+        error 'out of range'
+    end
+    x = x % MOD
+    v = v % MOD
+    return replace(x, v, field, ...)
+end
+
+--
+-- Start LuaBitOp "bit" compat section.
+--
+
+M.bit = {} -- LuaBitOp "bit" compatibility
+
+function M.bit.tobit(x)
+    x = x % MOD
+    if x >= 0x80000000 then x = x - MOD end
+    return x
+end
+
+local bit_tobit = M.bit.tobit
+
+function M.bit.tohex(x, ...) return tohex(x % MOD, ...) end
+
+function M.bit.bnot(x) return bit_tobit(bnot(x % MOD)) end
+
+local function bit_bor(a, b, c, ...)
+    if c then
+        return bit_bor(bit_bor(a, b), c, ...)
+    elseif b then
+        return bit_tobit(bor(a % MOD, b % MOD))
+    else
+        return bit_tobit(a)
+    end
+end
+
+M.bit.bor = bit_bor
+
+local function bit_band(a, b, c, ...)
+    if c then
+        return bit_band(bit_band(a, b), c, ...)
+    elseif b then
+        return bit_tobit(band(a % MOD, b % MOD))
+    else
+        return bit_tobit(a)
+    end
+end
+
+M.bit.band = bit_band
+
+local function bit_bxor(a, b, c, ...)
+    if c then
+        return bit_bxor(bit_bxor(a, b), c, ...)
+    elseif b then
+        return bit_tobit(bxor(a % MOD, b % MOD))
+    else
+        return bit_tobit(a)
+    end
+end
+
+M.bit.bxor = bit_bxor
+
+function M.bit.lshift(x, n) return bit_tobit(lshift(x % MOD, n % 32)) end
+
+function M.bit.rshift(x, n) return bit_tobit(rshift(x % MOD, n % 32)) end
+
+function M.bit.arshift(x, n) return bit_tobit(arshift(x % MOD, n % 32)) end
+
+function M.bit.rol(x, n) return bit_tobit(lrotate(x % MOD, n % 32)) end
+
+function M.bit.ror(x, n) return bit_tobit(rrotate(x % MOD, n % 32)) end
+
+function M.bit.bswap(x) return bit_tobit(bswap(x % MOD)) end
+
+return M
+ end,
+["lua_modules.@lumi2d.lumi.dist.graphics.animation"] = function(...) 
+local ____lualib = require("lualib_bundle")
+local __TS__Class = ____lualib.__TS__Class
+local ____exports = {}
+--- The animation class uses a sprite atlas to cycle through sprite frames.
+____exports.Animation = __TS__Class()
+local Animation = ____exports.Animation
+Animation.name = "Animation"
+function Animation.prototype.____constructor(self, name, atlas, frameNames, frameDuration, mode)
+    if mode == nil then
+        mode = "normal"
+    end
+    self.name = name
+    self.atlas = atlas
+    self.frameNames = frameNames
+    self.frameDuration = frameDuration
+    self.mode = mode
+end
+function Animation.prototype.getFrame(self, time)
+    return self.atlas:getFrame(self.frameNames[self:getFrameIndex(time) + 1])
+end
+function Animation.prototype.getFrameName(self, time)
+    return self.frameNames[self:getFrameIndex(time) + 1]
+end
+function Animation.prototype.finished(self, time)
+    if self.mode == "loop" or self.mode == "loopReversed" or self.mode == "pingPong" then
+        return false
+    end
+    return math.floor(time / self.frameDuration) > #self.frameNames
+end
+function Animation.prototype.getFrameIndex(self, time)
+    if #self.frameNames == 1 then
+        return 0
+    end
+    local frameNumber = math.floor(time / self.frameDuration)
+    repeat
+        local ____switch9 = self.mode
+        local ____cond9 = ____switch9 == "normal"
+        if ____cond9 then
+            frameNumber = math.floor(math.min(#self.frameNames - 1, frameNumber))
+            break
+        end
+        ____cond9 = ____cond9 or ____switch9 == "loop"
+        if ____cond9 then
+            frameNumber = frameNumber % #self.frameNames
+            break
+        end
+        ____cond9 = ____cond9 or ____switch9 == "pingPong"
+        if ____cond9 then
+            frameNumber = frameNumber % (#self.frameNames * 2 - 2)
+            if frameNumber >= #self.frameNames then
+                frameNumber = #self.frameNames - 2 - (frameNumber - #self.frameNames)
+            end
+            break
+        end
+        ____cond9 = ____cond9 or ____switch9 == "reversed"
+        if ____cond9 then
+            frameNumber = math.floor(math.max(#self.frameNames - frameNumber - 1, 0))
+            break
+        end
+        ____cond9 = ____cond9 or ____switch9 == "loopReversed"
+        if ____cond9 then
+            frameNumber = frameNumber % #self.frameNames
+            frameNumber = #self.frameNames - frameNumber - 1
+            break
+        end
+    until true
+    return frameNumber
+end
+return ____exports
+ end,
+["lua_modules.@lumi2d.lumi.dist.events.index"] = function(...) 
+--[[ Generated with https://github.com/TypeScriptToLua/TypeScriptToLua ]]
+local ____exports = {}
+do
+    local ____export = require("lua_modules.@lumi2d.lumi.dist.events.event")
+    for ____exportKey, ____exportValue in pairs(____export) do
+        if ____exportKey ~= "default" then
+            ____exports[____exportKey] = ____exportValue
+        end
+    end
+end
+do
+    local ____export = require("lua_modules.@lumi2d.lumi.dist.events.events")
+    for ____exportKey, ____exportValue in pairs(____export) do
+        if ____exportKey ~= "default" then
+            ____exports[____exportKey] = ____exportValue
+        end
+    end
+end
+do
+    local ____export = require("lua_modules.@lumi2d.lumi.dist.events.input.gamepadEvent")
+    for ____exportKey, ____exportValue in pairs(____export) do
+        if ____exportKey ~= "default" then
+            ____exports[____exportKey] = ____exportValue
+        end
+    end
+end
+do
+    local ____export = require("lua_modules.@lumi2d.lumi.dist.events.input.joystickEvent")
+    for ____exportKey, ____exportValue in pairs(____export) do
+        if ____exportKey ~= "default" then
+            ____exports[____exportKey] = ____exportValue
+        end
+    end
+end
+do
+    local ____export = require("lua_modules.@lumi2d.lumi.dist.events.input.keyboardEvent")
+    for ____exportKey, ____exportValue in pairs(____export) do
+        if ____exportKey ~= "default" then
+            ____exports[____exportKey] = ____exportValue
+        end
+    end
+end
+do
+    local ____export = require("lua_modules.@lumi2d.lumi.dist.events.input.mouseEvent")
+    for ____exportKey, ____exportValue in pairs(____export) do
+        if ____exportKey ~= "default" then
+            ____exports[____exportKey] = ____exportValue
+        end
+    end
+end
+do
+    local ____export = require("lua_modules.@lumi2d.lumi.dist.events.input.touchEvent")
+    for ____exportKey, ____exportValue in pairs(____export) do
+        if ____exportKey ~= "default" then
+            ____exports[____exportKey] = ____exportValue
+        end
+    end
+end
+return ____exports
+ end,
+["lua_modules.@lumi2d.lumi.dist.events.input.touchEvent"] = function(...) 
+local ____lualib = require("lualib_bundle")
+local __TS__Class = ____lualib.__TS__Class
+local __TS__ClassExtends = ____lualib.__TS__ClassExtends
+local __TS__New = ____lualib.__TS__New
+local ____exports = {}
+local ____event = require("lua_modules.@lumi2d.lumi.dist.events.event")
+local Event = ____event.Event
+local EventType = ____event.EventType
+--- Touch input event.
+____exports.TouchEvent = __TS__Class()
+local TouchEvent = ____exports.TouchEvent
+TouchEvent.name = "TouchEvent"
+__TS__ClassExtends(TouchEvent, Event)
+function TouchEvent.prototype.____constructor(self, ...)
+    Event.prototype.____constructor(self, ...)
+    self.touches = {}
+end
+function TouchEvent.get(____type, id, x, y, dx, dy, pressure)
+    local event
+    if #____exports.TouchEvent.pool > 0 then
+        event = table.remove(____exports.TouchEvent.pool)
+    else
+        event = __TS__New(____exports.TouchEvent)
+    end
+    event:reset(
+        ____type.typeName,
+        id,
+        x,
+        y,
+        dx,
+        dy,
+        pressure
+    )
+    return event
+end
+function TouchEvent.prototype.put(self)
+    Event.prototype.put(self)
+    local ____exports_TouchEvent_pool_0 = ____exports.TouchEvent.pool
+    ____exports_TouchEvent_pool_0[#____exports_TouchEvent_pool_0 + 1] = self
+end
+function TouchEvent.prototype.reset(self, typeName, id, x, y, dx, dy, pressure)
+    self.typeName = typeName
+    self.id = id
+    self.x = x
+    self.y = y
+    self.dx = dx
+    self.dy = dy
+    self.pressure = pressure
+    self.touches = love.touch.getTouches()
+end
+TouchEvent.PRESSED = __TS__New(EventType, ____exports.TouchEvent, "lumi_touch_pressed")
+TouchEvent.RELEASED = __TS__New(EventType, ____exports.TouchEvent, "lumi_touch_released")
+TouchEvent.MOVED = __TS__New(EventType, ____exports.TouchEvent, "lumi_touch_moved")
+TouchEvent.pool = {}
+return ____exports
+ end,
+["lua_modules.@lumi2d.lumi.dist.events.event"] = function(...) 
+local ____lualib = require("lualib_bundle")
+local __TS__Class = ____lualib.__TS__Class
+local ____exports = {}
+local ____events = require("lua_modules.@lumi2d.lumi.dist.events.events")
+local Events = ____events.Events
+--- Base event class.
+____exports.Event = __TS__Class()
+local Event = ____exports.Event
+Event.name = "Event"
+function Event.prototype.____constructor(self)
+    self.canceled = false
+    self.typeName = ""
+end
+function Event.prototype.put(self)
+    self.canceled = false
+end
+function Event.prototype.send(self)
+    Events.send(self)
+end
+--- The event type makes it possible to have type safe callbacks when adding handlers in the event system.
+____exports.EventType = __TS__Class()
+local EventType = ____exports.EventType
+EventType.name = "EventType"
+function EventType.prototype.____constructor(self, ____type, typeName)
+    self.type = ____type
+    self.typeName = typeName
+end
+return ____exports
+ end,
+["lua_modules.@lumi2d.lumi.dist.events.events"] = function(...) 
+local ____lualib = require("lualib_bundle")
+local __TS__Class = ____lualib.__TS__Class
+local __TS__New = ____lualib.__TS__New
+local __TS__ArrayFindIndex = ____lualib.__TS__ArrayFindIndex
+local __TS__ArraySplice = ____lualib.__TS__ArraySplice
+local ____exports = {}
+--- Handler to store a callback for an event.
+____exports.EventHandler = __TS__Class()
+local EventHandler = ____exports.EventHandler
+EventHandler.name = "EventHandler"
+function EventHandler.prototype.____constructor(self, callback, canCancel)
+    self.callback = callback
+    self.canCancel = canCancel
+end
+--- Event manager.
+-- 
+-- @noSelf
+____exports.Events = __TS__Class()
+local Events = ____exports.Events
+Events.name = "Events"
+function Events.prototype.____constructor(self)
+end
+function Events.setSceneHandlers(handlers)
+    ____exports.Events.sceneHandlers = handlers
+end
+function Events.getSceneHandlers()
+    return ____exports.Events.sceneHandlers
+end
+function Events.clearGlobalHandlers()
+    ____exports.Events.globalHandlers = {}
+end
+function Events.on(____type, callback, canCancel, isGlobal)
+    if canCancel == nil then
+        canCancel = true
+    end
+    if isGlobal == nil then
+        isGlobal = false
+    end
+    local handlers = nil
+    if isGlobal then
+        handlers = ____exports.Events.globalHandlers
+    else
+        handlers = ____exports.Events.sceneHandlers
+    end
+    if not handlers then
+        return
+    end
+    if not (handlers[____type.typeName] ~= nil) then
+        handlers[____type.typeName] = {}
+    end
+    local ____handlers_____type_typeName_0 = handlers[____type.typeName]
+    ____handlers_____type_typeName_0[#____handlers_____type_typeName_0 + 1] = __TS__New(____exports.EventHandler, callback, canCancel)
+end
+function Events.off(____type, callback, isGlobal)
+    if isGlobal == nil then
+        isGlobal = false
+    end
+    local handlers = nil
+    if isGlobal then
+        handlers = ____exports.Events.globalHandlers
+    else
+        handlers = ____exports.Events.sceneHandlers
+    end
+    if not handlers then
+        return
+    end
+    if handlers[____type.typeName] ~= nil then
+        local index = __TS__ArrayFindIndex(
+            handlers[____type.typeName],
+            function(____, value)
+                return value.callback == callback
+            end
+        )
+        if index ~= -1 then
+            __TS__ArraySplice(handlers[____type.typeName], index, 1)
+        end
+    end
+end
+function Events.has(____type, isGlobal, callback)
+    if isGlobal == nil then
+        isGlobal = false
+    end
+    local handlers = nil
+    if isGlobal then
+        handlers = ____exports.Events.globalHandlers
+    else
+        handlers = ____exports.Events.sceneHandlers
+    end
+    if not handlers then
+        return false
+    end
+    local typeHandlers = handlers[____type.typeName]
+    if not typeHandlers then
+        return false
+    end
+    if not callback then
+        return #typeHandlers > 0
+    else
+        for ____, handler in ipairs(typeHandlers) do
+            if handler.callback == callback then
+                return true
+            end
+        end
+    end
+    return false
+end
+function Events.send(event)
+    if ____exports.Events.globalHandlers[event.typeName] ~= nil then
+        ____exports.Events.processHandlers(event, ____exports.Events.globalHandlers[event.typeName])
+    end
+    if event.canceled then
+        event:put()
+        return
+    end
+    if ____exports.Events.sceneHandlers[event.typeName] ~= nil then
+        ____exports.Events.processHandlers(event, ____exports.Events.sceneHandlers[event.typeName])
+    end
+    event:put()
+end
+function Events.processHandlers(event, handlers)
+    for ____, handler in ipairs(handlers) do
+        handler.callback(event)
+        if event.canceled then
+            if handler.canCancel then
+                break
+            else
+                event.canceled = false
+            end
+        end
+    end
+end
+Events.globalHandlers = {}
+Events.sceneHandlers = {}
+return ____exports
+ end,
+["lua_modules.@lumi2d.lumi.dist.events.input.mouseEvent"] = function(...) 
+local ____lualib = require("lualib_bundle")
+local __TS__Class = ____lualib.__TS__Class
+local __TS__ClassExtends = ____lualib.__TS__ClassExtends
+local __TS__New = ____lualib.__TS__New
+local ____exports = {}
+local ____event = require("lua_modules.@lumi2d.lumi.dist.events.event")
+local Event = ____event.Event
+local EventType = ____event.EventType
+--- Mouse input event.
+____exports.MouseEvent = __TS__Class()
+local MouseEvent = ____exports.MouseEvent
+MouseEvent.name = "MouseEvent"
+__TS__ClassExtends(MouseEvent, Event)
+function MouseEvent.get(____type, x, y, button, isTouch, dx, dy, wheelX, wheelY)
+    local event
+    if #____exports.MouseEvent.pool > 0 then
+        event = table.remove(____exports.MouseEvent.pool)
+    else
+        event = __TS__New(____exports.MouseEvent)
+    end
+    event:reset(
+        ____type.typeName,
+        x,
+        y,
+        button,
+        isTouch,
+        dx,
+        dy,
+        wheelX,
+        wheelY
+    )
+    return event
+end
+function MouseEvent.prototype.put(self)
+    Event.prototype.put(self)
+    local ____exports_MouseEvent_pool_0 = ____exports.MouseEvent.pool
+    ____exports_MouseEvent_pool_0[#____exports_MouseEvent_pool_0 + 1] = self
+end
+function MouseEvent.prototype.reset(self, typeName, x, y, button, isTouch, dx, dy, wheelX, wheelY)
+    self.typeName = typeName
+    self.x = x
+    self.y = y
+    self.button = button
+    self.isTouch = isTouch
+    self.dx = dx
+    self.dy = dy
+    self.wheelX = wheelX
+    self.wheelY = wheelY
+end
+MouseEvent.BUTTON_PRESSED = __TS__New(EventType, ____exports.MouseEvent, "lumi_mouse_button_pressed")
+MouseEvent.BUTTON_RELEASED = __TS__New(EventType, ____exports.MouseEvent, "lumi_mouse_button_released")
+MouseEvent.MOVED = __TS__New(EventType, ____exports.MouseEvent, "lumi_mouse_moved")
+MouseEvent.WHEEL = __TS__New(EventType, ____exports.MouseEvent, "lumi_mouse_wheel")
+MouseEvent.pool = {}
+return ____exports
+ end,
+["lua_modules.@lumi2d.lumi.dist.events.input.keyboardEvent"] = function(...) 
+local ____lualib = require("lualib_bundle")
+local __TS__Class = ____lualib.__TS__Class
+local __TS__ClassExtends = ____lualib.__TS__ClassExtends
+local __TS__New = ____lualib.__TS__New
+local ____exports = {}
+local ____event = require("lua_modules.@lumi2d.lumi.dist.events.event")
+local Event = ____event.Event
+local EventType = ____event.EventType
+--- Keyboard input event.
+____exports.KeyboardEvent = __TS__Class()
+local KeyboardEvent = ____exports.KeyboardEvent
+KeyboardEvent.name = "KeyboardEvent"
+__TS__ClassExtends(KeyboardEvent, Event)
+function KeyboardEvent.get(____type, key, scancode, isRepeat)
+    local event
+    if #____exports.KeyboardEvent.pool > 0 then
+        event = table.remove(____exports.KeyboardEvent.pool)
+    else
+        event = __TS__New(____exports.KeyboardEvent)
+    end
+    event:reset(____type.typeName, key, scancode, isRepeat)
+    return event
+end
+function KeyboardEvent.prototype.put(self)
+    Event.prototype.put(self)
+    local ____exports_KeyboardEvent_pool_0 = ____exports.KeyboardEvent.pool
+    ____exports_KeyboardEvent_pool_0[#____exports_KeyboardEvent_pool_0 + 1] = self
+end
+function KeyboardEvent.prototype.reset(self, typeName, key, scancode, isRepeat)
+    self.typeName = typeName
+    self.key = key
+    self.scancode = scancode
+    self.isRepeat = isRepeat
+end
+KeyboardEvent.PRESSED = __TS__New(EventType, ____exports.KeyboardEvent, "lumi_key_pressed")
+KeyboardEvent.RELEASED = __TS__New(EventType, ____exports.KeyboardEvent, "lumi_key_released")
+KeyboardEvent.pool = {}
+return ____exports
+ end,
+["lua_modules.@lumi2d.lumi.dist.events.input.joystickEvent"] = function(...) 
+local ____lualib = require("lualib_bundle")
+local __TS__Class = ____lualib.__TS__Class
+local __TS__ClassExtends = ____lualib.__TS__ClassExtends
+local __TS__New = ____lualib.__TS__New
+local ____exports = {}
+local ____event = require("lua_modules.@lumi2d.lumi.dist.events.event")
+local Event = ____event.Event
+local EventType = ____event.EventType
+--- Joystick input event.
+____exports.JoystickEvent = __TS__Class()
+local JoystickEvent = ____exports.JoystickEvent
+JoystickEvent.name = "JoystickEvent"
+__TS__ClassExtends(JoystickEvent, Event)
+function JoystickEvent.get(self, ____type, joystick, axis, value, button, hat, direction)
+    local event
+    if #____exports.JoystickEvent.pool > 0 then
+        event = table.remove(____exports.JoystickEvent.pool)
+    else
+        event = __TS__New(____exports.JoystickEvent)
+    end
+    event:reset(
+        ____type.typeName,
+        joystick,
+        axis,
+        value,
+        button,
+        hat,
+        direction
+    )
+    return event
+end
+function JoystickEvent.prototype.put(self)
+    Event.prototype.put(self)
+    local ____exports_JoystickEvent_pool_0 = ____exports.JoystickEvent.pool
+    ____exports_JoystickEvent_pool_0[#____exports_JoystickEvent_pool_0 + 1] = self
+end
+function JoystickEvent.prototype.reset(self, typeName, joystick, axis, value, button, hat, direction)
+    self.typeName = typeName
+    self.joystick = joystick
+    local id = joystick:getID()
+    self.id = id
+    self.axis = axis
+    self.value = value
+    self.button = button
+    self.hat = hat
+    self.direction = direction
+end
+JoystickEvent.CONNECTED = __TS__New(EventType, ____exports.JoystickEvent, "lumi_joystick_connected")
+JoystickEvent.DISCONNECTED = __TS__New(EventType, ____exports.JoystickEvent, "lumi_joystick_disconnected")
+JoystickEvent.AXIS_CHANGED = __TS__New(EventType, ____exports.JoystickEvent, "lumi_joystick_axis_changed")
+JoystickEvent.HAT_CHANGED = __TS__New(EventType, ____exports.JoystickEvent, "lumi_joystick_hat_changed")
+JoystickEvent.BUTTON_PRESSED = __TS__New(EventType, ____exports.JoystickEvent, "lumi_joystick_button_pressed")
+JoystickEvent.BUTTON_RELEASED = __TS__New(EventType, ____exports.JoystickEvent, "lumi_joystick_button_released")
+JoystickEvent.pool = {}
+return ____exports
+ end,
+["lua_modules.@lumi2d.lumi.dist.events.input.gamepadEvent"] = function(...) 
+local ____lualib = require("lualib_bundle")
+local __TS__Class = ____lualib.__TS__Class
+local __TS__ClassExtends = ____lualib.__TS__ClassExtends
+local __TS__New = ____lualib.__TS__New
+local ____exports = {}
+local ____event = require("lua_modules.@lumi2d.lumi.dist.events.event")
+local Event = ____event.Event
+local EventType = ____event.EventType
+--- Gamepad input event.
+____exports.GamepadEvent = __TS__Class()
+local GamepadEvent = ____exports.GamepadEvent
+GamepadEvent.name = "GamepadEvent"
+__TS__ClassExtends(GamepadEvent, Event)
+function GamepadEvent.get(self, ____type, gamepad, axis, value, button)
+    local event
+    if #____exports.GamepadEvent.pool > 0 then
+        event = table.remove(____exports.GamepadEvent.pool)
+    else
+        event = __TS__New(____exports.GamepadEvent)
+    end
+    event:reset(
+        ____type.typeName,
+        gamepad,
+        axis,
+        value,
+        button
+    )
+    return event
+end
+function GamepadEvent.prototype.put(self)
+    Event.prototype.put(self)
+    local ____exports_GamepadEvent_pool_0 = ____exports.GamepadEvent.pool
+    ____exports_GamepadEvent_pool_0[#____exports_GamepadEvent_pool_0 + 1] = self
+end
+function GamepadEvent.prototype.reset(self, typeName, gamepad, axis, value, button)
+    self.typeName = typeName
+    self.gamepad = gamepad
+    local id = gamepad:getID()
+    self.id = id
+    self.axis = axis
+    self.value = value
+    self.button = button
+end
+GamepadEvent.CONNECTED = __TS__New(EventType, ____exports.GamepadEvent, "lumi_gamepad_connected")
+GamepadEvent.DISCONNECTED = __TS__New(EventType, ____exports.GamepadEvent, "lumi_gamepad_disconnected")
+GamepadEvent.AXIS_CHANGED = __TS__New(EventType, ____exports.GamepadEvent, "lumi_gamepad_axis_changed")
+GamepadEvent.BUTTON_PRESSED = __TS__New(EventType, ____exports.GamepadEvent, "lumi_gamepad_button_pressed")
+GamepadEvent.BUTTON_RELEASED = __TS__New(EventType, ____exports.GamepadEvent, "lumi_gamepad_button_released")
+GamepadEvent.pool = {}
+return ____exports
+ end,
+["lua_modules.@lumi2d.lumi.dist.game"] = function(...) 
+local ____lualib = require("lualib_bundle")
+local __TS__Class = ____lualib.__TS__Class
+local ____exports = {}
+local ____events = require("lua_modules.@lumi2d.lumi.dist.events.index")
+local KeyboardEvent = ____events.KeyboardEvent
+local ____gamepadEvent = require("lua_modules.@lumi2d.lumi.dist.events.input.gamepadEvent")
+local GamepadEvent = ____gamepadEvent.GamepadEvent
+local ____joystickEvent = require("lua_modules.@lumi2d.lumi.dist.events.input.joystickEvent")
+local JoystickEvent = ____joystickEvent.JoystickEvent
+local ____mouseEvent = require("lua_modules.@lumi2d.lumi.dist.events.input.mouseEvent")
+local MouseEvent = ____mouseEvent.MouseEvent
+local ____touchEvent = require("lua_modules.@lumi2d.lumi.dist.events.input.touchEvent")
+local TouchEvent = ____touchEvent.TouchEvent
+local ____scenes = require("lua_modules.@lumi2d.lumi.dist.scenes")
+local Scenes = ____scenes.Scenes
+local ____utils = require("lua_modules.@lumi2d.lumi.dist.utils.index")
+local TimeStep = ____utils.TimeStep
+local ____view = require("lua_modules.@lumi2d.lumi.dist.view.index")
+local View = ____view.View
+local ____tweens = require("lua_modules.@lumi2d.lumi.dist.tweens.index")
+local Tweens = ____tweens.Tweens
+local MAX_DT = 1 / 30
+--- The Game class is the main class that starts the engine.
+-- 
+-- @noSelf
+____exports.Game = __TS__Class()
+local Game = ____exports.Game
+Game.name = "Game"
+function Game.prototype.____constructor(self)
+end
+function Game.start(designWidth, designHeight, startScene)
+    View.init(designWidth, designHeight)
+    local viewWidth, viewHeight = View.getViewSize()
+    ____exports.Game.canvas = love.graphics.newCanvas(viewWidth, viewHeight)
+    Scenes.push(startScene)
+    ____exports.Game.started = true
+end
+function Game.update(dt)
+    TimeStep.update(dt)
+    Tweens.update(dt)
+    local scene = Scenes.current()
+    scene:update(dt)
+    scene:lateUpdate(dt)
+end
+function Game.draw()
+    love.graphics.setCanvas(____exports.Game.canvas)
+    love.graphics.clear()
+    local scene = Scenes.current()
+    if scene.isOverlay then
+        if #Scenes.sceneStack > 1 then
+            Scenes.sceneStack[#Scenes.sceneStack - 2 + 1]:draw()
+        end
+    end
+    scene:draw()
+    local offsetX, offsetY = View.getViewOffset()
+    love.graphics.setCanvas()
+    love.graphics.clear()
+    love.graphics.setColor(1, 1, 1, 1)
+    local scaleX, scaleY = View.getViewScaleFactor()
+    love.graphics.draw(
+        ____exports.Game.canvas,
+        offsetX,
+        offsetY,
+        0,
+        scaleX,
+        scaleY
+    )
+    if ____exports.Game.showDebugInfo then
+        local stats = love.graphics.getStats()
+        local fps = TimeStep.fps
+        local _windowWidth, windowHeight = View.getWindowSize()
+        love.graphics.setFont(____exports.Game.debugFont)
+        love.graphics.setColor(1, 1, 1, 1)
+        love.graphics.print(
+            "draw calls " .. tostring(stats.drawcalls),
+            20,
+            windowHeight - 40
+        )
+        local memory = string.format("texture mem: %.2f MB", stats.texturememory / 1024 / 1024)
+        love.graphics.print(memory, 20, windowHeight - 60)
+        love.graphics.print(
+            "FPS: " .. tostring(fps),
+            20,
+            windowHeight - 80
+        )
+    end
+    love.graphics.present()
+end
+Game.showDebugInfo = false
+Game.started = false
+Game.debugFont = love.graphics.newFont(16)
+love.run = function()
+    if love.load then
+        love.load(
+            love.arg.parseGameArguments(arg),
+            arg
+        )
+    end
+    if love.timer ~= nil then
+        love.timer.step()
+    end
+    local dt = 0
+    return function()
+        if love.event ~= nil then
+            love.event.pump()
+            for name, a, b, c, d, e, f in love.event.poll() do
+                if name == "quit" then
+                    if not love.quit or not love.quit() then
+                        return a or 0
+                    end
+                end
+                local handler = love.handlers[name]
+                if handler then
+                    handler(
+                        a,
+                        b,
+                        c,
+                        d,
+                        e,
+                        f
+                    )
+                end
+            end
+        end
+        if love.timer ~= nil then
+            dt = love.timer.step()
+            if dt > MAX_DT then
+                dt = MAX_DT
+            end
+        end
+        if ____exports.Game.started then
+            ____exports.Game.update(dt)
+            ____exports.Game.draw()
+        end
+        if love.timer ~= nil then
+            love.timer.sleep(0.001)
+        end
+        return nil
+    end
+end
+love.handlers.resize = function(width, height)
+    View.scaleToWindow()
+    local viewWidth, viewHeight = View.getViewSize()
+    ____exports.Game.canvas = love.graphics.newCanvas(viewWidth, viewHeight)
+    for ____, scene in ipairs(Scenes.sceneStack) do
+        scene:resize(width, height)
+    end
+end
+love.keypressed = function(key, scancode, isrepeat)
+    KeyboardEvent.get(KeyboardEvent.PRESSED, key, scancode, isrepeat):send()
+end
+love.keyreleased = function(key, scancode)
+    KeyboardEvent.get(KeyboardEvent.RELEASED, key, scancode):send()
+end
+love.mousepressed = function(x, y, button, isTouch)
+    MouseEvent.get(
+        MouseEvent.BUTTON_PRESSED,
+        x,
+        y,
+        button,
+        isTouch
+    ):send()
+end
+love.mousereleased = function(x, y, button, isTouch)
+    MouseEvent.get(
+        MouseEvent.BUTTON_RELEASED,
+        x,
+        y,
+        button,
+        isTouch
+    ):send()
+end
+love.mousemoved = function(x, y, dx, dy, isTouch)
+    MouseEvent.get(
+        MouseEvent.MOVED,
+        x,
+        y,
+        nil,
+        isTouch,
+        dx,
+        dy
+    ):send()
+end
+love.wheelmoved = function(x, y)
+    MouseEvent.get(
+        MouseEvent.WHEEL,
+        0,
+        0,
+        nil,
+        nil,
+        nil,
+        nil,
+        x,
+        y
+    ):send()
+end
+love.touchpressed = function(id, x, y, dx, dy, pressure)
+    TouchEvent.get(
+        TouchEvent.PRESSED,
+        id,
+        x,
+        y,
+        dx,
+        dy,
+        pressure
+    ):send()
+end
+love.touchreleased = function(id, x, y, dx, dy, pressure)
+    TouchEvent.get(
+        TouchEvent.RELEASED,
+        id,
+        x,
+        y,
+        dx,
+        dy,
+        pressure
+    ):send()
+end
+love.touchmoved = function(id, x, y, dx, dy, pressure)
+    TouchEvent.get(
+        TouchEvent.MOVED,
+        id,
+        x,
+        y,
+        dx,
+        dy,
+        pressure
+    ):send()
+end
+love.joystickadded = function(joystick)
+    JoystickEvent:get(JoystickEvent.CONNECTED, joystick):send()
+    GamepadEvent:get(GamepadEvent.CONNECTED, joystick):send()
+end
+love.joystickremoved = function(joystick)
+    JoystickEvent:get(JoystickEvent.DISCONNECTED, joystick):send()
+    GamepadEvent:get(GamepadEvent.DISCONNECTED, joystick):send()
+end
+love.joystickaxis = function(joystick, axis, value)
+    JoystickEvent:get(JoystickEvent.AXIS_CHANGED, joystick, axis, value):send()
+end
+love.joystickhat = function(joystick, hat, direction)
+    JoystickEvent:get(
+        JoystickEvent.HAT_CHANGED,
+        joystick,
+        nil,
+        nil,
+        nil,
+        hat,
+        direction
+    ):send()
+end
+love.joystickpressed = function(joystick, button)
+    JoystickEvent:get(
+        JoystickEvent.BUTTON_PRESSED,
+        joystick,
+        nil,
+        nil,
+        button
+    ):send()
+end
+love.joystickreleased = function(joystick, button)
+    JoystickEvent:get(
+        JoystickEvent.BUTTON_RELEASED,
+        joystick,
+        nil,
+        nil,
+        button
+    ):send()
+end
+love.gamepadaxis = function(joystick, axis, value)
+    GamepadEvent:get(GamepadEvent.AXIS_CHANGED, joystick, axis, value):send()
+end
+love.gamepadpressed = function(joystick, button)
+    GamepadEvent:get(
+        GamepadEvent.BUTTON_PRESSED,
+        joystick,
+        nil,
+        nil,
+        button
+    ):send()
+end
+love.gamepadreleased = function(joystick, button)
+    GamepadEvent:get(
+        GamepadEvent.BUTTON_RELEASED,
+        joystick,
+        nil,
+        nil,
+        button
+    ):send()
+end
+return ____exports
+ end,
+["lua_modules.@lumi2d.lumi.dist.tweens.index"] = function(...) 
+--[[ Generated with https://github.com/TypeScriptToLua/TypeScriptToLua ]]
+local ____exports = {}
+do
+    local ____export = require("lua_modules.@lumi2d.lumi.dist.tweens.easing")
+    for ____exportKey, ____exportValue in pairs(____export) do
+        if ____exportKey ~= "default" then
+            ____exports[____exportKey] = ____exportValue
+        end
+    end
+end
+do
+    local ____export = require("lua_modules.@lumi2d.lumi.dist.tweens.tween")
+    for ____exportKey, ____exportValue in pairs(____export) do
+        if ____exportKey ~= "default" then
+            ____exports[____exportKey] = ____exportValue
+        end
+    end
+end
+do
+    local ____export = require("lua_modules.@lumi2d.lumi.dist.tweens.tweenSequence")
+    for ____exportKey, ____exportValue in pairs(____export) do
+        if ____exportKey ~= "default" then
+            ____exports[____exportKey] = ____exportValue
+        end
+    end
+end
+do
+    local ____export = require("lua_modules.@lumi2d.lumi.dist.tweens.tweens")
+    for ____exportKey, ____exportValue in pairs(____export) do
+        if ____exportKey ~= "default" then
+            ____exports[____exportKey] = ____exportValue
+        end
+    end
+end
+return ____exports
+ end,
+["lua_modules.@lumi2d.lumi.dist.tweens.tweenSequence"] = function(...) 
+local ____lualib = require("lualib_bundle")
+local __TS__Class = ____lualib.__TS__Class
+local ____exports = {}
+--- A collection a tweens that will play in order.
+____exports.TweenSequence = __TS__Class()
+local TweenSequence = ____exports.TweenSequence
+TweenSequence.name = "TweenSequence"
+function TweenSequence.prototype.____constructor(self, tweens, ____repeat)
+    if ____repeat == nil then
+        ____repeat = 0
+    end
+    self.index = 0
+    self.timesCompleted = 0
+    self["repeat"] = 0
+    self.list = tweens
+    self["repeat"] = ____repeat
+end
+function TweenSequence.prototype.current(self)
+    return self.list[self.index + 1]
+end
+function TweenSequence.prototype.reset(self)
+    self.index = 0
+    self.timesCompleted = 0
+    for ____, tween in ipairs(self.list) do
+        tween:reset()
+    end
+end
+function TweenSequence.prototype.restart(self)
+    self.index = 0
+    for ____, tween in ipairs(self.list) do
+        tween:restart()
+    end
+end
+return ____exports
+ end,
+["lua_modules.@lumi2d.lumi.dist.tweens.tween"] = function(...) 
+local ____lualib = require("lualib_bundle")
+local __TS__Class = ____lualib.__TS__Class
+local __TS__InstanceOf = ____lualib.__TS__InstanceOf
+local ____exports = {}
+local ____graphics = require("lua_modules.@lumi2d.lumi.dist.graphics.index")
+local Color = ____graphics.Color
+local ____utils = require("lua_modules.@lumi2d.lumi.dist.utils.index")
+local TimeStep = ____utils.TimeStep
+local ____easing = require("lua_modules.@lumi2d.lumi.dist.tweens.easing")
+local easeLinear = ____easing.easeLinear
+--- A tween. Update object properties from one number to another.
+____exports.Tween = __TS__Class()
+local Tween = ____exports.Tween
+Tween.name = "Tween"
+function Tween.prototype.____constructor(self, target, duration, from, to, ____repeat, ignoreTimescale)
+    if ____repeat == nil then
+        ____repeat = 0
+    end
+    if ignoreTimescale == nil then
+        ignoreTimescale = false
+    end
+    self.active = true
+    self.duration = 0
+    self.complete = false
+    self.paused = false
+    self.ignoreTimescale = false
+    self["repeat"] = 0
+    self.timesCompleted = 0
+    self.dataList = {}
+    self.delay = 0
+    self.delayTime = 0
+    self.time = 0
+    self.ease = easeLinear
+    self.target = target
+    self.duration = duration
+    self["repeat"] = ____repeat
+    self.ignoreTimescale = ignoreTimescale
+    self:createDataList(target, from, to)
+end
+function Tween.prototype.runComplete(self)
+    if self.onComplete then
+        self:onComplete()
+    end
+    self.time = 0
+end
+function Tween.prototype.setEase(self, ease)
+    self.ease = ease
+    return self
+end
+function Tween.prototype.setOnComplete(self, onComplete)
+    self.onComplete = onComplete
+    return self
+end
+function Tween.prototype.setOnUpdate(self, onUpdate)
+    self.onUpdate = onUpdate
+    return self
+end
+function Tween.prototype.setDelay(self, delay)
+    self.delay = delay
+    return self
+end
+function Tween.prototype.reset(self)
+    self.time = 0
+    self.delayTime = 0
+    self.timesCompleted = 0
+    self.paused = false
+    self.complete = false
+end
+function Tween.prototype.restart(self)
+    self.time = 0
+    self.complete = false
+end
+function Tween.prototype.resetTime(self)
+    self.time = 0
+end
+function Tween.prototype.hasTarget(self, target)
+    return self.target == target
+end
+function Tween.prototype.updateTarget(self, target, from, to)
+    self.target = target
+    self:createDataList(target, from, to)
+end
+function Tween.prototype.update(self, dt)
+    if not self.active or self.complete or self.paused then
+        return
+    end
+    if self.ignoreTimescale then
+        dt = TimeStep.dtUnscaled
+    end
+    if self.delayTime < self.delay then
+        local ____ = self.delayTime == dt
+    else
+        self.time = self.time + dt
+        if self.time >= self.duration then
+            self.complete = true
+        end
+        for ____, property in ipairs(self.dataList) do
+            self:updateProperty(property)
+        end
+        if self.onUpdate then
+            self:onUpdate(self.target)
+        end
+    end
+end
+function Tween.prototype.createDataList(self, target, from, to)
+    self.dataList = {}
+    for key in pairs(from) do
+        if target[key] then
+            local fromValue = from[key]
+            local toValue = to[key]
+            local ____temp_0
+            if __TS__InstanceOf(target[key], Color) then
+                ____temp_0 = nil
+            else
+                ____temp_0 = toValue - fromValue
+            end
+            local change = ____temp_0
+            local data = {start = fromValue, ["end"] = toValue, change = change, propertyName = key}
+            local ____self_dataList_1 = self.dataList
+            ____self_dataList_1[#____self_dataList_1 + 1] = data
+        end
+    end
+end
+function Tween.prototype.updateProperty(self, property)
+    if __TS__InstanceOf(self.target[property.propertyName], Color) then
+        local factor = self.ease(self.time, 0, 1, self.duration)
+        local start = property.start
+        local ____end = property["end"]
+        local color = Color.interpolate(start, ____end, factor)
+        if self.complete then
+            color = ____end
+        end
+        self.target[property.propertyName] = color
+    else
+        local value = self.ease(self.time, property.start, property.change, self.duration)
+        if self.complete then
+            value = property["end"]
+        end
+        self.target[property.propertyName] = value
+    end
+end
+return ____exports
+ end,
+["lua_modules.@lumi2d.lumi.dist.tweens.easing"] = function(...) 
+--[[ Generated with https://github.com/TypeScriptToLua/TypeScriptToLua ]]
+local ____exports = {}
+--- Bounce out easing.
+-- 
+-- @param time The time since the tween started in seconds.
+-- @param begin The start value of the property.
+-- @param change The amount of change from start to end.
+-- @param duration The total duration of the tween in seconds.
+-- @return The updated property value.
+function ____exports.easeOutBounce(time, begin, change, duration)
+    time = time / duration
+    if time < 1 / 2.75 then
+        return change * (7.5625 * time * time) + begin
+    elseif time < 2 / 2.75 then
+        local ____change_22 = change
+        time = time - 1.5 / 2.75
+        return ____change_22 * (7.5625 * time * time + 0.75) + begin
+    elseif time < 2.5 / 2.75 then
+        local ____change_23 = change
+        time = time - 2.25 / 2.75
+        return ____change_23 * (7.5625 * time * time + 0.9375) + begin
+    else
+        local ____change_24 = change
+        time = time - 2.625 / 2.75
+        return ____change_24 * (7.5625 * time * time + 0.984375) + begin
+    end
+end
+--- Two times PI.
+local PI_M2 = math.pi * 2
+--- Half PI.
+local PI_D2 = math.pi / 2
+--- Linear easing.
+-- 
+-- @param time The time since the tween started in seconds.
+-- @param begin The start value of the property.
+-- @param change The amount of change from start to end.
+-- @param duration The total duration of the tween in seconds.
+-- @return The updated property value.
+function ____exports.easeLinear(time, begin, change, duration)
+    return change * time / duration + begin
+end
+--- Sine in easing.
+-- 
+-- @param time The time since the tween started in seconds.
+-- @param begin The start value of the property.
+-- @param change The amount of change from start to end.
+-- @param duration The total duration of the tween in seconds.
+-- @return The updated property value.
+function ____exports.easeInSine(time, begin, change, duration)
+    return -change * math.cos(time / duration * PI_D2) + change + begin
+end
+--- Sine out easing.
+-- 
+-- @param time The time since the tween started in seconds.
+-- @param begin The start value of the property.
+-- @param change The amount of change from start to end.
+-- @param duration The total duration of the tween in seconds.
+-- @return The updated property value.
+function ____exports.easeOutSine(time, begin, change, duration)
+    return change * math.sin(time / duration * PI_D2) + begin
+end
+--- Sine in out easing.
+-- 
+-- @param time The time since the tween started in seconds.
+-- @param begin The start value of the property.
+-- @param change The amount of change from start to end.
+-- @param duration The total duration of the tween in seconds.
+-- @return The updated property value.
+function ____exports.easeInOutSine(time, begin, change, duration)
+    return -change / 2 * (math.cos(math.pi * time / duration) - 1) + begin
+end
+--- Quint in easing.
+-- 
+-- @param time The time since the tween started in seconds.
+-- @param begin The start value of the property.
+-- @param change The amount of change from start to end.
+-- @param duration The total duration of the tween in seconds.
+-- @return The updated property value.
+function ____exports.easeInQuint(time, begin, change, duration)
+    local ____change_0 = change
+    time = time / duration
+    return ____change_0 * time * time * time * time * time + begin
+end
+--- Quint out easing.
+-- 
+-- @param time The time since the tween started in seconds.
+-- @param begin The start value of the property.
+-- @param change The amount of change from start to end.
+-- @param duration The total duration of the tween in seconds.
+-- @return The updated property value.
+function ____exports.easeOutQuint(time, begin, change, duration)
+    local ____change_1 = change
+    time = time / duration - 1
+    return ____change_1 * (time * time * time * time * time + 1) + begin
+end
+--- Quint in out easing.
+-- 
+-- @param time The time since the tween started in seconds.
+-- @param begin The start value of the property.
+-- @param change The amount of change from start to end.
+-- @param duration The total duration of the tween in seconds.
+-- @return The updated property value.
+function ____exports.easeInOutQuint(time, begin, change, duration)
+    time = time / (duration / 2)
+    if time < 1 then
+        return change / 2 * time * time * time * time * time + begin
+    end
+    local ____temp_2 = change / 2
+    time = time - 2
+    return ____temp_2 * (time * time * time * time * time + 2) + begin
+end
+--- Quart in easing.
+-- 
+-- @param time The time since the tween started in seconds.
+-- @param begin The start value of the property.
+-- @param change The amount of change from start to end.
+-- @param duration The total duration of the tween in seconds.
+-- @return The updated property value.
+function ____exports.easeInQuart(time, begin, change, duration)
+    local ____change_3 = change
+    time = time / duration
+    return ____change_3 * time * time * time * time + begin
+end
+--- Quart out easing.
+-- 
+-- @param time The time since the tween started in seconds.
+-- @param begin The start value of the property.
+-- @param change The amount of change from start to end.
+-- @param duration The total duration of the tween in seconds.
+-- @return The updated property value.
+function ____exports.easeOutQuart(time, begin, change, duration)
+    local ____temp_4 = -change
+    time = time / duration - 1
+    return ____temp_4 * (time * time * time * time - 1) + begin
+end
+--- Quart in out easing.
+-- 
+-- @param time The time since the tween started in seconds.
+-- @param begin The start value of the property.
+-- @param change The amount of change from start to end.
+-- @param duration The total duration of the tween in seconds.
+-- @return The updated property value.
+function ____exports.easeInOutQuart(time, begin, change, duration)
+    time = time / (duration / 2)
+    if time < 1 then
+        return change / 2 * time * time * time * time + begin
+    end
+    local ____temp_5 = -change / 2
+    time = time - 2
+    return ____temp_5 * (time * time * time * time - 2) + begin
+end
+--- Quad in easing.
+-- 
+-- @param time The time since the tween started in seconds.
+-- @param begin The start value of the property.
+-- @param change The amount of change from start to end.
+-- @param duration The total duration of the tween in seconds.
+-- @return The updated property value.
+function ____exports.easeInQuad(time, begin, change, duration)
+    local ____change_6 = change
+    time = time / duration
+    return ____change_6 * time * time + begin
+end
+--- Quad out easing.
+-- 
+-- @param time The time since the tween started in seconds.
+-- @param begin The start value of the property.
+-- @param change The amount of change from start to end.
+-- @param duration The total duration of the tween in seconds.
+-- @return The updated property value.
+function ____exports.easeOutQuad(time, begin, change, duration)
+    local ____temp_7 = -change
+    time = time / duration
+    return ____temp_7 * time * (time - 2) + begin
+end
+--- Quad in out easing.
+-- 
+-- @param time The time since the tween started in seconds.
+-- @param begin The start value of the property.
+-- @param change The amount of change from start to end.
+-- @param duration The total duration of the tween in seconds.
+-- @return The updated property value.
+function ____exports.easeInOutQuad(time, begin, change, duration)
+    time = time / (duration / 2)
+    if time < 1 then
+        return change / 2 * time * time + begin
+    end
+    local ____temp_8 = -change / 2
+    time = time - 1
+    return ____temp_8 * (time * (time - 2) - 1) + begin
+end
+--- Expo in easing.
+-- 
+-- @param time The time since the tween started in seconds.
+-- @param begin The start value of the property.
+-- @param change The amount of change from start to end.
+-- @param duration The total duration of the tween in seconds.
+-- @return The updated property value.
+function ____exports.easeInExpo(time, begin, change, duration)
+    return time == 0 and begin or change * 2 ^ (10 * (time / duration - 1)) + begin
+end
+--- Expo out easing.
+-- 
+-- @param time The time since the tween started in seconds.
+-- @param begin The start value of the property.
+-- @param change The amount of change from start to end.
+-- @param duration The total duration of the tween in seconds.
+-- @return The updated property value.
+function ____exports.easeOutExpo(time, begin, change, duration)
+    return time == duration and begin + change or change * (-2 ^ (-10 * time / duration) + 1) + begin
+end
+--- Expo in out easing.
+-- 
+-- @param time The time since the tween started in seconds.
+-- @param begin The start value of the property.
+-- @param change The amount of change from start to end.
+-- @param duration The total duration of the tween in seconds.
+-- @return The updated property value.
+function ____exports.easeInOutExpo(time, begin, change, duration)
+    if time == 0 then
+        return begin
+    end
+    if time == duration then
+        return begin + change
+    end
+    time = time / (duration / 2)
+    if time < 1 then
+        return change / 2 * 2 ^ (10 * (time - 1)) + begin
+    end
+    local ____temp_10 = change / 2
+    local ____temp_9 = -10
+    time = time - 1
+    return ____temp_10 * (-2 ^ (____temp_9 * time) + 2) + begin
+end
+--- Elastic in easing.
+-- 
+-- @param time The time since the tween started in seconds.
+-- @param begin The start value of the property.
+-- @param change The amount of change from start to end.
+-- @param duration The total duration of the tween in seconds.
+-- @return The updated property value.
+function ____exports.easeInElastic(time, begin, change, duration)
+    local p = duration * 0.3
+    local a = change
+    local s = p / 4
+    if time == 0 then
+        return begin
+    end
+    time = time / duration
+    if time == 1 then
+        return begin + change
+    end
+    time = time - 1
+    return -(a * 2 ^ (10 * time) * math.sin((time * duration - s) * PI_M2 / p)) + begin
+end
+--- Elastic out easing.
+-- 
+-- @param time The time since the tween started in seconds.
+-- @param begin The start value of the property.
+-- @param change The amount of change from start to end.
+-- @param duration The total duration of the tween in seconds.
+-- @return The updated property value.
+function ____exports.easeOutElastic(time, begin, change, duration)
+    local p = duration * 0.3
+    local a = change
+    local s = p / 4
+    if time == 0 then
+        return begin
+    end
+    time = time / duration
+    if time == 1 then
+        return begin + change
+    end
+    return a * 2 ^ (-10 * time) * math.sin((time * duration - s) * PI_M2 / p) + change + begin
+end
+--- Elastic in out easing.
+-- 
+-- @param time The time since the tween started in seconds.
+-- @param begin The start value of the property.
+-- @param change The amount of change from start to end.
+-- @param duration The total duration of the tween in seconds.
+-- @return The updated property value.
+function ____exports.easeInOutElastic(time, begin, change, duration)
+    local p = duration * (0.3 * 1.5)
+    local a = change
+    local s = p / 4
+    if time == 0 then
+        return begin
+    end
+    time = time / (duration / 2)
+    if time == 2 then
+        return begin + change
+    end
+    if time < 1 then
+        local ____temp_11 = -0.5
+        time = time - 1
+        return ____temp_11 * (a * 2 ^ (10 * time) * math.sin((time * duration - s) * PI_M2 / p)) + begin
+    end
+    local ____temp_12 = -10
+    time = time - 1
+    return a * 2 ^ (____temp_12 * time) * math.sin((time * duration - s) * PI_M2 / p) * 0.5 + change + begin
+end
+--- Circular in easing.
+-- 
+-- @param time The time since the tween started in seconds.
+-- @param begin The start value of the property.
+-- @param change The amount of change from start to end.
+-- @param duration The total duration of the tween in seconds.
+-- @return The updated property value.
+function ____exports.easeInCircular(time, begin, change, duration)
+    local ____temp_13 = -change
+    time = time / duration
+    return ____temp_13 * (math.sqrt(1 - time * time) - 1) + begin
+end
+--- Circular out easing.
+-- 
+-- @param time The time since the tween started in seconds.
+-- @param begin The start value of the property.
+-- @param change The amount of change from start to end.
+-- @param duration The total duration of the tween in seconds.
+-- @return The updated property value.
+function ____exports.easeOutCircular(time, begin, change, duration)
+    local ____change_14 = change
+    time = time / duration - 1
+    return ____change_14 * math.sqrt(1 - time * time) + begin
+end
+--- Circular in out easing.
+-- 
+-- @param time The time since the tween started in seconds.
+-- @param begin The start value of the property.
+-- @param change The amount of change from start to end.
+-- @param duration The total duration of the tween in seconds.
+-- @return The updated property value.
+function ____exports.easeInOutCircular(time, begin, change, duration)
+    time = time / (duration / 2)
+    if time < 1 then
+        return -change / 2 * (math.sqrt(1 - time * time) - 1) + begin
+    end
+    local ____temp_15 = change / 2
+    time = time - 2
+    return ____temp_15 * (math.sqrt(1 - time * time) + 1) + begin
+end
+--- Back in easing.
+-- 
+-- @param time The time since the tween started in seconds.
+-- @param begin The start value of the property.
+-- @param change The amount of change from start to end.
+-- @param duration The total duration of the tween in seconds.
+-- @return The updated property value.
+function ____exports.easeInBack(time, begin, change, duration)
+    local s = 1.70158
+    local ____change_16 = change
+    time = time / duration
+    return ____change_16 * time * time * ((s + 1) * time - s) + begin
+end
+--- Back out easing.
+-- 
+-- @param time The time since the tween started in seconds.
+-- @param begin The start value of the property.
+-- @param change The amount of change from start to end.
+-- @param duration The total duration of the tween in seconds.
+-- @return The updated property value.
+function ____exports.easeOutBack(time, begin, change, duration)
+    local s = 1.70158
+    local ____change_17 = change
+    time = time / duration - 1
+    return ____change_17 * (time * time * ((s + 1) * time + s) + 1) + begin
+end
+--- Back in out easing.
+-- 
+-- @param time The time since the tween started in seconds.
+-- @param begin The start value of the property.
+-- @param change The amount of change from start to end.
+-- @param duration The total duration of the tween in seconds.
+-- @return The updated property value.
+function ____exports.easeInOutBack(time, begin, change, duration)
+    local s = 1.70158
+    time = time / (duration / 2)
+    if time < 1 then
+        local ____temp_19 = change / 2
+        local ____temp_18 = time * time
+        s = s * 1.525
+        return ____temp_19 * (____temp_18 * ((s + 1) * time - s)) + begin
+    end
+    local ____temp_21 = change / 2
+    time = time - 2
+    local ____temp_20 = time * time
+    s = s * 1.525
+    return ____temp_21 * (____temp_20 * ((s + 1) * time + s) + 2) + begin
+end
+--- Bounce in easing.
+-- 
+-- @param time The time since the tween started in seconds.
+-- @param begin The start value of the property.
+-- @param change The amount of change from start to end.
+-- @param duration The total duration of the tween in seconds.
+-- @return The updated property value.
+function ____exports.easeInBounce(time, begin, change, duration)
+    return change - ____exports.easeOutBounce(duration - time, 0, change, duration) + begin
+end
+--- Bounce in out easing.
+-- 
+-- @param time The time since the tween started in seconds.
+-- @param begin The start value of the property.
+-- @param change The amount of change from start to end.
+-- @param duration The total duration of the tween in seconds.
+-- @return The updated property value.
+function ____exports.easeInOutBounce(time, begin, change, duration)
+    if time < duration / 2 then
+        return ____exports.easeInBounce(time * 2, 0, change, duration) * 0.5 + begin
+    else
+        return ____exports.easeOutBounce(time * 2 - duration, 0, change, duration) * 0.5 + change * 0.5 + begin
+    end
+end
+--- Cubic in easing.
+-- 
+-- @param time The time since the tween started in seconds.
+-- @param begin The start value of the property.
+-- @param change The amount of change from start to end.
+-- @param duration The total duration of the tween in seconds.
+-- @return The updated property value.
+function ____exports.easeInCubic(time, begin, change, duration)
+    local ____change_25 = change
+    time = time / duration
+    return ____change_25 * time * time * time + begin
+end
+--- Cubic out easing.
+-- 
+-- @param time The time since the tween started in seconds.
+-- @param begin The start value of the property.
+-- @param change The amount of change from start to end.
+-- @param duration The total duration of the tween in seconds.
+-- @return The updated property value.
+function ____exports.easeOutCubic(time, begin, change, duration)
+    local ____change_26 = change
+    time = time / duration - 1
+    return ____change_26 * (time * time * time + 1) + begin
+end
+--- Cubic in out easing.
+-- 
+-- @param time The time since the tween started in seconds.
+-- @param begin The start value of the property.
+-- @param change The amount of change from start to end.
+-- @param duration The total duration of the tween in seconds.
+-- @return The updated property value.
+function ____exports.easeInOutCubic(time, begin, change, duration)
+    time = time / (duration / 2)
+    if time < 1 then
+        return change / 2 * time * time * time + begin
+    end
+    local ____temp_27 = change / 2
+    time = time - 2
+    return ____temp_27 * (time * time * time + 2) + begin
+end
+return ____exports
+ end,
+["lua_modules.@lumi2d.lumi.dist.utils.index"] = function(...) 
+--[[ Generated with https://github.com/TypeScriptToLua/TypeScriptToLua ]]
+local ____exports = {}
+do
+    local ____export = require("lua_modules.@lumi2d.lumi.dist.utils.bitset")
+    for ____exportKey, ____exportValue in pairs(____export) do
+        if ____exportKey ~= "default" then
+            ____exports[____exportKey] = ____exportValue
+        end
+    end
+end
+do
+    local ____export = require("lua_modules.@lumi2d.lumi.dist.utils.timeStep")
+    for ____exportKey, ____exportValue in pairs(____export) do
+        if ____exportKey ~= "default" then
+            ____exports[____exportKey] = ____exportValue
+        end
+    end
+end
+return ____exports
+ end,
+["lua_modules.@lumi2d.lumi.dist.utils.timeStep"] = function(...) 
+local ____lualib = require("lualib_bundle")
+local __TS__Class = ____lualib.__TS__Class
+local ____exports = {}
+--- Class to keep track of delta time, fps and time scaling.
+-- 
+-- @noSelf
+____exports.TimeStep = __TS__Class()
+local TimeStep = ____exports.TimeStep
+TimeStep.name = "TimeStep"
+function TimeStep.prototype.____constructor(self)
+end
+function TimeStep.update(dt)
+    ____exports.TimeStep.dtUnscaled = dt
+    ____exports.TimeStep.dt = dt * ____exports.TimeStep.timeScale
+    if #____exports.TimeStep.deltaTimes > 200 then
+        table.remove(____exports.TimeStep.deltaTimes, 1)
+    end
+    local ____exports_TimeStep_deltaTimes_0 = ____exports.TimeStep.deltaTimes
+    ____exports_TimeStep_deltaTimes_0[#____exports_TimeStep_deltaTimes_0 + 1] = dt
+    local average = 0
+    for ____, time in ipairs(____exports.TimeStep.deltaTimes) do
+        average = average + time
+    end
+    ____exports.TimeStep.fps = math.floor(1 / (average / #____exports.TimeStep.deltaTimes))
+end
+TimeStep.timeScale = 1
+TimeStep.dt = 0
+TimeStep.dtUnscaled = 0
+TimeStep.fps = 0
+TimeStep.deltaTimes = {}
+return ____exports
+ end,
+["lua_modules.@lumi2d.lumi.dist.utils.bitset"] = function(...) 
+local ____lualib = require("lualib_bundle")
+local __TS__Class = ____lualib.__TS__Class
+local __TS__New = ____lualib.__TS__New
+local ____exports = {}
+local ____lib = require("lua_modules.@lumi2d.lumi.dist.lib.index")
+local Bit = ____lib.Bit
+____exports.Bitset = __TS__Class()
+local Bitset = ____exports.Bitset
+Bitset.name = "Bitset"
+function Bitset.prototype.____constructor(self, value)
+    self.value = value
+end
+function Bitset.fromValue(self, value)
+    return __TS__New(
+        ____exports.Bitset,
+        Bit.bit32.lshift(1, value)
+    )
+end
+function Bitset.equals(self, b1, b2)
+    return b1.value == b2.value
+end
+function Bitset.prototype.copy(self, other)
+    self.value = other.value
+end
+function Bitset.prototype.add(self, value)
+    self.value = Bit.bit32.bor(self.value, value)
+end
+function Bitset.prototype.remove(self, value)
+    self.value = Bit.bit32.band(
+        self.value,
+        Bit.bit32.bnot(value)
+    )
+end
+function Bitset.prototype.contains(self, value)
+    return Bit.bit32.band(self.value, value) ~= 0
+end
+return ____exports
+ end,
+["lua_modules.@lumi2d.lumi.dist.assets"] = function(...) 
+local ____lualib = require("lualib_bundle")
+local __TS__Class = ____lualib.__TS__Class
+local __TS__New = ____lualib.__TS__New
+local ____exports = {}
+local ____graphics = require("lua_modules.@lumi2d.lumi.dist.graphics.index")
+local Atlas = ____graphics.Atlas
+--- Asset manager class.
+____exports.Assets = __TS__Class()
+local Assets = ____exports.Assets
+Assets.name = "Assets"
+function Assets.prototype.____constructor(self)
+end
+function Assets.loadImage(self, name, path, keep)
+    if keep == nil then
+        keep = true
+    end
+    local image = love.graphics.newImage(path)
+    if keep then
+        ____exports.Assets.images[name] = image
+    end
+    return image
+end
+function Assets.getImage(self, name)
+    return ____exports.Assets.images[name]
+end
+function Assets.removeImage(self, name)
+    if ____exports.Assets.images[name] ~= nil then
+        ____exports.Assets.images[name] = nil
+    end
+end
+function Assets.loadFont(self, name, size, path, keep)
+    if keep == nil then
+        keep = true
+    end
+    local font
+    if path then
+        font = love.graphics.newFont(path, size)
+    else
+        font = love.graphics.newFont(size)
+    end
+    if keep then
+        ____exports.Assets.fonts[name] = font
+    end
+    return font
+end
+function Assets.getFont(self, name)
+    return ____exports.Assets.fonts[name]
+end
+function Assets.removeFont(self, name)
+    if ____exports.Assets.fonts[name] ~= nil then
+        ____exports.Assets.fonts[name] = nil
+    end
+end
+function Assets.loadText(self, name, path, keep)
+    if keep == nil then
+        keep = true
+    end
+    local content = love.filesystem.read(path)
+    if keep then
+        ____exports.Assets.texts[name] = content
+    end
+    return content
+end
+function Assets.getText(self, name)
+    return ____exports.Assets.texts[name]
+end
+function Assets.removeText(self, name)
+    ____exports.Assets.texts[name] = nil
+end
+function Assets.loadAtlas(self, name, imagePath, dataPath, keep)
+    if keep == nil then
+        keep = true
+    end
+    local image = ____exports.Assets:loadImage("lumi_atlas_" .. name, imagePath, keep)
+    local data = ____exports.Assets:loadText("lumi_atlas_" .. name, dataPath, keep)
+    local atlas = __TS__New(Atlas, image, data)
+    if keep then
+        ____exports.Assets.atlases[name] = atlas
+    end
+    return atlas
+end
+function Assets.getAtlas(self, name)
+    return ____exports.Assets.atlases[name]
+end
+function Assets.removeAtlas(self, name)
+    ____exports.Assets.atlases[name] = nil
+    ____exports.Assets:removeImage("lumi_atlas_" .. name)
+    ____exports.Assets:removeText("lumi_atlas_" .. name)
+end
+function Assets.loadSound(self, name, path, ____type, keep)
+    if keep == nil then
+        keep = true
+    end
+    local source = love.audio.newSource(path, ____type)
+    if keep then
+        ____exports.Assets.sounds[name] = source
+    end
+    return source
+end
+function Assets.getSound(self, name)
+    return ____exports.Assets.sounds[name]
+end
+function Assets.removeSound(self, name)
+    ____exports.Assets.sounds[name] = nil
+end
+Assets.images = {}
+Assets.fonts = {}
+Assets.atlases = {}
+Assets.sounds = {}
+Assets.texts = {}
+return ____exports
+ end,
+["lua_modules.@lumi2d.lumi.dist.components.index"] = function(...) 
+--[[ Generated with https://github.com/TypeScriptToLua/TypeScriptToLua ]]
+local ____exports = {}
+do
+    local ____export = require("lua_modules.@lumi2d.lumi.dist.components.cAnimation")
+    for ____exportKey, ____exportValue in pairs(____export) do
+        if ____exportKey ~= "default" then
+            ____exports[____exportKey] = ____exportValue
+        end
+    end
+end
+do
+    local ____export = require("lua_modules.@lumi2d.lumi.dist.components.cBoxShape")
+    for ____exportKey, ____exportValue in pairs(____export) do
+        if ____exportKey ~= "default" then
+            ____exports[____exportKey] = ____exportValue
+        end
+    end
+end
+do
+    local ____export = require("lua_modules.@lumi2d.lumi.dist.components.cSprite")
+    for ____exportKey, ____exportValue in pairs(____export) do
+        if ____exportKey ~= "default" then
+            ____exports[____exportKey] = ____exportValue
+        end
+    end
+end
+do
+    local ____export = require("lua_modules.@lumi2d.lumi.dist.components.cText")
+    for ____exportKey, ____exportValue in pairs(____export) do
+        if ____exportKey ~= "default" then
+            ____exports[____exportKey] = ____exportValue
+        end
+    end
+end
+do
+    local ____export = require("lua_modules.@lumi2d.lumi.dist.components.cTransform")
+    for ____exportKey, ____exportValue in pairs(____export) do
+        if ____exportKey ~= "default" then
+            ____exports[____exportKey] = ____exportValue
+        end
+    end
+end
+return ____exports
+ end,
+["lua_modules.@lumi2d.lumi.dist.components.cTransform"] = function(...) 
+local ____lualib = require("lualib_bundle")
+local __TS__Class = ____lualib.__TS__Class
+local __TS__New = ____lualib.__TS__New
+local ____exports = {}
+local ____math = require("lua_modules.@lumi2d.lumi.dist.math.index")
+local Point = ____math.Point
+--- Transform component used for position, rotation and scale.
+____exports.CTransform = __TS__Class()
+local CTransform = ____exports.CTransform
+CTransform.name = "CTransform"
+function CTransform.prototype.____constructor(self, options)
+    self.position = __TS__New(Point)
+    self.angle = 0
+    self.scale = __TS__New(Point)
+    if options then
+        self.position.x = options.x or 0
+        self.position.y = options.y or 0
+        self.angle = options.angle or 0
+        self.scale.x = options.scaleX or 1
+        self.scale.y = options.scaleY or 1
+        if options.parent then
+            self.parent = options.parent
+        end
+    end
+end
+function CTransform.prototype.parentToLocalPosition(self, x, y)
+    local newX = 0
+    local newY = 0
+    if self.angle == 0 then
+        if self.scale.x == 1 and self.scale.y == 1 then
+            newX = x - self.position.x
+            newY = y - self.position.y
+        else
+            newX = (x - self.position.x) / self.scale.x
+            newY = (y - self.position.y) / self.scale.y
+        end
+    else
+        local c = math.cos(math.rad(self.angle))
+        local s = math.sin(math.rad(self.angle))
+        local toX = x - self.position.x
+        local toY = y - self.position.y
+        newX = (toX * c + toY * s) / self.scale.x
+        newY = (toY * -s + toY * c) / self.scale.y
+    end
+    return newX, newY
+end
+function CTransform.prototype.localToParentPosition(self, x, y)
+    local newX = 0
+    local newY = 0
+    if self.angle == 0 then
+        if self.scale.x == 1 and self.scale.y == 1 then
+            newX = x + self.position.x
+            newY = y + self.position.y
+        else
+            newX = x * self.scale.x + self.position.x
+            newY = y * self.scale.y + self.position.y
+        end
+    else
+        local c = math.cos(math.rad(-self.angle))
+        local s = math.sin(math.rad(-self.angle))
+        local toX = x * self.scale.x
+        local toY = y * self.scale.y
+        newX = toX * c + toY * s + self.position.x
+        newY = toY * -s + toY * c + self.position.y
+    end
+    return newX, newY
+end
+function CTransform.prototype.localToWorldPosition(self, x, y)
+    local p = self.parent
+    while p do
+        local newX, newY = p:localToParentPosition(x, y)
+        x = newX
+        y = newY
+        p = p.parent
+    end
+    return x, y
+end
+function CTransform.prototype.worldToLocalPosition(self, x, y)
+    if self.parent then
+        local newX, newY = self.parent:parentToLocalPosition(x, y)
+        x = newX
+        y = newY
+    end
+    return x, y
+end
+function CTransform.prototype.getWorldPosition(self)
+    return self:localToWorldPosition(self.position.x, self.position.y)
+end
+function CTransform.prototype.setWorldPosition(self, x, y)
+    local newX, newY = self:worldToLocalPosition(x, y)
+    self.position.x = newX
+    self.position.y = newY
+end
+function CTransform.prototype.getWorldAngle(self)
+    if self.parent then
+        return self.parent:getWorldAngle() + self.angle
+    end
+    return self.angle
+end
+function CTransform.prototype.setWorldAngle(self, angle)
+    if self.parent then
+        self.angle = angle - self.parent:getWorldAngle()
+    else
+        self.angle = angle
+    end
+end
+function CTransform.prototype.getWorldScale(self)
+    if self.parent then
+        local sx, sy = self.parent:getWorldScale()
+        return self.scale.x * sx, self.scale.y * sy
+    end
+    return self.scale.x, self.scale.y
+end
+function CTransform.prototype.setWorldScale(self, scaleX, scaleY)
+    if self.parent then
+        local sx, sy = self.parent:getWorldScale()
+        scaleX = scaleX / sx
+        scaleY = scaleY / sy
+    end
+    self.scale.x = scaleX
+    self.scale.y = scaleY
+end
+function CTransform.prototype.setPosition(self, x, y)
+    self.position.x = x
+    self.position.y = y
+end
+function CTransform.prototype.setScale(self, scaleX, scaleY)
+    self.scale.x = scaleX
+    self.scale.y = scaleY
+end
+return ____exports
+ end,
+["lua_modules.@lumi2d.lumi.dist.components.cText"] = function(...) 
+local ____lualib = require("lualib_bundle")
+local __TS__Class = ____lualib.__TS__Class
+local __TS__New = ____lualib.__TS__New
+local ____exports = {}
+local ____math = require("lua_modules.@lumi2d.lumi.dist.math.index")
+local Point = ____math.Point
+--- Simple text component.
+____exports.CText = __TS__Class()
+local CText = ____exports.CText
+CText.name = "CText"
+function CText.prototype.____constructor(self, font, text, color)
+    self.anchor = __TS__New(Point, 0.5, 0.5)
+    self.font = font
+    self.text = text
+    self.color = color
+end
+function CText.prototype.draw(self, x, y, angle, scaleX, scaleY)
+    local r, g, b, a = self.color:parts()
+    love.graphics.setFont(self.font)
+    love.graphics.setColor(r, g, b, a)
+    love.graphics.print(
+        self.text,
+        x - self.font:getWidth(self.text) * self.anchor.x,
+        y - self.font:getHeight() * self.anchor.y,
+        math.rad(angle),
+        scaleX,
+        scaleY
+    )
+end
+return ____exports
+ end,
+["lua_modules.@lumi2d.lumi.dist.components.cSprite"] = function(...) 
+local ____lualib = require("lualib_bundle")
+local __TS__Class = ____lualib.__TS__Class
+local __TS__New = ____lualib.__TS__New
+local ____exports = {}
+local ____graphics = require("lua_modules.@lumi2d.lumi.dist.graphics.index")
+local Color = ____graphics.Color
+local ____math = require("lua_modules.@lumi2d.lumi.dist.math.index")
+local Point = ____math.Point
+--- Sprite component.
+____exports.CSprite = __TS__Class()
+local CSprite = ____exports.CSprite
+CSprite.name = "CSprite"
+function CSprite.prototype.____constructor(self, options)
+    self.anchor = __TS__New(Point, 0.5, 0.5)
+    self.anchor.x = options.anchorX or 0.5
+    self.anchor.y = options.anchorY or 0.5
+    self.color = options.color or Color.WHITE
+    self:setFrame(options.frameName, options.atlas)
+end
+function CSprite.prototype.getFrameName(self)
+    return self.frame.name
+end
+function CSprite.prototype.setFrame(self, frameName, atlas)
+    if atlas then
+        self.atlas = atlas
+    end
+    if not self.atlas then
+        return
+    end
+    self.frame = self.atlas:getFrame(frameName)
+    if not self.frame then
+        print(("frame " .. frameName) .. " not found in atlas")
+    end
+end
+function CSprite.prototype.draw(self, x, y, angle, scaleX, scaleY)
+    local r, g, b, a = self.color:parts()
+    love.graphics.setColor(r, g, b, a)
+    love.graphics.draw(
+        self.atlas.image,
+        self.frame.quad,
+        x,
+        y,
+        angle,
+        scaleX,
+        scaleY,
+        self.frame.sourceSize.width * self.anchor.x - self.frame.sourceRect.x,
+        self.frame.sourceSize.height * self.anchor.y - self.frame.sourceRect.y
+    )
+end
+function CSprite.prototype.getWidth(self)
+    return self.frame.sourceSize.width
+end
+function CSprite.prototype.getHeight(self)
+    return self.frame.sourceSize.height
+end
+return ____exports
+ end,
+["lua_modules.@lumi2d.lumi.dist.components.cBoxShape"] = function(...) 
+local ____lualib = require("lualib_bundle")
+local __TS__Class = ____lualib.__TS__Class
+local __TS__New = ____lualib.__TS__New
+local ____exports = {}
+local ____math = require("lua_modules.@lumi2d.lumi.dist.math.index")
+local Point = ____math.Point
+--- Component to draw basic 2d boxes.
+____exports.CBoxShape = __TS__Class()
+local CBoxShape = ____exports.CBoxShape
+CBoxShape.name = "CBoxShape"
+function CBoxShape.prototype.____constructor(self, options)
+    self.anchor = __TS__New(Point, 0.5, 0.5)
+    self.transform = love.math.newTransform()
+    self.width = options.width
+    self.height = options.height
+    self.color = options.color
+    self.anchor.x = options.anchorX or 0.5
+    self.anchor.y = options.anchorY or 0.5
+end
+function CBoxShape.prototype.draw(self, x, y, angle, scaleX, scaleY)
+    if angle == nil then
+        angle = 0
+    end
+    if scaleX == nil then
+        scaleX = 1
+    end
+    if scaleY == nil then
+        scaleY = 1
+    end
+    local r, g, b, a = self.color:parts()
+    love.graphics.setColor(r, g, b, a)
+    self.transform:setTransformation(
+        x,
+        y,
+        angle,
+        scaleX,
+        scaleY,
+        self.width * self.anchor.x,
+        self.height * self.anchor.y
+    )
+    love.graphics.push()
+    love.graphics.applyTransform(self.transform)
+    love.graphics.rectangle(
+        "fill",
+        0,
+        0,
+        self.width,
+        self.height
+    )
+    love.graphics.pop()
+end
+return ____exports
+ end,
+["lua_modules.@lumi2d.lumi.dist.components.cAnimation"] = function(...) 
+local ____lualib = require("lualib_bundle")
+local __TS__Class = ____lualib.__TS__Class
+local ____exports = {}
+--- Component for playing animations.
+____exports.CAnimation = __TS__Class()
+local CAnimation = ____exports.CAnimation
+CAnimation.name = "CAnimation"
+function CAnimation.prototype.____constructor(self, sprite, animations)
+    self.playing = false
+    self.currentFrame = ""
+    self.time = 0
+    self.animations = {}
+    self.sprite = sprite
+    if animations then
+        for ____, anim in ipairs(animations) do
+            self.animations[anim.name] = anim
+        end
+    end
+end
+function CAnimation.prototype.update(self, dt)
+    if self.playing and self.anim and not self:isFinished() then
+        self.time = self.time + dt
+        self.currentFrame = self.anim:getFrameName(self.time)
+        self.sprite:setFrame(self.currentFrame, self.anim.atlas)
+    end
+end
+function CAnimation.prototype.play(self, name)
+    self.time = 0
+    if name then
+        if self.animations[name] ~= nil then
+            self.anim = self.animations[name]
+        end
+    end
+    self.playing = true
+end
+function CAnimation.prototype.stop(self)
+    self.playing = false
+end
+function CAnimation.prototype.resume(self)
+    self.playing = true
+end
+function CAnimation.prototype.add(self, animation)
+    self.animations[animation.name] = animation
+end
+function CAnimation.prototype.remove(self, name)
+    self.animations[name] = nil
+end
+function CAnimation.prototype.getByName(self, name)
+    return self.animations[name]
+end
+function CAnimation.prototype.isFinished(self)
+    if self.anim then
+        return self.anim:finished(self.time)
+    end
+    return true
+end
+function CAnimation.prototype.getCurrent(self)
+    if self.anim then
+        return self.anim.name
+    end
+    return ""
+end
+return ____exports
+ end,
+["entities.label"] = function(...) 
+local ____lualib = require("lualib_bundle")
+local __TS__Class = ____lualib.__TS__Class
+local ____exports = {}
+local ____lumi = require("lua_modules.@lumi2d.lumi.dist.index")
+local Color = ____lumi.Color
+____exports.Label = __TS__Class()
+local Label = ____exports.Label
+Label.name = "Label"
+function Label.prototype.____constructor(self, x, y, font, text)
+    self.layer = 2
+    self.active = true
+    self.color = Color.WHITE
+    self.x = x
+    self.y = y
+    self.font = font
+    self.text = text
+end
+function Label.prototype.draw(self)
+    local r, g, b, a = self.color:parts()
+    love.graphics.setColor(r, g, b, a)
+    love.graphics.setFont(self.font)
+    love.graphics.print(
+        self.text,
+        self.x,
+        self.y - self.font:getHeight() * 0.5
+    )
+end
+return ____exports
+ end,
+["entities.line"] = function(...) 
+local ____lualib = require("lualib_bundle")
+local __TS__Class = ____lualib.__TS__Class
+local ____exports = {}
+local ____lumi = require("lua_modules.@lumi2d.lumi.dist.index")
+local Color = ____lumi.Color
+____exports.Line = __TS__Class()
+local Line = ____exports.Line
+Line.name = "Line"
+function Line.prototype.____constructor(self, start, ____end)
+    self.layer = 0
+    self.active = true
+    self.start = start
+    self["end"] = ____end
+end
+function Line.prototype.draw(self)
+    local r, g, b, a = Color.WHITE:parts()
+    love.graphics.setColor(r, g, b, a)
+    love.graphics.line(self.start.x, self.start.y, self["end"].x, self["end"].y)
+end
+return ____exports
+ end,
+["scenes.mainScene"] = function(...) 
+local ____lualib = require("lualib_bundle")
+local __TS__Class = ____lualib.__TS__Class
+local __TS__ClassExtends = ____lualib.__TS__ClassExtends
+local __TS__New = ____lualib.__TS__New
+local ____exports = {}
+local ____lumi = require("lua_modules.@lumi2d.lumi.dist.index")
+local Assets = ____lumi.Assets
+local Color = ____lumi.Color
+local Point = ____lumi.Point
+local Scene = ____lumi.Scene
+local easeInBack = ____lumi.easeInBack
+local easeInBounce = ____lumi.easeInBounce
+local easeInCircular = ____lumi.easeInCircular
+local easeInCubic = ____lumi.easeInCubic
+local easeInElastic = ____lumi.easeInElastic
+local easeInExpo = ____lumi.easeInExpo
+local easeInOutBack = ____lumi.easeInOutBack
+local easeInOutBounce = ____lumi.easeInOutBounce
+local easeInOutCircular = ____lumi.easeInOutCircular
+local easeInOutCubic = ____lumi.easeInOutCubic
+local easeInOutElastic = ____lumi.easeInOutElastic
+local easeInOutExpo = ____lumi.easeInOutExpo
+local easeInOutQuad = ____lumi.easeInOutQuad
+local easeInOutQuart = ____lumi.easeInOutQuart
+local easeInOutQuint = ____lumi.easeInOutQuint
+local easeInOutSine = ____lumi.easeInOutSine
+local easeInQuad = ____lumi.easeInQuad
+local easeInQuart = ____lumi.easeInQuart
+local easeInQuint = ____lumi.easeInQuint
+local easeInSine = ____lumi.easeInSine
+local easeLinear = ____lumi.easeLinear
+local easeOutBack = ____lumi.easeOutBack
+local easeOutBounce = ____lumi.easeOutBounce
+local easeOutCircular = ____lumi.easeOutCircular
+local easeOutCubic = ____lumi.easeOutCubic
+local easeOutElastic = ____lumi.easeOutElastic
+local easeOutExpo = ____lumi.easeOutExpo
+local easeOutQuad = ____lumi.easeOutQuad
+local easeOutQuart = ____lumi.easeOutQuart
+local easeOutQuint = ____lumi.easeOutQuint
+local easeOutSine = ____lumi.easeOutSine
+local ____tweenGraphic = require("entities.tweenGraphic")
+local TweenGraphic = ____tweenGraphic.TweenGraphic
+local ____label = require("entities.label")
+local Label = ____label.Label
+local ____line = require("entities.line")
+local Line = ____line.Line
+____exports.MainScene = __TS__Class()
+local MainScene = ____exports.MainScene
+MainScene.name = "MainScene"
+__TS__ClassExtends(MainScene, Scene)
+function MainScene.prototype.load(self)
+    self.font = Assets:loadFont("f12", 16)
+    local inLabel = __TS__New(
+        Label,
+        190,
+        20,
+        self.font,
+        "in"
+    )
+    self:addEntity(inLabel)
+    local outLabel = __TS__New(
+        Label,
+        430,
+        20,
+        self.font,
+        "out"
+    )
+    self:addEntity(outLabel)
+    local inOutLabel = __TS__New(
+        Label,
+        650,
+        20,
+        self.font,
+        "in out"
+    )
+    self:addEntity(inOutLabel)
+    local color = Color:fromBytes(50, 100, 150)
+    self:addTweenBox({easeLinear, easeLinear, easeLinear}, 50, color, "linear")
+    color = Color:fromBytes(60, 110, 160)
+    self:addTweenBox({easeInSine, easeOutSine, easeInOutSine}, 100, color, "sine")
+    color = Color:fromBytes(70, 120, 170)
+    self:addTweenBox({easeInQuad, easeOutQuad, easeInOutQuad}, 150, color, "quad")
+    color = Color:fromBytes(80, 130, 180)
+    self:addTweenBox({easeInCubic, easeOutCubic, easeInOutCubic}, 200, color, "cubic")
+    color = Color:fromBytes(90, 140, 190)
+    self:addTweenBox({easeInCircular, easeOutCircular, easeInOutCircular}, 250, color, "circular")
+    color = Color:fromBytes(100, 150, 200)
+    self:addTweenBox({easeInQuart, easeOutQuart, easeInOutQuart}, 300, color, "quart")
+    color = Color:fromBytes(110, 160, 210)
+    self:addTweenBox({easeInQuint, easeOutQuint, easeInOutQuint}, 350, color, "quint")
+    color = Color:fromBytes(120, 170, 220)
+    self:addTweenBox({easeInExpo, easeOutExpo, easeInOutExpo}, 400, color, "expo")
+    color = Color:fromBytes(130, 180, 230)
+    self:addTweenBox({easeInElastic, easeOutElastic, easeInOutElastic}, 450, color, "elastic")
+    color = Color:fromBytes(140, 190, 240)
+    self:addTweenBox({easeInBack, easeOutBack, easeInOutBack}, 500, color, "back")
+    color = Color:fromBytes(150, 200, 250)
+    self:addTweenBox({easeInBounce, easeOutBounce, easeInOutBounce}, 550, color, "bounce")
+end
+function MainScene.prototype.addTweenBox(self, easing, y, color, name)
+    local label = __TS__New(
+        Label,
+        20,
+        y,
+        self.font,
+        name
+    )
+    self:addEntity(label)
+    local xStarts = {130, 370, 610}
+    do
+        local i = 0
+        while i < #easing do
+            local x = xStarts[i + 1]
+            local line = __TS__New(
+                Line,
+                __TS__New(Point, x, y),
+                __TS__New(Point, x + 140, y)
+            )
+            self:addEntity(line)
+            local box = __TS__New(
+                TweenGraphic,
+                __TS__New(Point, x, y),
+                __TS__New(Point, x + 140, y),
+                easing[i + 1],
+                4,
+                color
+            )
+            self:addEntity(box)
+            i = i + 1
+        end
+    end
+end
+return ____exports
+ end,
+["main"] = function(...) 
+--[[ Generated with https://github.com/TypeScriptToLua/TypeScriptToLua ]]
+local ____exports = {}
+local ____lumi = require("lua_modules.@lumi2d.lumi.dist.index")
+local Game = ____lumi.Game
+local ____mainScene = require("scenes.mainScene")
+local MainScene = ____mainScene.MainScene
+love.window.setTitle("Tweening")
+Game.start(800, 600, MainScene)
+return ____exports
+ end,
+}
+return require("main", ...)

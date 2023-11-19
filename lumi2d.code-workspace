@@ -5,6 +5,14 @@
       "path": "."
     },
     {
+      "name": "@lumi2d/example-bunnies",
+      "path": "examples/bunnies"
+    },
+    {
+      "name": "@lumi2d/example-tweening",
+      "path": "examples/tweening"
+    },
+    {
       "name": "📦 @lumi2d/atlas",
       "path": "packages/atlas"
     },
@@ -13,20 +21,12 @@
       "path": "packages/lumi"
     },
     {
-      "name": "📦 @lumi2d/minify",
-      "path": "packages/minify"
+      "name": "📦 @lumi2d/lumi-cli",
+      "path": "packages/lumi-cli"
     },
     {
       "name": "site",
       "path": "site"
-    },
-    {
-      "name": "@testprojects/bunnies",
-      "path": "testprojects/bunnies"
-    },
-    {
-      "name": "@testprojects/tweening",
-      "path": "testprojects/tweening"
     }
   ],
   "settings": {

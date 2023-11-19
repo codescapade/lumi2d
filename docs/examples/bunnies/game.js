@@ -284,6 +284,6 @@ Module.expectedDataFileDownloads++;
     }
 
   }
-  loadPackage({"package_uuid":"0fe11e7a-ae91-44d6-b2a8-4ae99321bd19","remote_package_size":78942,"files":[{"filename":"/assets/bunny.png","crunched":0,"start":0,"end":2488,"audio":false},{"filename":"/main.lua","crunched":0,"start":2488,"end":78942,"audio":false}],"datapath":""});
+  loadPackage({"package_uuid":"c8ebc4db-54bd-49f6-9531-f3289cc652fe","remote_package_size":79598,"files":[{"filename":"/assets/bunny.png","crunched":0,"start":0,"end":2488,"audio":false},{"filename":"/main.lua","crunched":0,"start":2488,"end":79598,"audio":false}],"datapath":""});
 
 })();
