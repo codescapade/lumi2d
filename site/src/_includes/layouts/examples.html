@@ -8,7 +8,7 @@
   <div class="grid grid-cols-3 gap-4">
     {% for example in collections.examples %}
     <a href="{{ example.url | url }}">
-      <div class="card max-w-72 bg-base-200">
+      <div class="card max-w-72 bg-base-200 border-4 border-primary">
         <img class="p-4" src="{{ example.data.thumbnail | url }}" />
         <div class="card-body">
           <h2 class="card-title">{{ example.data.title }}</h2>
