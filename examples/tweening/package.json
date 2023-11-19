@@ -1,5 +1,5 @@
 {
-  "name": "@testprojects/tweening",
+  "name": "@lumi2d/example-tweening",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -7,7 +7,8 @@
     "build": "rimraf ./export && tstl",
     "run-love": "pnpm build && love export",
     "build-web": "pnpm build && love.js -c export exportWeb",
-    "export-experiment": "pnpm build && love.js -c -g export ../../site/src/experimentFiles/tweening",
+    "export-example": "pnpm build && love.js -c -g export ../../site/src/exampleFiles/tweening && pnpm pack-love",
+    "pack-love": "lumi pack export ../../site/src/exampleFiles/tweening/tweening.love",
     "prettier-check": "prettier -c src/**/*.ts",
     "lint": "eslint src/**/*.ts"
   },
@@ -15,6 +16,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@lumi2d/lumi": "workspace:*"
+    "@lumi2d/lumi": "workspace:*",
+    "@lumi2d/lumi-cli": "workspace:*"
   }
 }

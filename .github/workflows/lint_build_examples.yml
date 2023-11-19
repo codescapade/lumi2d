@@ -1,4 +1,4 @@
-name: Lint and Build Test Projects
+name: Lint and Build Examples
 on:
   pull_request:
     types: [opened, synchronize, reopened]
@@ -7,7 +7,7 @@ on:
       - main
 jobs:
   lint-and-build:
-    name: 'lint and build test projects'
+    name: 'lint and build examples'
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -28,10 +28,10 @@ jobs:
         run: pnpm install
 
       - name: Prettier check
-        run: pnpm prettier-testprojects
+        run: pnpm prettier-examples
 
       - name: Linting
-        run: pnpm lint-testprojects
+        run: pnpm lint-examples
 
       - name: Build
-        run: pnpm build-testprojects
+        run: pnpm build-examples

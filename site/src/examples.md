@@ -1,6 +1,6 @@
 ---
-layout: 'layouts/home.html'
+layout: 'layouts/examples.html'
 title: 'Examples Lumi2d'
 ---
 
-## This is where the examples will go.
+## This is a collection of examples with Lumi2d.

@@ -1,14 +1,15 @@
 {
-  "name": "@testprojects/bunnies",
+  "name": "@lumi2d/example-bunnies",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "copy-assets": "copyfiles -u 1 assets/**/*.* export/assets",
-    "build": "rimraf ./export && tstl && pnpm copy-assets && lumi-minify export/main.lua",
+    "build": "rimraf ./export && tstl && pnpm copy-assets && lumi minify export/main.lua",
     "run-love": "pnpm build && love export",
     "build-web": "pnpm build && love.js -c export exportWeb",
-    "export-experiment": "pnpm build && love.js -c -g export ../../site/src/experimentFiles/bunnies",
+    "export-example": "pnpm build && love.js -c -g export ../../site/src/exampleFiles/bunnies && pnpm pack-love",
+    "pack-love": "lumi pack export ../../site/src/exampleFiles/bunnies/bunnies.love",
     "prettier-check": "prettier -c src/**/*.ts",
     "lint": "eslint src/**/*.ts"
   },
@@ -17,6 +18,6 @@
   "license": "MIT",
   "dependencies": {
     "@lumi2d/lumi": "workspace:*",
-    "@lumi2d/minify": "workspace:*"
+    "@lumi2d/lumi-cli": "workspace:*"
   }
 }

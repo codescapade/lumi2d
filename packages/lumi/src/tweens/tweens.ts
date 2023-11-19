@@ -88,6 +88,10 @@ export class Tweens {
 
           // Repeat the sequence.
           if (sequence.repeat > sequence.timesCompleted || sequence.repeat === -1) {
+            for (const tween of sequence.list) {
+              tween.complete = false;
+              tween.resetTime();
+            }
             sequence.timesCompleted++;
           } else {
             const index = sequences.indexOf(sequence);

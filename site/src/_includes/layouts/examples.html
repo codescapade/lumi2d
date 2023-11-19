@@ -6,13 +6,13 @@
     {{ content | safe }}
   </article>
   <div class="grid grid-cols-3 gap-4">
-    {% for experiment in collections.experiments %}
-    <a href="{{ experiment.url | url }}">
+    {% for example in collections.examples %}
+    <a href="{{ example.url | url }}">
       <div class="card max-w-72 bg-base-200">
-        <img class="p-4" src="{{ experiment.data.thumbnail | url }}" />
+        <img class="p-4" src="{{ example.data.thumbnail | url }}" />
         <div class="card-body">
-          <h2 class="card-title">{{ experiment.data.title }}</h2>
-          <p>{{ experiment.data.description }}</p>
+          <h2 class="card-title">{{ example.data.title }}</h2>
+          <p>{{ example.data.description }}</p>
         </div>
       </div>
     </a>
