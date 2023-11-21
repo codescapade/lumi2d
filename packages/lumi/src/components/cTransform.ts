@@ -98,7 +98,7 @@ export class CTransform {
       const toX = x * this.scale.x;
       const toY = y * this.scale.y;
       newX = toX * c + toY * s + this.position.x;
-      newY = toY * -s + toY * c + this.position.y;
+      newY = toX * -s + toY * c + this.position.y;
     }
 
     return $multi(newX, newY);
