@@ -57,6 +57,19 @@ importers:
         specifier: ^1.21.0
         version: 1.21.0(typescript@5.2.2)
 
+  examples/asteroids:
+    dependencies:
+      '@lumi2d/lumi':
+        specifier: workspace:*
+        version: link:../../packages/lumi
+    devDependencies:
+      '@lumi2d/atlas':
+        specifier: workspace:*
+        version: link:../../packages/atlas
+      '@lumi2d/lumi-cli':
+        specifier: workspace:*
+        version: link:../../packages/lumi-cli
+
   examples/bunnies:
     dependencies:
       '@lumi2d/lumi':

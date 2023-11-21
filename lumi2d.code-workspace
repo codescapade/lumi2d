@@ -5,28 +5,16 @@
       "path": "."
     },
     {
+      "name": "@lumi2d/example-asteroids",
+      "path": "examples/asteroids"
+    },
+    {
       "name": "@lumi2d/example-bunnies",
       "path": "examples/bunnies"
     },
     {
-      "name": "@lumi2d/example-tweening",
-      "path": "examples/tweening"
-    },
-    {
-      "name": "📦 @lumi2d/atlas",
-      "path": "packages/atlas"
-    },
-    {
       "name": "📦 @lumi2d/lumi",
       "path": "packages/lumi"
-    },
-    {
-      "name": "📦 @lumi2d/lumi-cli",
-      "path": "packages/lumi-cli"
-    },
-    {
-      "name": "site",
-      "path": "site"
     }
   ],
   "settings": {

@@ -1,0 +1,26 @@
+{
+  "name": "@lumi2d/example-asteroids",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "copy-assets": "copyfiles -u 1 assets/**/*.* export/assets",
+    "build": "rimraf ./export && lumi-atlas && tstl && pnpm copy-assets && lumi minify export/main.lua",
+    "run-love": "pnpm build && love export",
+    "build-web": "pnpm build && love.js -c export exportWeb",
+    "export-example": "pnpm build && love.js -c -g export ../../site/src/exampleFiles/asteroids && pnpm pack-love",
+    "pack-love": "lumi pack export ../../site/src/exampleFiles/asteroids/asteroids.love",
+    "prettier-check": "prettier -c src/**/*.ts",
+    "lint": "eslint src/**/*.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@lumi2d/lumi": "workspace:*"
+  },
+  "devDependencies": {
+    "@lumi2d/lumi-cli": "workspace:*",
+    "@lumi2d/atlas": "workspace:*"
+  }
+}
