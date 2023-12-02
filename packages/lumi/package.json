@@ -26,6 +26,13 @@
   "author": "Codescapade",
   "license": "MIT",
   "devDependencies": {
-    "busted-tstl": "0.1.2-rc.0"
+    "busted-tstl": "0.1.2-rc.0",
+    "copyfiles": "^2.4.1",
+    "love-typescript-definitions": "^11.4.2",
+    "lua-types": "^2.13.1",
+    "rimraf": "^5.0.5",
+    "typedoc": "^0.25.4",
+    "typescript": "5.2.2",
+    "typescript-to-lua": "^1.22.0"
   }
 }
