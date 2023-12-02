@@ -6,7 +6,8 @@
   "scripts": {
     "clean": "rimraf ./dist",
     "copy-dts": "copyfiles -u 1 src/**/*.d.ts dist",
-    "build": "pnpm clean && tstl -p tsconfig.build.json && pnpm copy-dts",
+    "copy-lua": "copyfiles -u 1 src/**/*.lua dist",
+    "build": "pnpm clean && tstl -p tsconfig.build.json && pnpm copy-lua && pnpm copy-dts",
     "clean-tests": "rimraf ./tests_out",
     "build-test": "pnpm clean-tests && tstl -p tsconfig.unittests.json",
     "test": "pnpm build-test && busted",
