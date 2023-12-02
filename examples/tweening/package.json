@@ -18,5 +18,14 @@
   "dependencies": {
     "@lumi2d/lumi": "workspace:*",
     "@lumi2d/lumi-cli": "workspace:*"
+  },
+  "devDependencies": {
+    "copyfiles":"^2.4.1",
+    "love-typescript-definitions":"^11.4.2",
+    "love.js": "github:codescapade/love.js#a1f878a00429633318d3daa226803194cea35a17",
+    "lua-types": "^2.13.1",
+    "rimraf":"^5.0.5",
+    "typescript":"5.2.2",
+    "typescript-to-lua":"^1.22.0"
   }
 }

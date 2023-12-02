@@ -7,38 +7,27 @@
     "lint-lumi": "pnpm --filter @lumi2d/lumi lint",
     "prettier-lumi": "pnpm --filter @lumi2d/lumi prettier-check",
     "test-lumi": "pnpm --filter @lumi2d/lumi build-test",
-    
     "lint-examples": "pnpm --parallel --filter {examples/**} lint",
     "prettier-examples": "pnpm --parallel --filter {examples/**} prettier-check",
     "build-examples": "pnpm --parallel --filter {examples/**} build",
-    "export-examples": "pnpm --parallel --filter {examples/**} export-example", 
-
+    "export-examples": "pnpm --parallel --filter {examples/**} export-example",
     "build-atlas": "pnpm --filter @umi2d/atlas build",
     "lint-atlas": "pnpm --filter @lumi2d/atlas lint",
     "prettier-atlas": "pnpm --filter @lumi2d/atlas prettier-check",
     "test-atlas": "pnpm --filter @lumi2d/atlas build-test",
-
     "build-site": "pnpm export-examples && pnpm --filter site build"
   },
   "keywords": [],
   "author": "Codescapade",
   "license": "MIT",
   "devDependencies": {
-    "@types/node": "^20.9.2",
-    "@typescript-eslint/eslint-plugin": "^6.11.0",
-    "@typescript-eslint/parser": "^6.11.0",
+    "@typescript-eslint/eslint-plugin": "^6.13.1",
+    "@typescript-eslint/parser": "^6.13.1",
     "@typescript-to-lua/language-extensions": "^1.19.0",
-    "copyfiles": "^2.4.1",
-    "eslint": "^8.54.0",
-    "eslint-config-prettier": "^9.0.0",
-    "love-typescript-definitions": "^11.4.2",
-    "love.js": "github:codescapade/love.js#a1f878a00429633318d3daa226803194cea35a17",
+    "eslint": "^8.55.0",
+    "eslint-config-prettier": "^9.1.0",
     "lua-format": "^1.4.1",
-    "lua-types": "^2.13.1",
     "prettier": "^3.1.0",
-    "rimraf": "^5.0.5",
-    "typedoc": "^0.25.3",
-    "typescript": "^5.2.2",
-    "typescript-to-lua": "^1.21.0"
+    "syncpack": "^11.2.1"
   }
 }

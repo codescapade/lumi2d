@@ -3,7 +3,7 @@
 Lumi2d Atlas is a command line image atlas packing tool. It combines multiple images into one and exports it together with a JSON file that has information on the size and position of each of the images inside the atlas.
 
 ## Installation
-To install the tool, run `npm install 'https://gitpkg.now.sh/codescapade/lumi2d/packages/atlas?main'`.
+You will have to clone the repo and link this folder using npm.
 This is until the package is published on npm when the engine is ready.
 
 ## How to use Lumi2d Atlas
